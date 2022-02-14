@@ -1,10 +1,6 @@
 // fake data
-import products from '../../utils/data/products';
-
+const products = require("../../prods.json");
 export default (req, res) => {
-
-  // fake loading time
-  setTimeout(() => {
-    res.status(200).json(products);
-  }, 800);
-}
+	// fake loading time
+	res.status(200).json(products);
+};
