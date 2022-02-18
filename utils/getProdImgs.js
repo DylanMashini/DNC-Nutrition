@@ -4,7 +4,13 @@ const fs = require("fs");
 const request = require("request");
 const { default: FsLightbox } = require("fslightbox-react");
 var length = prods.length;
-
+const getFileSku = sku => {
+	if (sku.charAt(0) === "0") {
+		return sku.substring(1);
+	} else {
+		return sku;
+	}
+};
 const getErrorFile = async () => {
 	return new Promise((resolve, reject) => {
 		fs.readFile("./imgErrors.json", (err, data) => {
@@ -24,7 +30,13 @@ async function run() {
 			product.stockCount <= 0 ||
 			product.sku == "" ||
 			product.sku == null ||
-			errors.includes(product.sku)
+			errors.includes(product.sku) ||
+			fs.existsSync(
+				"public/products/" + getFileSku(product.sku) + ".jpeg"
+			) ||
+			fs.existsSync(
+				"public/products/new/" + getFileSku(product.sku) + ".jpeg"
+			)
 		) {
 			prods.splice(i, 1);
 			i--;
@@ -40,55 +52,56 @@ async function run() {
 
 	const lookUp = async () => {
 		await sleep(5000);
+		const product = prods[Count];
+
+		const id = product.sku;
+		console.log("looking up sku: " + id);
+
+		const fileSku = getFileSku(product.sku);
 		//check if image is in DNC imgs folder
 		Count++;
 		if (Count < DailyLimit) {
-			if (
-				fs.existsSync(
-					"assets/products/" + prods[Count].sku + ".jpeg"
-				) ||
-				fs.existsSync(
-					"assets/products/new/" + prods[Count].sku + ".jpeg"
-				)
-			) {
-				//file already exists
+			const callback = () => {
 				lookUp();
-			} else {
-				//file does not exist
-				const callback = () => {
-					lookUp();
-				};
-				const product = prods[Count];
+			};
 
-				const id = product.sku;
-
-				const url = `https://api.barcodespider.com/v1/lookup?token=17e3f1b458be5a665020&upc=${id}`;
-				fetch(url)
-					.then(res => res.json())
-					.then(res => {
-						//check if request was successful
-						if (res["item_response"]["code"] != 200) {
-							//request was not successful
-							if (res["item_response"]["code"] != 429) {
-								errors.push(id);
-							}
-
-							lookUp();
+			const url = `https://api.barcodespider.com/v1/lookup?token=17e3f1b458be5a665020&upc=${id}`;
+			fetch(url)
+				.then(res => res.json())
+				.then(res => {
+					//check if request was successful
+					if (res["item_response"]["code"] != 200) {
+						//request was not successful
+						console.log(res);
+						if (res["item_response"]["code"] != 429) {
+							errors.push(id);
 						} else {
-							//save image
-							console.log(res);
-							const Imageurl = res["item_attributes"]["image"];
-							downloadImageFromUrl(
-								Imageurl,
-								"assets/products/new/" + id + ".jpeg",
-								callback
+							fs.writeFile(
+								"imgErrors.json",
+								JSON.stringify(errors),
+								err => {
+									if (err) throw err;
+								}
 							);
+							return;
 						}
-					})
-					.catch(err => {
-						console.log(err);
-					});
-			}
+
+						lookUp();
+					} else {
+						//save image
+						console.log(res);
+						const Imageurl = res["item_attributes"]["image"];
+
+						downloadImageFromUrl(
+							Imageurl,
+							"public/products/new/" + fileSku + ".jpeg",
+							callback
+						);
+					}
+				})
+				.catch(err => {
+					console.log(err);
+				});
 		} else {
 			fs.writeFile("imgErrors.json", JSON.stringify(errors), err => {
 				if (err) throw err;

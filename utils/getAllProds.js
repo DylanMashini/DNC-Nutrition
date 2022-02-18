@@ -38,8 +38,9 @@ const run = () => {
 					loop();
 				} else {
 					const finalProds = [];
+					const finalProdsNoImg = [];
 					allProds.forEach((prod, index) => {
-						//check if sku starts with 0, if so remove it
+						//check if sku starts with 0, if so remove the 0
 						if (prod.sku.charAt(0) === "0") {
 							prod["images"] = [
 								"/products/" + prod.sku.substring(1) + ".jpeg",
@@ -52,8 +53,18 @@ const run = () => {
 
 						prod["reviews"] = [];
 						prod["currentPrice"] = prod.price / 100;
-						finalProds.push(prod);
+						if (
+							fs.existsSync(
+								"public/products/" + prod["images"][0]
+							)
+						) {
+							finalProds.push(prod);
+						} else {
+							finalProdsNoImg.push(prod);
+						}
 					});
+					finalProds.concat(finalProdsNoImg);
+
 					fs.writeFile(
 						"prods.json",
 						JSON.stringify(finalProds),
