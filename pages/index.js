@@ -118,3 +118,5 @@ const IndexPage = () => {
 };
 
 export default IndexPage;
+//logo idea
+//https://www.vectorstock.com/royalty-free-vector/dna-logo-design-template-modern-medical-vector-14826615

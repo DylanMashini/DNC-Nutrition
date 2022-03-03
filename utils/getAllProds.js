@@ -53,17 +53,16 @@ const run = () => {
 
 						prod["reviews"] = [];
 						prod["currentPrice"] = prod.price / 100;
-						if (
-							fs.existsSync(
-								"public/products/" + prod["images"][0]
-							)
-						) {
+						//fix this
+						if (fs.existsSync("public" + prod["images"][0])) {
 							finalProds.push(prod);
 						} else {
 							finalProdsNoImg.push(prod);
 						}
 					});
-					finalProds.concat(finalProdsNoImg);
+					for (var i = 0; i < finalProdsNoImg.length; i++) {
+						finalProds.push(finalProdsNoImg[i]);
+					}
 
 					fs.writeFile(
 						"prods.json",

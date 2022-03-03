@@ -16,7 +16,7 @@ const PageIntro = () => {
 					>
 						<div className="container">
 							<div className="page-intro__slide__content">
-								<h2>DNA Nutrition \n</h2>
+								<h2>DNA Nutrition </h2>
 								<a href="/products" className="btn-shop">
 									<i className="icon-right"></i>Shop now
 								</a>

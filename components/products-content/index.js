@@ -42,6 +42,8 @@ const ProductsContent = ({ page }) => {
 			</div>
 
 			<List page={page} />
+
+			{/* Add Page Switcher here */}
 		</section>
 	);
 };

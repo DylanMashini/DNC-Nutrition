@@ -3,6 +3,7 @@ const fetch = require("node-fetch");
 const fs = require("fs");
 const request = require("request");
 const { default: FsLightbox } = require("fslightbox-react");
+
 var length = prods.length;
 const getFileSku = sku => {
 	if (sku.charAt(0) === "0") {
@@ -112,9 +113,6 @@ async function run() {
 
 	const downloadImageFromUrl = (url, path, callback) => {
 		request.head(url, function (err, res, body) {
-			console.log("content-type:", res.headers["content-type"]);
-			console.log("content-length:", res.headers["content-length"]);
-
 			request(url).pipe(fs.createWriteStream(path)).on("close", callback);
 		});
 	};
