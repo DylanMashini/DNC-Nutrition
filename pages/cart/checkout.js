@@ -4,6 +4,8 @@ import CheckoutStatus from "../../components/checkout-status";
 import CheckoutItems from "../../components/checkout/items";
 import { useState } from "react";
 import Router from "next/router";
+import { server } from "../../utils/server";
+
 const CheckoutPage = () => {
 	const [email, setEmail] = useState("");
 	const [Address, setAddress] = useState("");
@@ -30,24 +32,21 @@ const CheckoutPage = () => {
 		const finalJSON = {
 			customer: {},
 			shoppingCart: { lineItems: lineItems },
+			redirectUrls: {
+				sucsess:process.env.REDIRECTURLBASE
+			}
 		};
 		//get token from clover
-		fetch("https://api.clover.com/invoicingcheckoutservice/v1/checkouts", {
-			method: "POST",
-			headers: {
-				Authorization: "Bearer adeea858-25fc-7cb4-f3ff-5c176e2404ec",
-				"X-Clover-Merchant-Id": "DMF44Z2ZC6PTT",
-				"Content-Type": "application/json",
+		const url = await fetch(`${server}/api/getPaymentSession`, {
+			method:"POST",
+			headers:{
+				"Content-Type":"application/json"
 			},
-			body: JSON.stringify(finalJSON),
-		})
-			.then(res => res.json())
-			.then(res => {
-				//response from clover looks like: {"href":"https://www.clover.com/checkout/3d5d5072-66cc-459a-b3a5-f668abdd5abb?mode=checkout","checkoutSessionId":"3d5d5072-66cc-459a-b3a5-f668abdd5abb","expirationTime":"2022-03-03@02:02:42.839+0000","createdTime":"2022-03-03@01:47:42.841+0000"}
-				const url = res.href;
-				Router.push(url);
-			})
-			.catch(err => console.log(err));
+			body:JSON.stringify(finalJSON)
+		}).catch(err => console.log(err))
+		
+		console.log(url)
+		Router.push(JSON.parse(url["url"]));		
 	};
 	const priceTotal = useSelector(state => {
 		const cartItems = state.cart.cartItems;
