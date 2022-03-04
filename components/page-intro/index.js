@@ -34,7 +34,7 @@ const PageIntro = () => {
 					>
 						<div className="container">
 							<div className="page-intro__slide__content">
-								<h2>Make your house into a home</h2>
+								<h2>DNA Nutrition</h2>
 								<a href="/products" className="btn-shop">
 									<i className="icon-right"></i>Shop now
 								</a>
@@ -48,15 +48,15 @@ const PageIntro = () => {
 				<div className="container">
 					<ul className="shop-data__items">
 						<li>
-							<i className="icon-shipping"></i>
+							<i className="icon-home"></i>
 							<div className="data-item__content">
-								<h4>Free Shipping</h4>
-								<p>On purchases over $199</p>
+								<h4>Support Small Buisnesses</h4>
+								<p>We are a small, family owned buisness</p>
 							</div>
 						</li>
 
 						<li>
-							<i className="icon-shipping"></i>
+							<i className="icon-happy"></i>
 							<div className="data-item__content">
 								<h4>99% Satisfied Customers</h4>
 								<p>
@@ -68,10 +68,9 @@ const PageIntro = () => {
 						<li>
 							<i className="icon-cash"></i>
 							<div className="data-item__content">
-								<h4>Originality Guaranteed</h4>
+								<h4>Run By Experts</h4>
 								<p>
-									30 days warranty for each product from our
-									store
+									Call to get Personalized Nutrition Support
 								</p>
 							</div>
 						</li>

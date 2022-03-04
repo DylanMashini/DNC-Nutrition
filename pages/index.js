@@ -18,14 +18,16 @@ const IndexPage = () => {
 						className="featured-item featured-item-large"
 					>
 						<div className="featured-item__content">
-							<h3>New arrivals are now in!</h3>
+							<h3>
+								Suplements that everyone should take regularly!
+							</h3>
 							<a href="#" className="btn btn--rounded">
-								Show Collection
+								Read Now
 							</a>
 						</div>
 					</article>
 
-					<article
+					{/* <article
 						style={{
 							backgroundImage: "url(/images/featured-2.jpg)",
 						}}
@@ -51,7 +53,7 @@ const IndexPage = () => {
 								VIEW ALL
 							</a>
 						</div>
-					</article>
+					</article> */}
 				</div>
 			</section>
 
@@ -63,13 +65,10 @@ const IndexPage = () => {
 
 					<ul className="shop-data-items">
 						<li>
-							<i className="icon-shipping"></i>
+							<i className="icon-home"></i>
 							<div className="data-item__content">
-								<h4>Free Shipping</h4>
-								<p>
-									All purchases over $199 are eligible for
-									free shipping via USPS First Class Mail.
-								</p>
+								<h4>Support Small Buisnesses</h4>
+								<p>We are a small, family owned buisness.</p>
 							</div>
 						</li>
 
@@ -101,8 +100,8 @@ const IndexPage = () => {
 							<div className="data-item__content">
 								<h4>Finest Quality</h4>
 								<p>
-									Designed to last, each of our products has
-									been crafted with the finest materials.
+									Our selection is currated by a nutritionist
+									with a degree in microbiology.
 								</p>
 							</div>
 						</li>
@@ -120,3 +119,4 @@ const IndexPage = () => {
 export default IndexPage;
 //logo idea
 //https://www.vectorstock.com/royalty-free-vector/dna-logo-design-template-modern-medical-vector-14826615
+//add newsletter functionality

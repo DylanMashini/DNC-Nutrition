@@ -16,7 +16,6 @@ const CheckoutPage = () => {
 	const [zipCode, setZipCode] = useState("");
 	const ProceedToPayment = async () => {
 		//setup clover hosted checkout session and than redirect to payment page
-		console.log(cartItems);
 		const tax = [{ name: "Tax 8.9%", rate: 890000 }];
 		const lineItems = [];
 		for (let i = 0; i < cartItems.length; i++) {
@@ -29,24 +28,34 @@ const CheckoutPage = () => {
 				unitQty: itemObject.count,
 			});
 		}
+		console.log("EMAILL: " + email);
 		const finalJSON = {
-			customer: {},
+			customer: {
+				email: email,
+				firstName: firstName,
+				lastName: lastName,
+				phoneNumber: phoneNumber,
+			},
 			shoppingCart: { lineItems: lineItems },
-			redirectUrls: {
-				sucsess:process.env.REDIRECTURLBASE
-			}
 		};
 		//get token from clover
-		const url = await fetch(`${server}/api/getPaymentSession`, {
-			method:"POST",
-			headers:{
-				"Content-Type":"application/json"
+		fetch(`${server}/api/getPaymentSession`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
 			},
-			body:JSON.stringify(finalJSON)
-		}).catch(err => console.log(err))
-		
-		console.log(url)
-		Router.push(JSON.parse(url["url"]));		
+			body: JSON.stringify(finalJSON),
+		})
+			.then(res => res.json())
+			.then(res => {
+				console.log("result is this" + JSON.stringify(res));
+				if (res["url"] != null) {
+					Router.push(res["url"]);
+				} else {
+					console.error("url is null");
+				}
+			})
+			.catch(err => console.log(err));
 	};
 	const priceTotal = useSelector(state => {
 		const cartItems = state.cart.cartItems;
@@ -84,7 +93,10 @@ const CheckoutPage = () => {
 												className="form__input form__input--sm"
 												type="text"
 												placeholder="Email"
-												on
+												value={email}
+												onChange={e =>
+													setEmail(e.target.value)
+												}
 											/>
 										</div>
 
@@ -93,6 +105,10 @@ const CheckoutPage = () => {
 												className="form__input form__input--sm"
 												type="text"
 												placeholder="Address"
+												value={Address}
+												onChange={e =>
+													setAddress(e.target.value)
+												}
 											/>
 										</div>
 									</div>
@@ -103,6 +119,10 @@ const CheckoutPage = () => {
 												className="form__input form__input--sm"
 												type="text"
 												placeholder="First name"
+												value={firstName}
+												onChange={e =>
+													setFirstName(e.target.value)
+												}
 											/>
 										</div>
 
@@ -111,6 +131,10 @@ const CheckoutPage = () => {
 												className="form__input form__input--sm"
 												type="text"
 												placeholder="City"
+												value={city}
+												onChange={e =>
+													setCity(e.target.value)
+												}
 											/>
 										</div>
 									</div>
@@ -121,6 +145,10 @@ const CheckoutPage = () => {
 												className="form__input form__input--sm"
 												type="text"
 												placeholder="Last name"
+												value={lastName}
+												onChange={e =>
+													setLastName(e.target.value)
+												}
 											/>
 										</div>
 
@@ -129,6 +157,10 @@ const CheckoutPage = () => {
 												className="form__input form__input--sm"
 												type="text"
 												placeholder="Postal code / ZIP"
+												value={zipCode}
+												onChange={e =>
+													setZipCode(e.target.value)
+												}
 											/>
 										</div>
 									</div>
@@ -139,6 +171,12 @@ const CheckoutPage = () => {
 												className="form__input form__input--sm"
 												type="text"
 												placeholder="Phone number"
+												value={phoneNumber}
+												onChange={e =>
+													setPhoneNumber(
+														e.target.value
+													)
+												}
 											/>
 										</div>
 										<div className="form_col">

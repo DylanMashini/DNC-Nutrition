@@ -1,13 +1,14 @@
 import useSwr from "swr";
 import ProductItem from "./../../product-item";
 import ProductsLoading from "./loading";
-
-const ProductsContent = ({ page }) => {
-	console.log("The PAGE: " + page);
-	const fetcher = url => fetch(url).then(res => res.json());
-	const { data, error } = useSwr("/api/products", fetcher);
-
-	if (error) return <div>Failed to load users</div>;
+import { useEffect, useState } from "react";
+const ProductsContent = ({ data, page }) => {
+	if (page == null) {
+		page = 1;
+	}
+	// const fetcher = url => fetch(url).then(res => res.json());
+	// const { data, error } = useSwr("/api/products", fetcher);
+	// const [finalData, setFinalData] = useState(undefined);
 	return (
 		<>
 			{!data && <ProductsLoading />}
