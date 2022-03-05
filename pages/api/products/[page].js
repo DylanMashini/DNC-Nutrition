@@ -16,7 +16,7 @@ export default async function Named(req, res) {
 				list.push(products[i]);
 			}
 		}
-		res.status(200).json(list);
+		res.status(200).json({ data: list });
 		resolve(list);
 	});
 }

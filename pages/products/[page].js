@@ -30,7 +30,7 @@ export async function getServerSideProps(context) {
 				console.log("fetched");
 				resolve({
 					props: {
-						data: res,
+						data: res["data"],
 					},
 				});
 			});
