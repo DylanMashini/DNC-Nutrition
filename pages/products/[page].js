@@ -4,7 +4,6 @@ import Breadcrumb from "../../components/breadcrumb";
 import ProductsContent from "../../components/products-content";
 import { useRouter } from "next/router";
 import { server } from "../../utils/server";
-import { Logger } from "sass";
 const products = ({ data }) => {
 	const router = useRouter();
 	const { page } = router.query;
