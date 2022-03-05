@@ -2,6 +2,7 @@ import Link from "next/link";
 import { some } from "lodash";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleFavProduct } from "./../../store/actions/userActions";
+import Image from "next/image";
 
 const ProductItem = ({
 	discount,
@@ -39,7 +40,7 @@ const ProductItem = ({
 
 				<Link href={`/product/${id}`}>
 					<a>
-						<img
+						<Image
 							src={productImage}
 							alt="product"
 							style={{ "object-fit": "contain" }}

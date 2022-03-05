@@ -1,28 +1,27 @@
-import { useSelector } from 'react-redux';
-
+import { useSelector } from "react-redux";
+import Image from "next/image";
 const CheckoutItems = () => {
-  const { cartItems } = useSelector(state => state.cart);
+	const { cartItems } = useSelector(state => state.cart);
 
-  return (
-    <ul className="checkout-items">
-      {cartItems.map(item => (
-        <li className="checkout-item">
-          <div className="checkout-item__content">
-            <div className="checkout-item__img">
-              <img src={item.thumb} />
-            </div>
+	return (
+		<ul className="checkout-items">
+			{cartItems.map(item => (
+				<li className="checkout-item">
+					<div className="checkout-item__content">
+						<div className="checkout-item__img">
+							<Image src={item.thumb} />
+						</div>
 
-            <div className="checkout-item__data">
-              <h3>{item.name}</h3>
-              <span>#{item.id}</span>
-            </div>
-          </div>
-          <h3>${item.price}</h3>
-        </li>
-      ))}
-    </ul>
-  )
+						<div className="checkout-item__data">
+							<h3>{item.name}</h3>
+							<span>#{item.id}</span>
+						</div>
+					</div>
+					<h3>${item.price}</h3>
+				</li>
+			))}
+		</ul>
+	);
 };
 
-  
-export default CheckoutItems
+export default CheckoutItems;

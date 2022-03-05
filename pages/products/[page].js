@@ -40,3 +40,6 @@ export async function getServerSideProps(context) {
 }
 
 export default products;
+
+//lighthouse performance of 60 before optimizing
+//
