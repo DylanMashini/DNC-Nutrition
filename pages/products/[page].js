@@ -4,6 +4,7 @@ import Breadcrumb from "../../components/breadcrumb";
 import ProductsContent from "../../components/products-content";
 import { useRouter } from "next/router";
 import { server } from "../../utils/server";
+import { Logger } from "sass";
 const products = ({ data }) => {
 	const router = useRouter();
 	const { page } = router.query;
@@ -24,13 +25,15 @@ const products = ({ data }) => {
 export async function getServerSideProps(context) {
 	return new Promise((resolve, reject) => {
 		console.log("getServerSideProps Going Page: " + context.query.page);
-		fetch(`${server}/api/products/${context.query.page}`)
+		fetch(
+			`http://dna-nutrition.vercel.app/api/products/` + context.query.page
+		)
 			.then(res => res.json())
 			.then(res => {
 				console.log("fetched");
 				resolve({
 					props: {
-						data: res["data"],
+						data: res.data,
 					},
 				});
 			});
