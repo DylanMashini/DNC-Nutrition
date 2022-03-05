@@ -65,7 +65,7 @@ const Header = ({ isErrorPage }) => {
 					ref={navRef}
 					className={`site-nav ${menuOpen ? "site-nav--open" : ""}`}
 				>
-					<Link href="/products">
+					<Link href="/products/1">
 						<a>Products</a>
 					</Link>
 					<a href="#">Inspiration</a>
@@ -93,7 +93,6 @@ const Header = ({ isErrorPage }) => {
 								placeholder="Enter the product you are looking for"
 								value={searchQuery}
 								onChange={e => setSearchQuery(e.target.value)}
-								onInput
 							/>
 						</form>
 						<i
