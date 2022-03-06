@@ -63,7 +63,13 @@ const run = () => {
 					for (var i = 0; i < finalProdsNoImg.length; i++) {
 						finalProds.push(finalProdsNoImg[i]);
 					}
-
+					fetch("dna-nutrition.vercel.app/api/products")
+						.then(res => res.json)
+						.then(res => {
+							if (res == finalProds) {
+								return;
+							}
+						});
 					fs.writeFile(
 						"prods.json",
 						JSON.stringify(finalProds),
