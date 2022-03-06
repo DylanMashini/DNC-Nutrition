@@ -67,6 +67,7 @@ const run = () => {
 						.then(res => res.json)
 						.then(res => {
 							if (res == finalProds) {
+								console.log("No updates to inventory");
 								return;
 							}
 						});
