@@ -26,7 +26,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm install
-    - run: node utils/getProdImgs.js
+    - run: node utils/getAllProds.js
     - run: git status
     - run: git add .
     - run: git commit -m "Auto Updating Inventory"
