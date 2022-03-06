@@ -27,8 +27,10 @@ jobs:
         cache: 'npm'
     - run: npm install
     - run: node utils/getAllProds.js
+    - run: git config --global user.email "dylanmashini123@gmail.com"
+    - run: git config --global user.name "Dylan Mashini"
     - run: git status
     - run: git add .
-    - run: git commit -m "Auto Updating Inventory"
+    - run: git commit -m "Auto Updated Inventory"
     - run: git fetch origin master
     - run: git push origin HEAD:master
