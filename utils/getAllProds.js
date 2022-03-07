@@ -53,11 +53,12 @@ const run = () => {
 
 						prod["reviews"] = [];
 						prod["currentPrice"] = prod.price / 100;
-						//fix this
-						if (fs.existsSync("public" + prod["images"][0])) {
-							finalProds.push(prod);
-						} else {
-							finalProdsNoImg.push(prod);
+						if (prod.stockCount > 0) {
+							if (fs.existsSync("public" + prod["images"][0])) {
+								finalProds.push(prod);
+							} else {
+								finalProdsNoImg.push(prod);
+							}
 						}
 					});
 					for (var i = 0; i < finalProdsNoImg.length; i++) {
