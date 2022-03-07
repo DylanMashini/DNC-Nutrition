@@ -66,7 +66,7 @@ async function run() {
 				lookUp();
 			};
 
-			const url = `https://api.barcodespider.com/v1/lookup?token=17e3f1b458be5a665020&upc=${id}`;
+			const url = `https://api.barcodespider.com/v1/lookup?token=61d7a389759e4d5b8ca9&upc=${id}`;
 			fetch(url)
 				.then(res => res.json())
 				.then(res => {
