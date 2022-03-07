@@ -4,33 +4,32 @@
 name: updateInventoryLocally
 
 on:
-  schedule:
-    - cron: '0,30 10-20 * * *'
-  workflow_dispatch:
+    schedule:
+        - cron: "0,30 10-20 * * *"
+    workflow_dispatch:
 
 jobs:
-  cron:
+    cron:
+        runs-on: ubuntu-latest
 
-    runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                node-version: [14.x]
+                # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
-    strategy:
-      matrix:
-        node-version: [14.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
-    steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm install
-    - run: node utils/getAllProds.js
-    - run: git config --global user.email "dylanmashini123@gmail.com"
-    - run: git config --global user.name "Dylan Mashini"
-    - run: git status
-    - run: git add .
-    - run: git commit -m "Auto Updated Inventory"
-    - run: git fetch origin master
-    - run: git push origin HEAD:master
+        steps:
+            - uses: actions/checkout@v2
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v2
+              with:
+                  node-version: ${{ matrix.node-version }}
+                  cache: "npm"
+            - run: npm install
+            - run: node utils/getAllProds.js
+            - run: git config --global user.email "dylanmashini123@gmail.com"
+            - run: git config --global user.name "Dylan Mashini"
+            - run: git status
+            - run: git add ./prods.json
+            - run: git commit -m "Auto Updated Inventory"
+            - run: git fetch origin master
+            - run: git push origin HEAD:master
