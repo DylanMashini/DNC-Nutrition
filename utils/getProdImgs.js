@@ -63,6 +63,7 @@ async function run() {
 		Count++;
 		if (Count < DailyLimit) {
 			const callback = () => {
+				saveErrors();
 				lookUp();
 			};
 
@@ -104,9 +105,7 @@ async function run() {
 					console.log(err);
 				});
 		} else {
-			fs.writeFile("imgErrors.json", JSON.stringify(errors), err => {
-				if (err) throw err;
-			});
+			saveErrors();
 		}
 		return;
 	};
@@ -121,7 +120,11 @@ async function run() {
 			setTimeout(resolve, ms);
 		});
 	}
-
+	const saveErrors = () => {
+		fs.writeFile("imgErrors.json", JSON.stringify(errors), err => {
+			if (err) throw err;
+		});
+	};
 	lookUp();
 }
 run();
