@@ -3,7 +3,7 @@ import Footer from "../../components/footer";
 import Breadcrumb from "../../components/breadcrumb";
 import ProductsContent from "../../components/products-content";
 import { useRouter } from "next/router";
-import server from "../../utils/server";
+import { server } from "../../utils/server";
 export default function Named({ data }) {
 	const router = useRouter();
 
@@ -21,7 +21,7 @@ export default function Named({ data }) {
 }
 export async function getServerSideProps(context) {
 	return new Promise((resolve, reject) => {
-		const res = fetch(`http://localhost:3000/api/products`)
+		const res = fetch(`${server}/api/products`)
 			.then(res => res.json())
 			.then(res => {
 				var list = [];
