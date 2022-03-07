@@ -64,7 +64,9 @@ async function run() {
 		if (Count < DailyLimit) {
 			const callback = () => {
 				saveErrors();
-				lookUp();
+				lookUp().catch(err => {
+					console.log(err);
+				});
 			};
 
 			const url = `https://api.barcodespider.com/v1/lookup?token=61d7a389759e4d5b8ca9&upc=${id}`;
@@ -125,6 +127,8 @@ async function run() {
 			if (err) throw err;
 		});
 	};
-	lookUp();
+	lookUp().catch(err => {
+		console.log(err);
+	});
 }
 run();
