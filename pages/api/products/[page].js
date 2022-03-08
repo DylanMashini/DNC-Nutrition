@@ -1,6 +1,6 @@
 export default async function Named(req, res) {
 	return new Promise((resolve, reject) => {
-		const {
+		var  {
 			query: { page },
 		} = req;
 		if (page == null) {
