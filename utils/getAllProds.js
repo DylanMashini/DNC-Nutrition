@@ -2,16 +2,16 @@ const fetch = require("node-fetch");
 const fs = require("fs");
 const { default: next } = require("next");
 
-const options = {
-	method: "GET",
-	headers: {
-		Authorization: "Bearer 5ff7477a-29f9-a092-9522-9478e036b9e8",
-	},
-};
-const APICall = async offset => {
+const APICall = async (offset, apiKey, merchantID, url) => {
+	const options = {
+		method: "GET",
+		headers: {
+			Authorization: `Bearer ${apiKey}`,
+		},
+	};
 	return new Promise((resolve, reject) => {
 		fetch(
-			`https://api.clover.com/v3/merchants/DMF44Z2ZC6PTT/items?limit=1000&offset=${offset}`,
+			`${url}/v3/merchants/${merchantID}/items?limit=1000&offset=${offset}`,
 			options
 		)
 			.then(res => res.json())
@@ -21,7 +21,11 @@ const APICall = async offset => {
 			.catch(err => reject(err));
 	});
 };
-const run = () => {
+const run = (
+	apiKey = "5ff7477a-29f9-a092-9522-9478e036b9e8",
+	merchantID = "DMF44Z2ZC6PTT",
+	url
+) => {
 	var allProds = [];
 	var run = true;
 	var count = 0;
@@ -29,7 +33,7 @@ const run = () => {
 	function loop() {
 		console.log("here");
 
-		APICall(1000 * count)
+		APICall(1000 * count, apiKey, merchantID, url)
 			.then(data => {
 				allProds = allProds.concat(data);
 				console.log(allProds.length);
@@ -88,4 +92,8 @@ const run = () => {
 			});
 	}
 };
-run();
+run(
+	"f4e689f5-197b-3a25-9f99-0024da952d4f",
+	"ZX3HTEDW8YD01",
+	"https://sandbox.dev.clover.com"
+);

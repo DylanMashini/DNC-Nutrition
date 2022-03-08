@@ -22,9 +22,8 @@ const CheckoutPage = () => {
 			const itemObject = cartItems[i];
 			lineItems.push({
 				name: itemObject.name,
-				unitQty: itemObject.quantity,
-				price: itemObject.price * 100,
-				taxRates: tax,
+				// unitQty: itemObject.quantity,
+				// price: itemObject.price * 100,
 				unitQty: itemObject.count,
 			});
 		}
@@ -36,7 +35,7 @@ const CheckoutPage = () => {
 				lastName: lastName,
 				phoneNumber: phoneNumber,
 			},
-			shoppingCart: { lineItems: lineItems },
+			orderCart: { lineItems: lineItems },
 		};
 		//get token from clover
 		fetch(`${server}/api/getPaymentSession`, {

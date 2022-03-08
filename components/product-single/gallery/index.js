@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 const Gallery = ({ images }) => {
 	const featImage = images[0];
 
@@ -8,13 +6,13 @@ const Gallery = ({ images }) => {
 			<div className="product-gallery__thumbs">
 				{images.map(image => (
 					<div key={image} className="product-gallery__thumb">
-						<Image src={image} alt="" />
+						<img src={image} alt="" />
 					</div>
 				))}
 			</div>
 
 			<div className="product-gallery__image">
-				<Image src={featImage} alt="" />
+				<img src={featImage} alt="" />
 			</div>
 		</section>
 	);
