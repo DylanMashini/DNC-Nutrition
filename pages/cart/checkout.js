@@ -22,7 +22,7 @@ const CheckoutPage = () => {
 			const { id, count, name } = item;
 			lineItems.push({ id: id, count: count, name: name });
 		}
-		fetch(`${server}/api/createPaymentSession`, {
+		fetch(`https://dylanmashini-dnanutrition-r9px4rv7hrjq-3001.githubpreview.dev/api/createPaymentSession`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
