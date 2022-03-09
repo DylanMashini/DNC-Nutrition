@@ -8,11 +8,18 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const stripeProds = [];
     const cloverProds = [];
     const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-
+    let cost = 0;
     const body = req.body
     for (var i = 0; i < body.length; i++) {
-        const sku = body[i]
-        const response = await (await fetch(`${server}/api/product/${sku}`)).json()
+        const id = body[i].id
+        const qty = body[i].count
+        const response = await (await fetch(`${server}/api/getProdFromName/`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({name: body[i].name})
+        })).json()
         if (response.error) {
                 res.status(400).json({error: response.error})
                 return
@@ -25,22 +32,46 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             const name = product.name
 
         const priceID = await stripe.prices.create({
-            product_data: {unit_amount: price*100,
-            currency: 'usd',}
-            }, {apiKey: 'sk_test_4eC39HqLyjWDarjtT1zdp7dc'});
-        stripeProds.push({price: priceID,quantity:1, name:name})
-        cloverProds.push({id:product.id})
+        unit_amount: price,
+        currency: 'usd',
+        product_data: {name:name, },
+        });
 
+        stripeProds.push({price: priceID.id,quantity:qty})
+        cloverProds.push({item:{id:product.id}})
+        cost += price * qty
 
     }
-    const order = (await fetch(`${process.env.CLOVER_URL}/v3/merchants/${process.env.CLOVER_MERCHANT_ID}/atomic_order/orders`, {
+
+    console.log(cloverProds)
+    const order = await (await fetch(`${process.env.CLOVER_URL}/v3/merchants/${process.env.CLOVER_MERCHANT_ID}/atomic_order/orders`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${process.env.CLOVER_TOKEN}`
         },
-        body: JSON.stringify({ orderCart: { lineItems: cloverProds, groupLineItems: "false" } })
+        body: JSON.stringify({ orderCart: { lineItems: cloverProds } })
     })).json()
     console.log(order)
+    const cloverOrderID = order.id
+    const taxPriceID = await stripe.prices.create({
+        unit_amount: (order.total-cost),
+        currency: 'usd',
+        product_data: {name:"GA State Tax", },
+        });
+    stripeProds.push({price: taxPriceID.id,quantity:1})
+    try {
+      // Create Checkout Sessions from body params.
+      const session = await stripe.checkout.sessions.create({
+        line_items: stripeProds,
+        mode: 'payment',
+        success_url: `${server}/payment/sucsess/${cloverOrderID}`,
+        cancel_url: `${server}/?canceled=true`,
+      });
+      res.status(200).json({url:session.url});
+    } catch (err) {
+      res.status(err.statusCode || 500).json(err.message);
+    } 
+} 
+
     
-}

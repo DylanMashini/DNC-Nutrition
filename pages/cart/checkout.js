@@ -15,46 +15,24 @@ const CheckoutPage = () => {
 	const [city, setCity] = useState("");
 	const [zipCode, setZipCode] = useState("");
 	const ProceedToPayment = async () => {
-		//setup clover hosted checkout session and than redirect to payment page
-		const tax = [{ name: "Tax 8.9%", rate: 890000 }];
 		const lineItems = [];
 		for (let i = 0; i < cartItems.length; i++) {
-			const itemObject = cartItems[i];
-			lineItems.push({
-				name: itemObject.name,
-				// unitQty: itemObject.quantity,
-				// price: itemObject.price * 100,
-				unitQty: itemObject.count,
-			});
+			console.log(cartItems[i]);
+			const item = cartItems[i];
+			const { id, count, name } = item;
+			lineItems.push({ id: id, count: count, name: name });
 		}
-		console.log("EMAILL: " + email);
-		const finalJSON = {
-			customer: {
-				email: email,
-				firstName: firstName,
-				lastName: lastName,
-				phoneNumber: phoneNumber,
-			},
-			orderCart: { lineItems: lineItems },
-		};
-		//get token from clover
-		fetch(`${server}/api/getPaymentSession`, {
+		fetch(`${server}/api/createPaymentSession`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
 			},
-			body: JSON.stringify(finalJSON),
+			body: JSON.stringify(lineItems),
 		})
 			.then(res => res.json())
 			.then(res => {
-				console.log("result is this" + JSON.stringify(res));
-				if (res["url"] != null) {
-					Router.push(res["url"]);
-				} else {
-					console.error("url is null");
-				}
-			})
-			.catch(err => console.log(err));
+				Router.push(res.url);
+			});
 	};
 	const priceTotal = useSelector(state => {
 		const cartItems = state.cart.cartItems;
