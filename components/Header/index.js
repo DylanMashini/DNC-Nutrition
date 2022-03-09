@@ -82,14 +82,17 @@ const Header = ({ isErrorPage }) => {
 							searchOpen ? "search-form--active" : ""
 						}`}
 					>
-						<form className={`search-form`}>
+						<form
+							className={`search-form`}
+							action={`/search/${searchQuery}`}
+						>
 							<i
 								className="icon-cancel"
 								onClick={() => setSearchOpen(!searchOpen)}
 							></i>
 							<input
 								type="text"
-								name="search"
+								// name="search"
 								placeholder="Enter the product you are looking for"
 								value={searchQuery}
 								onChange={e => setSearchQuery(e.target.value)}
