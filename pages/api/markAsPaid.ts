@@ -29,7 +29,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             console.log("NOT MARKED AS PAID IN CLOVER")
             console.log("CLOVER ORDER ID: " + orderID)
             console.log("STRIPE PAYMENT" + JSON.stringify(session))
+            res.status(400).end()
             //send email here
+        } else {
+            res.status(200).end()
         }
     })
     
