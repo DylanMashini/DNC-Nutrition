@@ -5,8 +5,10 @@ import CheckoutItems from "../../components/checkout/items";
 import { useState } from "react";
 import Router from "next/router";
 import { server } from "../../utils/server";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const CheckoutPage = () => {
+	const [loading, setLoading] = useState(false);
 	const [email, setEmail] = useState("");
 	const [Address, setAddress] = useState("");
 	const [firstName, setFirstName] = useState("");
@@ -15,6 +17,7 @@ const CheckoutPage = () => {
 	const [city, setCity] = useState("");
 	const [zipCode, setZipCode] = useState("");
 	const ProceedToPayment = async () => {
+		setLoading(true);
 		const lineItems = [];
 		for (let i = 0; i < cartItems.length; i++) {
 			console.log(cartItems[i]);
@@ -48,6 +51,7 @@ const CheckoutPage = () => {
 	const TaxTotal = (Number(priceTotal) * 0.089).toFixed(2);
 	return (
 		<Layout>
+			<ClipLoader color={"#ffffff"} loading={loading} size={150} />
 			<section className="cart">
 				<div className="container">
 					<div className="cart__intro">

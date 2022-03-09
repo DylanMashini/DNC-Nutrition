@@ -65,11 +65,15 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       const session = await stripe.checkout.sessions.create({
         line_items: stripeProds,
         mode: 'payment',
-        success_url: `${server}/payment/sucsess/${cloverOrderID}`,
+        success_url: `${server}/payment/sucsess/`,
         cancel_url: `${server}/?canceled=true`,
+        metadata:{cloverID:cloverOrderID},
+        shipping_address_collection: {allowed_countries: ['US']},
+        
       });
       res.status(200).json({url:session.url});
     } catch (err) {
+        console.log(err)
       res.status(err.statusCode || 500).json(err.message);
     } 
 } 
