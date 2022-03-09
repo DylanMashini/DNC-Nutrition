@@ -13,15 +13,16 @@ export default function Named() {
     )
 }
 
-export async function getServerSideProps({ res, orderID }) {
-
+export async function getServerSideProps(context) {
+    const orderID = context.params.orderID;
+    const res = context.res
     fetch(`https://scl-sandbox.dev.clover.com/v1/orders/${orderID}/pay`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${process.env.OAUTH_TOKEN}`
+            'Authorization': `Bearer ${process.env.CLOVER_OAUTH}`
         },
-        body: JSON.stringify({ tender: { label: "stripe" } })
+        body: JSON.stringify({ tender: { label: "stripe" }, "ecomind": "ecom" })
     }).then(result => result.json()).then(result => console.log(result))
 
 
