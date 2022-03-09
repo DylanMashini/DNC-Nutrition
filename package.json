@@ -19,6 +19,7 @@
     "@stripe/stripe-js": "^1.24.0",
     "api": "^4.2.0",
     "lodash": "^4.17.21",
+    "micro": "^9.3.4",
     "next": "^12.1.0",
     "next-redux-wrapper": "^6.0.2",
     "nextjs": "0.0.3",
