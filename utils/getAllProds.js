@@ -21,11 +21,7 @@ const APICall = async (offset, apiKey, merchantID, url) => {
 			.catch(err => reject(err));
 	});
 };
-const run = (
-	apiKey = "5ff7477a-29f9-a092-9522-9478e036b9e8",
-	merchantID = "DMF44Z2ZC6PTT",
-	url
-) => {
+const run = (apiKey, merchantID, url) => {
 	var allProds = [];
 	var run = true;
 	var count = 0;
@@ -97,3 +93,5 @@ run(
 	"ZX3HTEDW8YD01",
 	"https://sandbox.dev.clover.com"
 );
+//prod: 5ff7477a-29f9-a092-9522-9478e036b9e8
+//prod: DMF44Z2ZC6PTT
