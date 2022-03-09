@@ -1,10 +1,16 @@
 import Layout from '../../layouts/Main';
 import {clearCart} from "../../store/actions/cartActions";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "react-redux"
+import { useEffect } from "react";
 //clear the redux state
 export default function Named()  {
+    useEffect(() => {
+
     const dispatch = useDispatch();
     dispatch(clearCart());
+
+})
+   
     return(
         <Layout>
             <section className="error-page">
