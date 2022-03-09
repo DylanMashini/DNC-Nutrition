@@ -3,8 +3,14 @@ import PageIntro from "../components/page-intro";
 import ProductsFeatured from "../components/products-featured";
 import Footer from "../components/footer";
 import Subscribe from "../components/subscribe";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 const IndexPage = () => {
+	const router = useRouter();
+	useEffect(() => {
+		router.prefetch("/products/1");
+	});
 	return (
 		<Layout>
 			<PageIntro />

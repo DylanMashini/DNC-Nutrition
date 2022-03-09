@@ -21,12 +21,9 @@ const products = ({ data }) => {
 	);
 };
 
-export async function getServerSideProps(context) {
+export async function getStaticProps({ params }) {
 	return new Promise((resolve, reject) => {
-		console.log("getServerSideProps Going Page: " + context.query.page);
-		fetch(
-			`http://dna-nutrition.vercel.app/api/products/` + context.query.page
-		)
+		fetch(`http://dna-nutrition.vercel.app/api/products/` + params.page)
 			.then(res => res.json())
 			.then(res => {
 				console.log("fetched");
@@ -38,7 +35,17 @@ export async function getServerSideProps(context) {
 			});
 	});
 }
-
+export async function getStaticPaths() {
+	const paths = [];
+	for (let i = 1; i <= 10; i++) {
+		paths.push({
+			params: {
+				page: i.toString(),
+			},
+		});
+	}
+	return { paths, fallback: true };
+}
 export default products;
 
 //lighthouse performance of 60 before optimizing

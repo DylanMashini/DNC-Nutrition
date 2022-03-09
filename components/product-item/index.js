@@ -43,6 +43,7 @@ const ProductItem = ({
 							src={productImage}
 							alt="product"
 							style={{ "object-fit": "contain" }}
+							rel="preload"
 						/>
 						{discount && (
 							<span className="product__discount">
