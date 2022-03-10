@@ -16,6 +16,8 @@
     "next"
   ],
   "dependencies": {
+    "@mdx-js/loader": "^2.0.0",
+    "@next/mdx": "^12.1.0",
     "@stripe/stripe-js": "^1.24.0",
     "api": "^4.2.0",
     "lodash": "^4.17.21",
