@@ -5,10 +5,8 @@ import CheckoutItems from "../../components/checkout/items";
 import { useState } from "react";
 import Router from "next/router";
 import { server } from "../../utils/server";
-import ClipLoader from "react-spinners/ClipLoader";
 
 const CheckoutPage = () => {
-	const [loading, setLoading] = useState(false);
 	const [email, setEmail] = useState("");
 	const [Address, setAddress] = useState("");
 	const [firstName, setFirstName] = useState("");
@@ -17,7 +15,6 @@ const CheckoutPage = () => {
 	const [city, setCity] = useState("");
 	const [zipCode, setZipCode] = useState("");
 	const ProceedToPayment = async () => {
-		setLoading(true);
 		const lineItems = [];
 		for (let i = 0; i < cartItems.length; i++) {
 			console.log(cartItems[i]);
@@ -25,17 +22,11 @@ const CheckoutPage = () => {
 			const { id, count, name } = item;
 			lineItems.push({ id: id, count: count, name: name });
 		}
-		fetch(`${server}/api/createPaymentSession`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(lineItems),
-		})
-			.then(res => res.json())
-			.then(res => {
-				Router.push(res.url);
-			});
+		console.log("lineitems: ", lineItems);
+		Router.push({
+			pathname: "/cart/loading",
+			query: { lineItems: JSON.stringify(lineItems) },
+		});
 	};
 	const priceTotal = useSelector(state => {
 		const cartItems = state.cart.cartItems;
@@ -51,7 +42,6 @@ const CheckoutPage = () => {
 	const TaxTotal = (Number(priceTotal) * 0.089).toFixed(2);
 	return (
 		<Layout>
-			<ClipLoader color={"#ffffff"} loading={loading} size={150} />
 			<section className="cart">
 				<div className="container">
 					<div className="cart__intro">
