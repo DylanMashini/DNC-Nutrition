@@ -823,11 +823,12 @@ const run = (apiKey, merchantID, url) => {
 					for (var i = 0; i < finalProds.length; i++) {
 						const prod = finalProds[i];
 						const sku = prod.sku;
-						for (var i = 0; i < popularity.length; i++) {
-							if (popularity[i].sku === sku) {
-								i = 9000;
+						for (var i2 = 0; i2 < popularity.length; i2++) {
+							if (popularity[i2].sku === sku) {
+								i2 = 9000;
+								console.log("prod found");
 								finalProds[i]["unitsSold"] =
-									popularity[i]["# of Items Sold"];
+									popularity[i2]["# of Items Sold"];
 							}
 						}
 					}
