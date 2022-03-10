@@ -1,15 +1,31 @@
 import Layout from "../../layouts/Main";
-
-// import Image from "next/image";
+import { Avatar } from "@nextui-org/react";
+import { Grid } from "@nextui-org/react";
+import Link from "next/link";
+import Image from "../../components/blog/Image";
+import featured1 from "../../public/images/featured-1.jpg";
 
 <Layout>
-    <div id={"blogWrapper"}>
-        # Title
-        ## by: Author
-        <br />
-        <br />
-   {/* Article Content Goes Here */}
 
-    </div>
+<div id={"blogWrapper"}> 
+    # The 3 Suplements that will make your life better
+
+        <Grid.Container id={"avatarWrapper"}>
+            <Avatar squared src={"/avatars/mona.jpg"} bordered color="gradient"/>
+            <div>
+                <h3>By: Mona Mashini</h3>
+            </div>
+        </Grid.Container>
+
+        {/* ## by: Author */}
+
+
+    At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat
+
+    <Image object-fit="contain" src={featured1}  />
+
+    At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat
+
+</div>
 
 </Layout>
