@@ -38,27 +38,26 @@ const products = ({ data, page = 1, totalPages }) => {
 export async function getStaticProps({ params }) {
 	return new Promise((resolve, reject) => {
 		let totalPages = 100;
-		fetch("http://dna-nutrition.vercel.app/api/products/")
-			.then(res => res.json())
-			.then(res => {
-				totalPages = Math.trunc(res.length / 21);
-				console.log(totalPages);
-				fetch(
-					`http://dna-nutrition.vercel.app/api/products/` +
-						params.page
-				)
-					.then(res => res.json())
-					.then(res => {
-						console.log("fetched");
-						resolve({
-							props: {
-								data: res.data,
-								pagenum: params.page,
-								totalPages: totalPages,
-							},
-						});
-					});
-			});
+		const allProds = require("../../prods.json");
+		totalPages = Math.trunc(allProds.length / 21);
+		console.log(totalPages);
+		var list = [];
+		for (var i = 0; i < allProds.length; i++) {
+			if (i > params.page * 20) {
+				break;
+			}
+			if (i >= (params.page - 1) * 20) {
+				list.push(allProds[i]);
+			}
+		}
+		console.log(list);
+		resolve({
+			props: {
+				data: list,
+				pagenum: params.page,
+				totalPages: totalPages,
+			},
+		});
 	});
 }
 export async function getStaticPaths() {
