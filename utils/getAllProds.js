@@ -829,10 +829,10 @@ const run = (apiKey, merchantID, url) => {
 								popularity[i2]["Item SKU"] == sku ||
 								popularity[i2]["Item SKU"] == sku.substring(1)
 							) {
-								i2 = 9000;
 								console.log("prod found");
 								finalProds[i]["unitsSold"] =
 									popularity[i2]["# of Items Sold"];
+								i2 = 9000;
 							}
 						}
 					}
