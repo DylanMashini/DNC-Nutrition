@@ -808,7 +808,7 @@ const run = (apiKey, merchantID, url) => {
 						prod["reviews"] = [];
 						prod["currentPrice"] = prod.price / 100;
 						if (prod.stockCount > 0) {
-							if (blacklist[prod.sku] != null) {
+							if (!blacklist.includes(prod.sku)) {
 								console.log("blacklisted biotch");
 							} else {
 								if (
