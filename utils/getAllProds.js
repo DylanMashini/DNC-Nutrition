@@ -777,18 +777,16 @@ const APICall = async (offset, apiKey, merchantID, url) => {
 };
 const run = (apiKey, merchantID, url) => {
 	const popularity = csv.toObjects(csvData);
-
+	const blacklistStr = fs.readFileSync("prodBlacklist.json");
+	const blacklist = JSON.parse(blacklistStr);
 	var allProds = [];
 	var run = true;
 	var count = 0;
 	loop();
 	function loop() {
-		console.log("here");
-
 		APICall(1000 * count, apiKey, merchantID, url)
 			.then(data => {
 				allProds = allProds.concat(data);
-				console.log(allProds.length);
 				if (data.length >= 1000) {
 					count++;
 					loop();
@@ -810,10 +808,16 @@ const run = (apiKey, merchantID, url) => {
 						prod["reviews"] = [];
 						prod["currentPrice"] = prod.price / 100;
 						if (prod.stockCount > 0) {
-							if (fs.existsSync("public" + prod["images"][0])) {
-								finalProds.push(prod);
+							if (blacklist[prod.sku] != null) {
+								console.log("blacklisted biotch");
 							} else {
-								finalProdsNoImg.push(prod);
+								if (
+									fs.existsSync("public" + prod["images"][0])
+								) {
+									finalProds.push(prod);
+								} else {
+									finalProdsNoImg.push(prod);
+								}
 							}
 						}
 					});
@@ -841,7 +845,6 @@ const run = (apiKey, merchantID, url) => {
 						if (b.unitsSold == null) {
 							b.unitsSold = 0;
 						}
-						console.log(b.unitsSold - a.unitsSold);
 						return b.unitsSold - a.unitsSold;
 					});
 					fetch("https://dna-nutrition.vercel.app/api/products")
