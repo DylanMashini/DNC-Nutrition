@@ -826,8 +826,8 @@ const run = (apiKey, merchantID, url) => {
 						for (var i2 = 0; i2 < popularity.length; i2++) {
 							console.log(popularity[i2]);
 							if (
-								popularity[i2].sku == sku ||
-								popularity[i2].sku == sku.substring(1)
+								popularity[i2]["Item SKU"] == sku ||
+								popularity[i2]["Item SKU"] == sku.substring(1)
 							) {
 								i2 = 9000;
 								console.log("prod found");
