@@ -12,7 +12,6 @@ import { server } from "../../utils/server";
 export async function getServerSideProps({ query }) {
 	const pid = query.pid;
 	const res = await fetch(`${server}/api/product/${pid}`);
-	console.log(res);
 	const product = await res.json();
 
 	return {
@@ -24,7 +23,7 @@ export async function getServerSideProps({ query }) {
 
 const Product = ({ product }) => {
 	const [showBlock, setShowBlock] = useState("description");
-
+	console.log(product.sku);
 	return (
 		<Layout>
 			<Breadcrumb currentPage={product.name} />
