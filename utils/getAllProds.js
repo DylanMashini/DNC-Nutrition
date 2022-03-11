@@ -809,7 +809,7 @@ const run = (apiKey, merchantID, url) => {
 						prod["currentPrice"] = prod.price / 100;
 						if (prod.stockCount > 0) {
 							if (blacklist.includes(prod.sku)) {
-								console.log("blacklisted biotch");
+								//do nothing
 							} else {
 								if (
 									fs.existsSync("public" + prod["images"][0])
