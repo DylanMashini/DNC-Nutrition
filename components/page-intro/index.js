@@ -22,7 +22,7 @@ const PageIntro = () => {
 						<div className="container">
 							<div className="page-intro__slide__content">
 								<h2>DNA Nutrition </h2>
-								<a href="/products" className="btn-shop">
+								<a href="/products/1" className="btn-shop">
 									<i className="icon-right"></i>Shop now
 								</a>
 							</div>
@@ -30,23 +30,7 @@ const PageIntro = () => {
 					</div>
 				</SwiperSlide>
 
-				<SwiperSlide>
-					<div
-						className="page-intro__slide"
-						style={{
-							backgroundImage: "url('/images/slide-2.jpg')",
-						}}
-					>
-						<div className="container">
-							<div className="page-intro__slide__content">
-								<h2>DNA Nutrition</h2>
-								<a href="/products" className="btn-shop">
-									<i className="icon-right"></i>Shop now
-								</a>
-							</div>
-						</div>
-					</div>
-				</SwiperSlide>
+			
 			</Swiper>
 
 			<div className="shop-data">
