@@ -844,14 +844,14 @@ const run = (apiKey, merchantID, url) => {
 						console.log(b.unitsSold - a.unitsSold);
 						return b.unitsSold - a.unitsSold;
 					});
-					// fetch("https://dna-nutrition.vercel.app/api/products")
-					// 	.then(res => res.json)
-					// 	.then(res => {
-					// 		if (res == finalProds) {
-					// 			console.log("No updates to inventory");
-					// 			return;
-					// 		}
-					// 	});
+					fetch("https://dna-nutrition.vercel.app/api/products")
+						.then(res => res.json)
+						.then(res => {
+							if (res == finalProds) {
+								console.log("No updates to inventory");
+								return;
+							}
+						});
 					fs.writeFile(
 						"prods.json",
 						JSON.stringify(finalProds),
