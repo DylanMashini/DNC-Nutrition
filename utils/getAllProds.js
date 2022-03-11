@@ -793,7 +793,7 @@ const run = (apiKey, merchantID, url) => {
 					count++;
 					loop();
 				} else {
-					const finalProds = [];
+					var finalProds = [];
 					const finalProdsNoImg = [];
 					allProds.forEach((prod, index) => {
 						//check if sku starts with 0, if so remove the 0
@@ -824,7 +824,10 @@ const run = (apiKey, merchantID, url) => {
 						const prod = finalProds[i];
 						const sku = prod.sku;
 						for (var i2 = 0; i2 < popularity.length; i2++) {
-							if (popularity[i2].sku === sku) {
+							if (
+								popularity[i2].sku == sku ||
+								popularity[i2].sku == sku.substring(1)
+							) {
 								i2 = 9000;
 								console.log("prod found");
 								finalProds[i]["unitsSold"] =
