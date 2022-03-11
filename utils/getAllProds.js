@@ -841,7 +841,7 @@ const run = (apiKey, merchantID, url) => {
 						if (b.unitsSold == null) {
 							b.unitsSold = 0;
 						}
-						console.log(a.unitsSold, b.unitsSold);
+						console.log(a.unitsSold - b.unitsSold);
 						return a.unitsSold - b.unitsSold;
 					});
 					fetch("https://dna-nutrition.vercel.app/api/products")
