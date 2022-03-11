@@ -834,7 +834,7 @@ const run = (apiKey, merchantID, url) => {
 							}
 						}
 					}
-					finalProds = finalProds.sort((a, b) => {
+					finalProds.sort((a, b) => {
 						if (a.unitsSold == null) {
 							a.unitsSold = 0;
 						}
@@ -844,14 +844,14 @@ const run = (apiKey, merchantID, url) => {
 						console.log(a.unitsSold - b.unitsSold);
 						return a.unitsSold - b.unitsSold;
 					});
-					fetch("https://dna-nutrition.vercel.app/api/products")
-						.then(res => res.json)
-						.then(res => {
-							if (res == finalProds) {
-								console.log("No updates to inventory");
-								return;
-							}
-						});
+					// fetch("https://dna-nutrition.vercel.app/api/products")
+					// 	.then(res => res.json)
+					// 	.then(res => {
+					// 		if (res == finalProds) {
+					// 			console.log("No updates to inventory");
+					// 			return;
+					// 		}
+					// 	});
 					fs.writeFile(
 						"prods.json",
 						JSON.stringify(finalProds),
