@@ -824,12 +824,10 @@ const run = (apiKey, merchantID, url) => {
 						const prod = finalProds[i];
 						const sku = prod.sku;
 						for (var i2 = 0; i2 < popularity.length; i2++) {
-							console.log(popularity[i2]["Item SKU"]);
 							if (
 								popularity[i2]["Item SKU"] == sku ||
 								popularity[i2]["Item SKU"] == sku.substring(1)
 							) {
-								console.log("prod found");
 								finalProds[i]["unitsSold"] =
 									popularity[i2]["# of Items Sold"];
 								i2 = 9000;
