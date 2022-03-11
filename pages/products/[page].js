@@ -5,9 +5,13 @@ import ProductsContent from "../../components/products-content";
 import { useRouter } from "next/router";
 import { server } from "../../utils/server";
 import { Pagination } from "@nextui-org/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 const products = ({ data, page = 1, totalPages }) => {
 	const router = useRouter();
+	useEffect(() => {
+		router.prefetch("/products/" + (page + 1));
+	});
+
 	return (
 		<Layout>
 			<Breadcrumb />
