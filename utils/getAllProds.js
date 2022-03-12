@@ -755,6 +755,7 @@ const fetch = require("node-fetch");
 const fs = require("fs");
 const { default: next } = require("next");
 var csv = require("jquery-csv");
+const sizeOf = require("image-size");
 
 const APICall = async (offset, apiKey, merchantID, url) => {
 	const options = {
