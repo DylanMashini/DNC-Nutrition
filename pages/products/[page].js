@@ -8,7 +8,7 @@ import { Pagination } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 import Head from "next/head";
 
-const products = ({ data, page = 1, totalPages }) => {
+const Products = ({ data, page = 1, totalPages }) => {
 	const router = useRouter();
 	useEffect(() => {
 		router.prefetch("/products/" + (page + 1));
@@ -72,7 +72,7 @@ export async function getStaticPaths() {
 	}
 	return { paths, fallback: true };
 }
-export default products;
+export default Products;
 
 //lighthouse performance of 60 before optimizing
 //

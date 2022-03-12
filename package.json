@@ -52,6 +52,8 @@
   },
   "devDependencies": {
     "@types/node": "^17.0.21",
+    "eslint": "8.11.0",
+    "eslint-config-next": "12.1.0",
     "fslightbox-react": "^1.5.0",
     "node-fetch": "^2.6.7"
   }
