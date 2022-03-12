@@ -825,6 +825,15 @@ const run = (apiKey, merchantID, url) => {
 							}
 						}
 					});
+					finalProds.sort((a, b) => {
+						if (a.unitsSold == null) {
+							a.unitsSold = 0;
+						}
+						if (b.unitsSold == null) {
+							b.unitsSold = 0;
+						}
+						return b.unitsSold - a.unitsSold;
+					});
 					for (var i = 0; i < finalProdsNoImg.length; i++) {
 						finalProds.push(finalProdsNoImg[i]);
 					}
@@ -842,15 +851,7 @@ const run = (apiKey, merchantID, url) => {
 							}
 						}
 					}
-					finalProds.sort((a, b) => {
-						if (a.unitsSold == null) {
-							a.unitsSold = 0;
-						}
-						if (b.unitsSold == null) {
-							b.unitsSold = 0;
-						}
-						return b.unitsSold - a.unitsSold;
-					});
+
 					fetch("https://dna-nutrition.vercel.app/api/products")
 						.then(res => res.json)
 						.then(res => {
