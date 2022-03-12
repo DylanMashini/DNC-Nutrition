@@ -50,7 +50,6 @@ export async function getStaticProps({ params }) {
 				list.push(allProds[i]);
 			}
 		}
-		console.log(list);
 		resolve({
 			props: {
 				data: list,
