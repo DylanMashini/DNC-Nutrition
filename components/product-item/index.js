@@ -2,7 +2,7 @@ import Link from "next/link";
 import { some } from "lodash";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleFavProduct } from "./../../store/actions/userActions";
-
+import Image from "next/image";
 const ProductItem = ({
 	discount,
 	productImage,
@@ -10,6 +10,7 @@ const ProductItem = ({
 	name,
 	price,
 	currentPrice,
+	dimensions,
 }) => {
 	const dispatch = useDispatch();
 	const { favProducts } = useSelector(state => state.user);
@@ -39,11 +40,13 @@ const ProductItem = ({
 
 				<Link href={`/product/${id}`}>
 					<a>
-						<img
+						<Image
 							src={productImage}
 							alt="product"
 							style={{ "object-fit": "contain" }}
-							rel="preload"
+							width={dimensions.width}
+							height={dimensions.height}
+							// rel="preload"
 						/>
 						{discount && (
 							<span className="product__discount">

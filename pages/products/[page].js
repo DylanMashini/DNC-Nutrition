@@ -6,6 +6,8 @@ import { useRouter } from "next/router";
 import { server } from "../../utils/server";
 import { Pagination } from "@nextui-org/react";
 import { useEffect, useState } from "react";
+import Head from "next/head";
+
 const products = ({ data, page = 1, totalPages }) => {
 	const router = useRouter();
 	useEffect(() => {

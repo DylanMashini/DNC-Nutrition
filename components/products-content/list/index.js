@@ -27,6 +27,7 @@ const ProductsContent = ({ data, page }) => {
 									currentPrice={item.currentPrice}
 									productImage={item.images[0]}
 									name={item.name}
+									dimensions={item.dimensions}
 								/>
 							)
 					)}

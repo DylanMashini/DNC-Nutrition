@@ -817,8 +817,16 @@ const run = (apiKey, merchantID, url) => {
 											"public" + prod["images"][0]
 										)
 									) {
+										//image exists
+										prod["dimensions"] = sizeOf(
+											"public" + prod["images"][0]
+										);
+
 										finalProds.push(prod);
 									} else {
+										prod["dimensions"] = sizeOf(
+											"public/products/noImage.jpeg"
+										);
 										finalProdsNoImg.push(prod);
 									}
 								}
