@@ -811,7 +811,7 @@ const run = (apiKey, merchantID, url) => {
 							if (blacklist.includes(prod.sku)) {
 								//do nothing
 							} else {
-								if (prod.sku == "") {
+								if (prod.sku != "") {
 									if (
 										fs.existsSync(
 											"public" + prod["images"][0]
