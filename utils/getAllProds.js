@@ -811,12 +811,16 @@ const run = (apiKey, merchantID, url) => {
 							if (blacklist.includes(prod.sku)) {
 								//do nothing
 							} else {
-								if (
-									fs.existsSync("public" + prod["images"][0])
-								) {
-									finalProds.push(prod);
-								} else {
-									finalProdsNoImg.push(prod);
+								if (prod.sku == "") {
+									if (
+										fs.existsSync(
+											"public" + prod["images"][0]
+										)
+									) {
+										finalProds.push(prod);
+									} else {
+										finalProdsNoImg.push(prod);
+									}
 								}
 							}
 						}

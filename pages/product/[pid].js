@@ -40,39 +40,7 @@ const Product = ({ product }) => {
 						<Content product={product} />
 					</div>
 
-					<div className="product-single__info">
-						<div className="product-single__info-btns">
-							<button
-								type="button"
-								onClick={() => setShowBlock("description")}
-								className={`btn btn--rounded ${
-									showBlock === "description"
-										? "btn--active"
-										: ""
-								}`}
-							>
-								Description
-							</button>
-							<button
-								type="button"
-								onClick={() => setShowBlock("reviews")}
-								className={`btn btn--rounded ${
-									showBlock === "reviews" ? "btn--active" : ""
-								}`}
-							>
-								Reviews (2)
-							</button>
-						</div>
-
-						<Description
-							product={product}
-							show={showBlock === "description"}
-						/>
-						<Reviews
-							product={product}
-							show={showBlock === "reviews"}
-						/>
-					</div>
+					<div className="product-single__info"></div>
 				</div>
 			</section>
 
