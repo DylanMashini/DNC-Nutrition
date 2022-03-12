@@ -11,16 +11,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     let cost = 0;
     const body = req.body
     console.log("body", body)
+    const prods = require("../../prods.json");
     for (var i = 0; i < body.length; i++) {
         const id = body[i].id
         const qty = body[i].count
-        const response = await (await fetch(`${server}/api/getProdFromName/`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({name: body[i].name})
-        })).json()
+        //const response = json of product
+        const response = prods.find(x=> x.id == id)
         if (response.error) {
                 res.status(400).json({error: response.error})
                 return

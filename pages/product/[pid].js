@@ -9,8 +9,12 @@ import Description from "../../components/product-single/description";
 import Reviews from "../../components/product-single/reviews";
 import { server } from "../../utils/server";
 
-export async function getServerSideProps({ query }) {
-	const pid = query.pid;
+export async function getStaticPaths() {
+	return { paths: [], fallback: "blocking" };
+}
+export async function getStaticProps({ params }) {
+	console.log;
+	const pid = params.pid;
 	const res = await fetch(`${server}/api/product/${pid}`);
 	const product = await res.json();
 
@@ -18,12 +22,13 @@ export async function getServerSideProps({ query }) {
 		props: {
 			product,
 		},
+		revalidate: 90000,
 	};
 }
 
 const Product = ({ product }) => {
 	const [showBlock, setShowBlock] = useState("description");
-	console.log(product.sku);
+
 	return (
 		<Layout>
 			<Breadcrumb currentPage={product.name} />

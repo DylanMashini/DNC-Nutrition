@@ -6,7 +6,6 @@ import {server} from "../../utils/server";
 export default function Named({ lineItems }) {
     const router = useRouter();
 
-    console.log("heee"+JSON.stringify(lineItems));		
     fetch(`${server}/api/createPaymentSession`, {
 			method: "POST",
 			headers: {

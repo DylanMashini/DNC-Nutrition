@@ -20,9 +20,9 @@ const CheckoutPage = () => {
 			console.log(cartItems[i]);
 			const item = cartItems[i];
 			const { id, count, name } = item;
-			lineItems.push({ id: id, count: count, name: name });
+			console.log("idherhe: " + id);
+			lineItems.push({ id: id, count: count });
 		}
-		console.log("lineitems: ", lineItems);
 		Router.push({
 			pathname: "/cart/loading",
 			query: { lineItems: JSON.stringify(lineItems) },

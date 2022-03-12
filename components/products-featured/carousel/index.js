@@ -21,7 +21,6 @@ if (process.browser) {
 
 const ProductsCarousel = ({ products }) => {
 	if (!products) return "Loading";
-	console.log("HELLLO: " + products);
 	return (
 		<div className="products-carousel">
 			<Swiper
