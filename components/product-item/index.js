@@ -27,7 +27,7 @@ const ProductItem = ({
 	return (
 		<div className="product-item">
 			<div className="product__image">
-				<button
+				{/* <button
 					type="button"
 					onClick={toggleFav}
 					className={`btn-heart ${
@@ -35,7 +35,7 @@ const ProductItem = ({
 					}`}
 				>
 					<i className="icon-heart"></i>
-				</button>
+				</button> */}
 
 				<Link href={`/product/${id}`}>
 					<a>

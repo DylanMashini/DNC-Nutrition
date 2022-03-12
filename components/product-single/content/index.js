@@ -86,15 +86,15 @@ const Content = ({ product }) => {
 						>
 							Add to cart
 						</button>
-						<button
+						{/* <button
 							type="button"
 							onClick={toggleFav}
 							className={`btn-heart ${
 								isFavourite ? "btn-heart--active" : ""
 							}`}
-						>
-							<i className="icon-heart"></i>
-						</button>
+						> */}
+						{/* <i className="icon-heart"></i>
+						</button> */}
 					</div>
 				</div>
 			</div>
