@@ -43,6 +43,7 @@ const ProductItem = ({
 						<Image
 							src={productImage}
 							alt="product"
+							objectFit="contain"
 							style={{ "object-fit": "contain" }}
 							width={dimensions.width}
 							height={dimensions.height}
