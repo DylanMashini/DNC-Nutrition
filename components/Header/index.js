@@ -57,7 +57,7 @@ const Header = ({ isErrorPage }) => {
 					<a>
 						<h1 className="site-logo">
 							<Logo />
-							E-Shop
+							DNA Nutrition
 						</h1>
 					</a>
 				</Link>
