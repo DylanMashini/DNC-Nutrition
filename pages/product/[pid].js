@@ -13,7 +13,6 @@ export async function getStaticPaths() {
 	return { paths: [], fallback: "blocking" };
 }
 export async function getStaticProps({ params }) {
-	console.log;
 	const pid = params.pid;
 	const res = await fetch(`${server}/api/product/${pid}`);
 	const product = await res.json();
@@ -31,7 +30,7 @@ const Product = ({ product }) => {
 
 	return (
 		<Layout>
-			<Breadcrumb currentPage={product.name} />
+			<Breadcrumb />
 
 			<section className="product-single">
 				<div className="container">

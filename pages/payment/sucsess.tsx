@@ -3,7 +3,7 @@ import { clearCart } from "../../store/actions/cartActions";
 import { useDispatch } from "react-redux";
 import { useEffect, useCallback } from "react";
 //clear the redux state
-export default function () {
+export default function Named() {
 	const dispatch = useDispatch();
     useEffect(() => {
         dispatch(clearCart());

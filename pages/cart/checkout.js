@@ -5,6 +5,7 @@ import CheckoutItems from "../../components/checkout/items";
 import { useState } from "react";
 import Router from "next/router";
 import { server } from "../../utils/server";
+import Link from "next/link";
 
 const CheckoutPage = () => {
 	const [email, setEmail] = useState("");
@@ -45,7 +46,6 @@ const CheckoutPage = () => {
 			<section className="cart">
 				<div className="container">
 					<div className="cart__intro">
-						<h3 className="cart__title">Shipping and Payment</h3>
 						<CheckoutStatus step="checkout" />
 					</div>
 
@@ -53,11 +53,9 @@ const CheckoutPage = () => {
 						<div className="checkout__col-6">
 							<div className="checkout__btns"></div>
 
-							<div className="block">
-								<h3 className="block__title">
-									Shipping information
-								</h3>
-								<form className="form">
+							{/* <div className="block"> */}
+
+							{/* <form className="form">
 									<div className="form__input-row form__input-row--two">
 										<div className="form__col">
 											<input
@@ -162,10 +160,10 @@ const CheckoutPage = () => {
 													<option value="argentina"></option>
 												</select>
 											</div>
-										</div> */}
+										</div> 
 									</div>
-								</form>
-							</div>
+								</form> */}
+							{/* </div> */}
 						</div>
 
 						<div className="checkout__col-4">
@@ -209,12 +207,14 @@ const CheckoutPage = () => {
 							<i className="icon-left"></i> Back
 						</a>
 						<div className="cart-actions__items-wrapper">
-							<button
-								type="button"
-								className="btn btn--rounded btn--border"
-							>
-								Continue shopping
-							</button>
+							<Link href={"/products/1"}>
+								<button
+									type="button"
+									className="btn btn--rounded btn--border"
+								>
+									Continue shopping
+								</button>
+							</Link>
 							<button
 								type="button"
 								className="btn btn--rounded btn--yellow"

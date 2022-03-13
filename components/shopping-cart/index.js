@@ -59,9 +59,11 @@ const ShoppingCart = () => {
 				</div>
 
 				<div className="cart-actions">
-					<a href="/products/1" className="cart__btn-back">
-						<i className="icon-left"></i> Continue Shopping
-					</a>
+					<Link href="/products/1">
+						<a className="cart__btn-back">
+							<i className="icon-left"></i> Continue Shopping
+						</a>
+					</Link>
 					<input
 						type="text"
 						placeholder="Promo Code"
@@ -72,12 +74,11 @@ const ShoppingCart = () => {
 						<p className="cart-actions__total">
 							Total cost <strong>${priceTotal.toFixed(2)}</strong>
 						</p>
-						<a
-							href="/cart/checkout"
-							className="btn btn--rounded btn--yellow"
-						>
-							Checkout
-						</a>
+						<Link href="/cart/checkout">
+							<a className="btn btn--rounded btn--yellow">
+								Checkout
+							</a>
+						</Link>
 					</div>
 				</div>
 			</div>
