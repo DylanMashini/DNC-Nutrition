@@ -25,6 +25,7 @@
     "lodash": "^4.17.21",
     "micro": "^9.3.4",
     "next": "^12.1.0",
+    "next-images": "^1.8.4",
     "next-redux-wrapper": "^6.0.2",
     "nextjs": "0.0.3",
     "rc-slider": "^9.3.1",
