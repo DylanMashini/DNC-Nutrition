@@ -64,7 +64,11 @@ const Content = ({ product }) => {
 						<div className="quantity-button">
 							<button
 								type="button"
-								onClick={() => setCount(count - 1)}
+								onClick={() => {
+									if (count > 1) {
+										setCount(count - 1);
+									}
+								}}
 								className="quantity-button__btn"
 							>
 								-
