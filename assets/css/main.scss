@@ -602,8 +602,7 @@ h5 {
 			content: "\e811";
 		}
 	}
-	.swiper-pagination-progressbar {
-	}
+
 	.shop-data {
 		bottom: 0;
 		left: 0;
@@ -1606,11 +1605,6 @@ h5 {
 
 .checkbox-square-wrapper {
 	display: flex;
-	.checkbox {
-	}
-}
-
-.checkbox-wrapper {
 }
 
 .products-list {
@@ -2915,4 +2909,7 @@ h5 {
 	align-items: center;
 	margin-top: 5px;
 	margin-bottom: 20px;
+}
+#clickable:hover {
+	cursor: pointer;
 }
