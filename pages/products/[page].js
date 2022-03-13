@@ -15,7 +15,7 @@ const Products = ({ data, page = 1, totalPages }) => {
 	});
 
 	return (
-		<Layout>
+		<Layout title="Shop DNA Nutrition">
 			<Breadcrumb />
 			<section className="products-page">
 				<div className="container">

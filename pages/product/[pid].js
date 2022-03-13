@@ -29,7 +29,7 @@ const Product = ({ product }) => {
 	const [showBlock, setShowBlock] = useState("description");
 
 	return (
-		<Layout>
+		<Layout title={product.name}>
 			<Breadcrumb />
 
 			<section className="product-single">

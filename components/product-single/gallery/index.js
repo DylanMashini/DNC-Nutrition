@@ -6,13 +6,25 @@ const Gallery = ({ images }) => {
 			<div className="product-gallery__thumbs">
 				{images.map(image => (
 					<div key={image} className="product-gallery__thumb">
-						<img src={image} alt="" />
+						<img
+							src={image}
+							alt=""
+							style={{
+								objectFit: "contain",
+							}}
+						/>
 					</div>
 				))}
 			</div>
 
 			<div className="product-gallery__image">
-				<img src={featImage} alt="" />
+				<img
+					src={featImage}
+					alt=""
+					style={{
+						objectFit: "contain",
+					}}
+				/>
 			</div>
 		</section>
 	);
