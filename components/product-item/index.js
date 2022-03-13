@@ -44,9 +44,10 @@ const ProductItem = ({
 							src={productImage}
 							alt="product"
 							objectFit="contain"
-							style={{ "object-fit": "contain" }}
-							width={dimensions.width}
-							height={dimensions.height}
+							// style={{ "object-fit": "contain" }}
+							layout="fill"
+							// width={dimensions.width}
+							// height={dimensions.height}
 							// rel="preload"
 						/>
 						{discount && (
