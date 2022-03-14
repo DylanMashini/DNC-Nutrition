@@ -6,7 +6,10 @@ export default function Named({ data }) {
   const cards = data.map(item =>
     <Grid xs={12} sm={4}>
       <Card cover hoverable clickable onClick={() => {
-        Router.push(item.path)
+        setTimeout(() => {
+          Router.push(item.path);
+        }, 200);
+
       }}>
         <Card.Header css={{ position: 'absolute', zIndex: 1, top: 5 }}>
           <Col>
@@ -64,7 +67,9 @@ export function getStaticProps() {
     const post = posts[i]
     const postContents = fs.readFileSync(`./pages/blog/${post}`, 'utf8')
     const { data } = matter(postContents)
-    cards.push(data)
+    let finalData = data;
+    finalData.path = `/blog/${post.replace('.mdx', '')}`
+    cards.push(finalData)
 
 
   }
