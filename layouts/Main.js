@@ -14,7 +14,13 @@ export default ({ children, title = "DNA Nutrition" }) => {
 
 			<Header />
 
-			<main className={pathname !== "/" ? "main-page" : ""}>
+			<main
+				className={
+					pathname !== "/" && !pathname.includes("blog/")
+						? "main-page"
+						: ""
+				}
+			>
 				{children}
 			</main>
 		</div>
