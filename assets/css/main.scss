@@ -199,12 +199,12 @@ h5 {
 	}
 }
 
-.main-page {
-	padding-top: 65px;
-	@include breakpoint(phone) {
-		padding-top: 100px;
-	}
-}
+// .main-page {
+// 	padding-top: 65px;
+// 	@include breakpoint(phone) {
+// 		padding-top: 100px;
+// 	}
+// }
 
 .block {
 	.block__title {
@@ -2916,8 +2916,12 @@ h5 {
 #meta {
 	p {
 		visibility: hidden;
+		font-size: 0px;
 	}
 	hr {
 		visibility: hidden;
+		size: 0px;
 	}
+	margin: 0px;
+	size: 0px;
 }
