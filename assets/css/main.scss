@@ -2913,3 +2913,11 @@ h5 {
 #clickable:hover {
 	cursor: pointer;
 }
+#meta {
+	p {
+		visibility: hidden;
+	}
+	hr {
+		visibility: hidden;
+	}
+}
