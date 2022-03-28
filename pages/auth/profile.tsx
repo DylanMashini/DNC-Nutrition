@@ -5,12 +5,13 @@ import { useState } from "react";
 import { Input, Button, Loading } from "@nextui-org/react";
 import Router from "next/router";
 export default function Profile({userFirstName, userLastName, userEmail, session}) {
+    type colorType = "default" | "primary" | "secondary" | "success" | "warning" | "error" | "gradient";
     const [email, setEmail] = useState(userEmail)
     const [firstName, setFirstName] = useState(userFirstName)
     const [lastName, setLastName] = useState(userLastName)
     const [loading, setLoading] = useState(false)
     const [buttonWord, setButtonWord] = useState("Submit");
-    const [buttonColor, setButtonColor] = useState("default");
+    const [buttonColor, setButtonColor] = useState<colorType>("default");
     const sucsess = async () => {
         setButtonWord("Sucsess")
         setButtonColor("success")
@@ -58,7 +59,7 @@ export default function Profile({userFirstName, userLastName, userEmail, session
                                         setLoading(false)
                                         sucsess()
                                         if (email != userEmail) {
-                                            window.location = '/auth/login'
+                                            window.location.href = '/auth/login'
                                         }
                                     }
                                 }
