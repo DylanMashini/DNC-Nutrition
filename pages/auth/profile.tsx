@@ -9,10 +9,10 @@ export default function Profile({userFirstName, userLastName, userEmail, session
     const [email, setEmail] = useState(userEmail)
     const [firstName, setFirstName] = useState(userFirstName)
     const [lastName, setLastName] = useState(userLastName)
-    const [line1, setLine1] = useState("")
-    const [line2, setLine2] = useState("")
-    const [city, setCity] = useState("")
-    const [state, setState] = useState("")
+    const [line1, setLine1] = useState(userLine1)
+    const [line2, setLine2] = useState(userLine2)
+    const [city, setCity] = useState(userCity)
+    const [state, setState] = useState(userState)
     const [loading, setLoading] = useState(false)
     const [buttonWord, setButtonWord] = useState("Submit");
     const [buttonColor, setButtonColor] = useState<colorType>("default");
