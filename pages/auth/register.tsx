@@ -51,6 +51,9 @@ const RegisterPage = () => {
                 <input className="form__input" placeholder="City" type="text" value={city} onChange={e => setCity(e.target.value)} />
               </div>
               <div className="form__input-row">
+                <input className="form__input" placeholder="Zip Code" type="text" value={zip} onChange={e => setZip(e.target.value)} />
+              </div>
+              <div className="form__input-row">
                 <input className="form__input" placeholder="state" type="text" value={state} onChange={e => setState(e.target.value)} />
               </div>
               <div className="form__input-row">
@@ -87,7 +90,12 @@ const RegisterPage = () => {
                   firstName: firstName,
                   lastName: lastName,
                   email: email,
-                  password: password
+                  password: password,
+                  line1: line1,
+                  line2: line2,
+                  city: city,
+                  state: state,
+                  zip: zip
                 })
               }).then(res => res.json())
               .then(

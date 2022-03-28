@@ -8,6 +8,11 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
     const firstName = request.firstName;
     const lastName = request.lastName;
     const password = request.password;
+    const line1 = request.line1;
+    const line2 = (request.line2 ? request.line2 : "");
+    const city = request.city;
+    const state = request.state;
+    const zip = request.zip;
     const uri = process.env.MONGOURI;
     const client = new MongoClient(uri)
     const validatePassword = (password) => {
@@ -53,7 +58,7 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
             bcrypt.hash(password, 12, async (err, hash) => {
                 console.log("hashed pw")
             const session = crypto.randomUUID();
-            const result = await collection.insertOne({email: email.toLowerCase(), password: hash,firstName: firstName, lastName:lastName, salt: 12, session: session})
+            const result = await collection.insertOne({email: email.toLowerCase(), password: hash,firstName: firstName, lastName:lastName,line1:line1, line2: line2, city: city, state: state, zip:zip, salt: 12, session: session})
             res.status(200).json({res: result, auth:true, session:session})
 
             return
