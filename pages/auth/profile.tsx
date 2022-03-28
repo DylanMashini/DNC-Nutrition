@@ -66,7 +66,7 @@ export default function Profile({userFirstName, userLastName, userEmail, session
                                 headers: {
                                     "Content-Type": "application/json",
                                 },
-                                body: JSON.stringify({userEmail: userEmail, email: email, session: session, firstName: firstName, lastName: lastName})
+                                body: JSON.stringify({userEmail: userEmail, email: email, session: session, firstName: firstName, lastName: lastName, line1: line1, line2: line2, city: city, state: state})
                             }).then(
                                 res => res.json()
                             ).then(
