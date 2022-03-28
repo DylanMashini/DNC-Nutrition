@@ -112,11 +112,11 @@ export function getServerSideProps(context) {
                 userFirstName: res.user.firstName,
                 userLastName: res.user.lastName,
                 userEmail: res.user.email,
-                line1: res.user.line1,
-                line2: res.user.line2,
-                city: res.user.city,
-                state: res.user.state,
-                zip: res.user.zip,
+                userLine1: res.user.line1,
+                userLine2: res.user.line2,
+                userCity: res.user.city,
+                userState: res.user.state,
+                userZip: res.user.zip,
                 session: session
             }
         })
