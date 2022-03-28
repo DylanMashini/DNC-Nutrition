@@ -7,10 +7,18 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
     const stripeProds = [];
     const cloverProds = [];
+    let email = ""
+    let name = ""
+    if (req.cookies.userInfo) {
+        const cookie = JSON.parse(req.cookies.userInfo)
+        email = cookie.email
+        name = cookie.firstName + " " + cookie.lastName
+    } else {
+        email = "";
+    }
     const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
     let cost = 0;
     const body = req.body
-    console.log("body", body)
     const prods = require("../../prods.json");
     for (var i = 0; i < body.length; i++) {
         const id = body[i].id
@@ -21,11 +29,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 res.status(400).json({error: response.error})
                 return
             }
-            console.log(response)
             
             const product = response
             const price = product.price
-            const currency = "USD"
             const name = product.name
 
         const priceID = await stripe.prices.create({
@@ -40,7 +46,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     }
 
-    console.log(cloverProds)
     const order = await (await fetch(`${process.env.CLOVER_URL}/v3/merchants/${process.env.CLOVER_MERCHANT_ID}/atomic_order/orders`, {
         method: 'POST',
         headers: {
@@ -49,7 +54,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         },
         body: JSON.stringify({ orderCart: { lineItems: cloverProds } })
     })).json()
-    console.log(order)
     const cloverOrderID = order.id
     const taxPriceID = await stripe.prices.create({
         unit_amount: (order.total-cost),
@@ -57,17 +61,36 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         product_data: {name:"GA State Tax", },
         });
     stripeProds.push({price: taxPriceID.id,quantity:1})
+    //check if user exists
+    let customer = undefined;
+    console.log(name)
+    if (email) {
+        customer = await stripe.customers.create({
+            email: email,
+            name: name,
+            shipping: {
+                name: name,
+                
+            }
+
+        });
+        
+
+    }
     try {
       // Create Checkout Sessions from body params.
-      const session = await stripe.checkout.sessions.create({
+      const sessionOptions = {
         line_items: stripeProds,
         mode: 'payment',
         success_url: `${server}/payment/sucsess/`,
         cancel_url: `${server}/?canceled=true`,
         metadata:{cloverID:cloverOrderID},
         shipping_address_collection: {allowed_countries: ['US']},
-        
-      });
+    }
+    if (email) {
+        sessionOptions["customer"] = customer.id
+    }
+      const session = await stripe.checkout.sessions.create(sessionOptions);
       res.status(200).json({url:session.url});
     } catch (err) {
         console.log(err)

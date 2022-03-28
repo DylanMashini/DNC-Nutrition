@@ -24,10 +24,14 @@ const CheckoutPage = () => {
 			console.log("idherhe: " + id);
 			lineItems.push({ id: id, count: count });
 		}
-		Router.push({
-			pathname: "/cart/loading",
-			query: { lineItems: JSON.stringify(lineItems) },
-		});
+		if (cartItems.length > 0) {
+			Router.push({
+				pathname: "/cart/loading",
+				query: { lineItems: JSON.stringify(lineItems) },
+			});
+		} else {
+			alert("Please add items to cart");
+		}
 	};
 	const priceTotal = useSelector(state => {
 		const cartItems = state.cart.cartItems;

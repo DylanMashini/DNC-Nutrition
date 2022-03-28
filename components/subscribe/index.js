@@ -27,7 +27,7 @@ const Subscribe = () => {
 						<button
 							type="submit"
 							className="btn btn--rounded btn--yellow"
-							onPress={SubmitPress}
+							onClick={SubmitPress}
 						>
 							Subscribe
 						</button>

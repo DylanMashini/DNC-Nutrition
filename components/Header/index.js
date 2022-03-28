@@ -74,9 +74,11 @@ const Header = ({ isErrorPage }) => {
 					<Link href="/contactUs">
 						<a>Contact Us</a>
 					</Link>
-					<button className="site-nav__btn">
-						<p>Account</p>
-					</button>
+					<Link href="/auth/login">
+						{/* <button className="site-nav__btn"> */}
+						<a>Account</a>
+						{/* </button> */}
+					</Link>
 				</nav>
 
 				<div className="site-header__actions">
@@ -119,9 +121,11 @@ const Header = ({ isErrorPage }) => {
 							)}
 						</button>
 					</Link>
-					{/* <Link href="/login">
-            <button className="site-header__btn-avatar"><i className="icon-avatar"></i></button>
-          </Link> */}
+					<Link href="/auth/login">
+						<button className="site-header__btn-avatar">
+							<i className="icon-avatar"></i>
+						</button>
+					</Link>
 					<button
 						onClick={() => setMenuOpen(true)}
 						className="site-header__btn-menu"
