@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import {MongoClient} from 'mongodb';
 import bcrypt from "bcryptjs";
 import crypto from "crypto";
+import { User } from '@nextui-org/react';
 export default async (req:NextApiRequest, res:NextApiResponse) => {
     const request = req.body;
     const email = request.email;
@@ -54,11 +55,27 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
             console.log("user already exists")
             return
         } else {
-           
+           //create stripe customer
+           const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
+            const customerID = await stripe.customers.create({
+                email: email,
+                name: firstName + " " + lastName,
+                shipping: {
+                    adress: {
+                        city: city,
+                        country: "US",
+                        line1: line1,
+                        line2: line2 ? line2 : "",
+                        postal_code: zip,
+                        state: state
+                    }
+                }
+            }).id;
+
             bcrypt.hash(password, 12, async (err, hash) => {
                 console.log("hashed pw")
             const session = crypto.randomUUID();
-            const result = await collection.insertOne({email: email.toLowerCase(), password: hash,firstName: firstName, lastName:lastName,line1:line1, line2: line2, city: city, state: state, zip:zip, salt: 12, session: session})
+            const result = await collection.insertOne({email: email.toLowerCase(), password: hash,firstName: firstName, lastName:lastName,line1:line1, line2: line2, city: city, state: state, zip:zip, salt: 12, session: session, stripeID: customerID})
             res.status(200).json({res: result, auth:true, session:session})
 
             return
