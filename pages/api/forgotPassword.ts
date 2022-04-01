@@ -26,7 +26,8 @@ export default async function Handler(req:NextApiRequest, res:NextApiResponse) {
         const resetID = crypto.randomUUID()
         await users.updateOne({ email: email.toLowerCase() }, { $set: { resetPassword: resetID } })
         //send reset email here with link that goes to /resetPassword/:resetID
-
+        console.log("SEND EMAIL SEND EMAIL SEND EMAIL")
+        res.status(200).json({ success: true })
     } finally {
         client.close()
     }
