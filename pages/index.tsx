@@ -5,7 +5,7 @@ import Footer from "../components/footer";
 import Subscribe from "../components/subscribe";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
-
+import Image from "next/image";
 const IndexPage = () => {
 	const router = useRouter();
 	useEffect(() => {
@@ -19,10 +19,11 @@ const IndexPage = () => {
 				<div className="container">
 					<article
 						style={{
-							backgroundImage: "url(/images/featured-1.jpg)",
+							// backgroundImage: "url(/images/featured-1.jpg)",
 						}}
 						className="featured-item featured-item-large"
 					>
+						<Image src="/images/featured-1.jpg" layout="fill" objectFit="contain" />
 						<div className="featured-item__content">
 							<h3>
 								Suplements that everyone should take regularly!

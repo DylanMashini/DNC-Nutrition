@@ -111,7 +111,7 @@ const Header = ({ isErrorPage }) => {
 							className="icon-search"
 						></i>
 					</button>
-					<Link href="/cart">
+					<Link href="/cart" prefetch={false}>
 						<button className="btn-cart">
 							<i className="icon-cart"></i>
 							{cartItems.length > 0 && (
