@@ -19,7 +19,7 @@ const ForgotPassword = () => {
       <section className="form-page">
         <div className="container">
           <div className="back-button-section">
-            <Link href="/products">
+            <Link href="/products/1">
               <a><i className="icon-left"></i> Back to shop</a>
             </Link>
           </div>
@@ -63,7 +63,17 @@ const ForgotPassword = () => {
                 }
               </div>
 
-              <button type="submit" className="btn btn--rounded btn--yellow btn-submit">Reset password</button>
+              <button className="btn btn--rounded btn--yellow btn-submit" onClick={{
+                //call resetPassword API
+                fetch(`${server}/api/forgotPassword`, {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify({
+                    email: data.email
+                })
+              }}>Reset password</button>
             </form>
           </div>
 

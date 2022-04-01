@@ -4,7 +4,7 @@ import { server } from "../../utils/server";
 import { useState } from "react";
 import { Input, Button, Loading } from "@nextui-org/react";
 import Router from "next/router";
-export default function Profile({userFirstName, userLastName, userEmail, session, userLine1, userLine2, userCity, userState, userZip}) {
+export default function Profile({ userFirstName, userLastName, userEmail, session, userLine1, userLine2, userCity, userState, userZip }) {
     type colorType = "default" | "primary" | "secondary" | "success" | "warning" | "error" | "gradient";
     const [email, setEmail] = useState(userEmail)
     const [firstName, setFirstName] = useState(userFirstName)
@@ -13,6 +13,7 @@ export default function Profile({userFirstName, userLastName, userEmail, session
     const [line2, setLine2] = useState(userLine2)
     const [city, setCity] = useState(userCity)
     const [state, setState] = useState(userState)
+    const [zip, setZip] = useState(userZip);
     const [loading, setLoading] = useState(false)
     const [buttonWord, setButtonWord] = useState("Submit");
     const [buttonColor, setButtonColor] = useState<colorType>("default");
@@ -22,9 +23,9 @@ export default function Profile({userFirstName, userLastName, userEmail, session
         setTimeout(() => {
             setButtonWord("Submit")
             setButtonColor("default")
-        } , 3000)
+        }, 3000)
     }
-    return(
+    return (
         <Layout>
             <h1 style={{
                 marginTop: "10px",
@@ -34,39 +35,42 @@ export default function Profile({userFirstName, userLastName, userEmail, session
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                marginTop:"10px",
+                marginTop: "10px",
             }}>
-                <ul>    
+                <ul>
                     <li>
-                        <Input label="email" value={email} size="md" width="20em" onChange={e => setEmail(e.target.value)}/>
-                    </li>
-                <li>
-                        <Input label="First Name" value={firstName} width={"20em"} onChange={e => setFirstName(e.target.value)}/>
+                        <Input label="email" value={email} size="md" width="20em" onChange={e => setEmail(e.target.value)} />
                     </li>
                     <li>
-                        <Input label="Last Name" value={lastName} width={"20em"} onChange={e => setLastName(e.target.value)}/>
+                        <Input label="First Name" value={firstName} width={"20em"} onChange={e => setFirstName(e.target.value)} />
                     </li>
                     <li>
-                        <Input label="Adress Line 1" value={line1} width={"20em"} onChange={e => setLine1(e.target.value)}/>
+                        <Input label="Last Name" value={lastName} width={"20em"} onChange={e => setLastName(e.target.value)} />
                     </li>
                     <li>
-                        <Input label="Adress Line 2" value={line2} width={"20em"} onChange={e => setLine2(e.target.value)}/>
+                        <Input label="Adress Line 1" value={line1} width={"20em"} onChange={e => setLine1(e.target.value)} />
                     </li>
                     <li>
-                        <Input label="City" value={city} width={"20em"} onChange={e => setCity(e.target.value)}/>
+                        <Input label="Adress Line 2" value={line2} width={"20em"} onChange={e => setLine2(e.target.value)} />
                     </li>
                     <li>
-                        <Input label="State" value={state} width={"20em"} onChange={e => setState(e.target.value)}/>
+                        <Input label="City" value={city} width={"20em"} onChange={e => setCity(e.target.value)} />
                     </li>
                     <li>
-                        <Button type="submit"css={{marginTop:"10px"}} color={buttonColor} onClick={() => {
+                        <Input label="State" value={state} width={"20em"} onChange={e => setState(e.target.value)} />
+                    </li>
+                    <li>
+                        <Input label="Postal Code" value={zip} inputMode="numeric" pattern="^(?(^00000(|-0000))|(\d{5}(|-\d{4})))$" size="md" width="20em" onChange={e => setZip(e.target.value)} />
+                    </li>
+                    <li>
+                        <Button type="submit" css={{ marginTop: "10px" }} color={buttonColor} onClick={() => {
                             setLoading(true)
                             fetch(`${server}/api/updateUser`, {
                                 method: "POST",
                                 headers: {
                                     "Content-Type": "application/json",
                                 },
-                                body: JSON.stringify({userEmail: userEmail, email: email, session: session, firstName: firstName, lastName: lastName, line1: line1, line2: line2, city: city, state: state})
+                                body: JSON.stringify({ userEmail: userEmail, email: email, session: session, firstName: firstName, lastName: lastName, line1: line1, line2: line2, city: city, state: state, zip: zip })
                             }).then(
                                 res => res.json()
                             ).then(
@@ -83,15 +87,15 @@ export default function Profile({userFirstName, userLastName, userEmail, session
                         }}>
                             {loading ? <Loading color={"white"} size="sm" /> : buttonWord}
                         </Button>
-                        
+
                     </li>
-                
+
                 </ul>
             </div>
-           
-            
+
+
         </Layout>
-    )   
+    )
 }
 
 export function getServerSideProps(context) {
@@ -105,23 +109,23 @@ export function getServerSideProps(context) {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({email:email, session:session})
+            body: JSON.stringify({ email: email, session: session })
         }).then(res => res.json()).then(res => {
             resolve({
-            props: {
-                userFirstName: res.user.firstName,
-                userLastName: res.user.lastName,
-                userEmail: res.user.email,
-                userLine1: res.user.line1,
-                userLine2: res.user.line2,
-                userCity: res.user.city,
-                userState: res.user.state,
-                userZip: res.user.zip,
-                session: session
-            }
+                props: {
+                    userFirstName: res.user.firstName,
+                    userLastName: res.user.lastName,
+                    userEmail: res.user.email,
+                    userLine1: res.user.line1,
+                    userLine2: res.user.line2,
+                    userCity: res.user.city,
+                    userState: res.user.state,
+                    userZip: res.user.zip,
+                    session: session
+                }
+            })
         })
-        })
-        
+
     })
-    
+
 }
