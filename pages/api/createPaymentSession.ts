@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import {server} from "../../utils/server"
+import { server } from "../../utils/server"
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method != "POST") {
         res.status(405).end()
@@ -9,10 +9,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const cloverProds = [];
     let email = ""
     let name = ""
+    let id = undefined!
     if (req.cookies.userInfo) {
         const cookie = JSON.parse(req.cookies.userInfo)
         email = cookie.email
         name = cookie.firstName + " " + cookie.lastName
+        id = cookie.stripeID
     } else {
         email = "";
     }
@@ -24,24 +26,24 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         const id = body[i].id
         const qty = body[i].count
         //const response = json of product
-        const response = prods.find(x=> x.id == id)
+        const response = prods.find(x => x.id == id)
         if (response.error) {
-                res.status(400).json({error: response.error})
-                return
-            }
-            
-            const product = response
-            const price = product.price
-            const name = product.name
+            res.status(400).json({ error: response.error })
+            return
+        }
+
+        const product = response
+        const price = product.price
+        const name = product.name
 
         const priceID = await stripe.prices.create({
-        unit_amount: price,
-        currency: 'usd',
-        product_data: {name:name, },
+            unit_amount: price,
+            currency: 'usd',
+            product_data: { name: name, },
         });
 
-        stripeProds.push({price: priceID.id,quantity:qty})
-        cloverProds.push({item:{id:product.id}})
+        stripeProds.push({ price: priceID.id, quantity: qty })
+        cloverProds.push({ item: { id: product.id } })
         cost += price * qty
 
     }
@@ -56,46 +58,33 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     })).json()
     const cloverOrderID = order.id
     const taxPriceID = await stripe.prices.create({
-        unit_amount: (order.total-cost),
+        unit_amount: (order.total - cost),
         currency: 'usd',
-        product_data: {name:"GA State Tax", },
-        });
-    stripeProds.push({price: taxPriceID.id,quantity:1})
+        product_data: { name: "GA State Tax", },
+    });
+    stripeProds.push({ price: taxPriceID.id, quantity: 1 })
     //check if user exists
-    let customer = undefined;
-    console.log(name)
-    if (email) {
-        customer = await stripe.customers.create({
-            email: email,
-            name: name,
-            shipping: {
-                name: name,
-                
-            }
 
-        });
-        
-
-    }
     try {
-      // Create Checkout Sessions from body params.
-      const sessionOptions = {
-        line_items: stripeProds,
-        mode: 'payment',
-        success_url: `${server}/payment/sucsess/`,
-        cancel_url: `${server}/?canceled=true`,
-        metadata:{cloverID:cloverOrderID},
-        shipping_address_collection: {allowed_countries: ['US']},
-    }
-    if (email) {
-        sessionOptions["customer"] = customer.id
-    }
-      const session = await stripe.checkout.sessions.create(sessionOptions);
-      res.status(200).json({url:session.url});
+        // Create Checkout Sessions from body params.
+        const sessionOptions = {
+            line_items: stripeProds,
+            mode: 'payment',
+            success_url: `${server}/payment/sucsess/`,
+            cancel_url: `${server}/?canceled=true`,
+            metadata: { cloverID: cloverOrderID },
+            shipping_address_collection: { allowed_countries: ['US'] },
+        }
+        if (id) {
+            console.log(id);
+            sessionOptions["customer"] = id
+        }
+        const session = await stripe.checkout.sessions.create(sessionOptions);
+        res.status(200).json({ url: session.url });
     } catch (err) {
         console.log(err)
-      res.status(err.statusCode || 500).json(err.message);
-    } 
-} 
+        res.status(err.statusCode || 500).json(err.message);
+    }
+}
 
-    
+

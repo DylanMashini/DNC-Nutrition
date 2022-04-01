@@ -27,10 +27,10 @@ export default class CustomDocument extends Document {
 					{isProduction && (
 						<Fragment>
 							{/* Global Site Tag (gtag.js) - Google Analytics */}
-							<script
+							{/* <script
 								async
 								src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
-							/>
+							/> */}
 							<script
 								dangerouslySetInnerHTML={{
 									__html: `
@@ -38,9 +38,7 @@ export default class CustomDocument extends Document {
                     function gtag(){dataLayer.push(arguments);}
                     gtag('js', new Date());
 
-                    gtag('config', '${GA_TRACKING_ID}', {
-                      page_path: window.location.pathname,
-                    });
+
                   `,
 								}}
 							/>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import Image from "next/image";
 const Subscribe = () => {
 	const [email, setEmail] = useState("");
 	const SubmitPress = () => {
@@ -9,9 +9,18 @@ const Subscribe = () => {
 		<section className="subscribe">
 			<div className="container">
 				<div
-					style={{ backgroundImage: "url(/images/subscribe.jpg)" }}
+					style={
+						{
+							//  backgroundImage: "url(/images/subscribe.jpg)"
+						}
+					}
 					className="subscribe__content"
 				>
+					<Image
+						src="/images/subscribe.jpg"
+						layout="fill"
+						objectFit="contain"
+					/>
 					<h4>
 						Subscribe to our newsletter and receive exclusive offers
 						every week

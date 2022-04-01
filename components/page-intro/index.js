@@ -1,6 +1,6 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { EffectFade, Navigation } from "swiper";
-
+import Image from "next/image";
 SwiperCore.use([EffectFade, Navigation]);
 
 const PageIntro = () => {
@@ -16,10 +16,15 @@ const PageIntro = () => {
 					<div
 						className="page-intro__slide"
 						style={{
-							backgroundImage: "url('/images/anxiocalm.png')",
+							// backgroundImage: "url('/images/anxiocalm.png')",
 							backgroundSize: "auto",
 						}}
 					>
+						<Image
+							src="/images/anxiocalm.png"
+							layout="fill"
+							objectFit="contain"
+						/>
 						<div className="container">
 							<div className="page-intro__slide__content">
 								<h2>DNA Nutrition </h2>
@@ -33,10 +38,17 @@ const PageIntro = () => {
 				<SwiperSlide>
 					<div
 						className="page-intro__slide"
-						style={{
-							backgroundImage: "url('/images/slid-2.jpg')",
-						}}
+						style={
+							{
+								// backgroundImage: "url('/images/slide-2.jpg')",
+							}
+						}
 					>
+						<Image
+							src="/images/slide-2.jpg"
+							layout="fill"
+							objectFit="contain"
+						/>
 						<div className="container">
 							<div className="page-intro__slide__content">
 								<h2>DNA Nutrition </h2>

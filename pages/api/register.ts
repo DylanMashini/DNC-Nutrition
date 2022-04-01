@@ -1,8 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import {MongoClient} from 'mongodb';
+import { MongoClient } from 'mongodb';
 import bcrypt from "bcryptjs";
 import crypto from "crypto";
-export default async (req:NextApiRequest, res:NextApiResponse) => {
+import { User } from '@nextui-org/react';
+export default async (req: NextApiRequest, res: NextApiResponse) => {
     const request = req.body;
     const email = request.email;
     const firstName = request.firstName;
@@ -31,42 +32,62 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
         return regex.test(email);
     }
     if (!(validateEmail(email))) {
-        res.status(400).json({message:"invalid email"});
+        res.status(400).json({ message: "invalid email" });
         return
     }
-     if (!(validatePassword(password))) {
-                console.log("regex fail")
-                res.status(400).json({"message": "Password must contain at least 8 characters, with one number"})
-                return
-            }
+    if (!(validatePassword(password))) {
+        console.log("regex fail")
+        res.status(400).json({ "message": "Password must contain at least 8 characters, with one number" })
+        return
+    }
     try {
         client.connect(async err => {
             if (err) {
                 console.log(err);
             } else {
-        const db = client.db('DNA')
-        const collection = db.collection('users')
-        const user = await collection.findOne({email: email.toLowerCase()})
-        if (user) {
-            res.status(400).json({
-                message: 'User already exists'
-            })
-            console.log("user already exists")
-            return
-        } else {
-           
-            bcrypt.hash(password, 12, async (err, hash) => {
-                console.log("hashed pw")
-            const session = crypto.randomUUID();
-            const result = await collection.insertOne({email: email.toLowerCase(), password: hash,firstName: firstName, lastName:lastName,line1:line1, line2: line2, city: city, state: state, zip:zip, salt: 12, session: session})
-            res.status(200).json({res: result, auth:true, session:session})
+                const db = client.db('DNA')
+                const collection = db.collection('users')
+                const user = await collection.findOne({ email: email.toLowerCase() })
+                if (user) {
+                    res.status(400).json({
+                        message: 'User already exists'
+                    })
+                    console.log("user already exists")
+                    return
+                } else {
+                    //create stripe customer
+                    const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+                    const customerID = await stripe.customers.create({
+                        email: email,
+                        name: firstName + " " + lastName,
+                        shipping: {
+                            name: firstName + " " + lastName,
+                            address: {
+                                city: city,
+                                country: "US",
+                                line1: line1,
+                                line2: line2 ? line2 : "",
+                                postal_code: zip,
+                                state: state
+                            }
+                        }
+                    });
+                    console.log(customerID);
+                    bcrypt.hash(password, 12, async (err, hash) => {
+                        if (err) {
+                            throw err;
+                        }
+                        console.log("hashed pw")
+                        const session = crypto.randomUUID();
+                        const result = await collection.insertOne({ email: email.toLowerCase(), password: hash, firstName: firstName, lastName: lastName, line1: line1, line2: line2, city: city, state: state, zip: zip, salt: 12, session: session, stripeID: customerID.id })
+                        res.status(200).json({ res: result, auth: true, session: session })
 
-            return
-            })
-        }
+                        return
+                    })
+                }
             }
         })
-        
+
     } finally {
         client.close()
     }
