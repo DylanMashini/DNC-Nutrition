@@ -23,7 +23,7 @@ const PageIntro = () => {
 						<Image
 							src="/images/anxiocalm.png"
 							layout="fill"
-							objectFit="contain"
+							objectFit="scale-down"
 						/>
 						<div className="container">
 							<div className="page-intro__slide__content">
@@ -47,7 +47,7 @@ const PageIntro = () => {
 						<Image
 							src="/images/slide-2.jpg"
 							layout="fill"
-							objectFit="contain"
+							objectFit="cover"
 						/>
 						<div className="container">
 							<div className="page-intro__slide__content">
