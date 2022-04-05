@@ -23,6 +23,20 @@ export default class CustomDocument extends Document {
 		return (
 			<Html lang="en">
 				<Head>
+					<link
+						rel="preconnect"
+						href="https://fonts.googleapis.com"
+					/>
+					<link
+						rel="preconnect"
+						href="https://fonts.gstatic.com"
+						crossorigin
+					/>
+					<link
+						href="https://fonts.googleapis.com/css2?family=Lato&display=swap"
+						rel="stylesheet"
+					/>
+
 					{/* We only want to add the scripts if in production */}
 					{isProduction && (
 						<Fragment>
