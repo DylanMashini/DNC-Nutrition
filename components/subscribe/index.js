@@ -19,7 +19,7 @@ const Subscribe = () => {
 					<Image
 						src="/images/subscribe.jpg"
 						layout="fill"
-						objectFit="contain"
+						objectFit="cover"
 					/>
 					<h4>
 						Subscribe to our newsletter and receive exclusive offers
