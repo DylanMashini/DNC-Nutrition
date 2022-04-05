@@ -23,7 +23,7 @@ const IndexPage = () => {
 						}}
 						className="featured-item featured-item-large"
 					>
-						<Image src="/images/featured-1.jpg" layout="fill" objectFit="contain" />
+						<Image src="/images/featured-1.jpg" layout="fill" objectFit="cover" />
 						<div className="featured-item__content">
 							<h3>
 								Suplements that everyone should take regularly!
