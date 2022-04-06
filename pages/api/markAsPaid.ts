@@ -58,7 +58,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             //create list of order items here
             const orderItems = JSON.parse(session.metadata.lineItems)
             console.log(orderItems);
-            const emailItems = ``
+            const emailItems = `Test\n`
             for (let i = 0; i<orderItems.length; i++) {
                 const item = orderItems[i]
                 emailItems.concat(`<li>${item.name} - ${item.quantity} - ${String(item.price/1000)}</li> \n`)
