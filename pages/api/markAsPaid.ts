@@ -14,7 +14,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         return
     }
     const fulfillOrder = (session) => {
-        console.log("fufill order here" + JSON.stringify(session))
         const orderID = session.metadata.cloverID
         const address = session.shipping
         fetch(`https://scl-sandbox.dev.clover.com/v1/orders/${orderID}/pay`, {
@@ -56,6 +55,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             console.log("sending emailll")
             const sgMail = require('@sendgrid/mail')
             sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+            //create list of order items here
+            console.log(session);
             const msg = {
             to: 'dylanmashini123@gmail.com', // Change to your recipient
             from: 'ecommerce@dylanmashini.com', // Change to your verified sender
@@ -64,7 +65,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             html: `
             <h1>Got a order!!</h1>
             <p>Clover Order ID: ${orderID}</p>
-            <p>Stripe Payment: ${JSON.stringify(session)}</p>
+            <p>Order Items: </p>
             `,
             }
             sgMail.send(msg).then(() => {
