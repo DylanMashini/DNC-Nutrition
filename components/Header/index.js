@@ -9,7 +9,7 @@ const Header = ({ isErrorPage }) => {
 	const [searchQuery, setSearchQuery] = useState("");
 	const router = useRouter();
 	const { cartItems } = useSelector(state => state.cart);
-	const arrayPaths = ["/"];
+	const arrayPaths = [];
 
 	const [onTop, setOnTop] = useState(
 		!arrayPaths.includes(router.pathname) || isErrorPage ? false : true

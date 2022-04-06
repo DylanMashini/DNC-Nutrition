@@ -14,13 +14,7 @@ export default ({ children, title = "DNC Nutrition" }) => {
 
 			<Header />
 
-			<main
-				className={
-					pathname !== "/" && !pathname.includes("blog/")
-						? "main-page"
-						: ""
-				}
-			>
+			<main className={!pathname.includes("blog/") ? "main-page" : ""}>
 				{children}
 			</main>
 		</div>

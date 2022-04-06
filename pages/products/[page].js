@@ -8,10 +8,10 @@ import { Pagination } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 import Head from "next/head";
 
-const Products = ({ data, page = 1, totalPages }) => {
+const Products = ({ data, pagenum, totalPages }) => {
 	const router = useRouter();
 	useEffect(() => {
-		router.prefetch("/products/" + (page + 1));
+		router.prefetch("/products/" + (pagenum + 1));
 	});
 
 	return (
@@ -22,16 +22,19 @@ const Products = ({ data, page = 1, totalPages }) => {
 					<ProductsContent data={data} />
 				</div>
 			</section>
-			<div id={"Pagination"}>
-				<Pagination
-					initialPage={page}
-					total={totalPages}
-					onChange={p => {
-						router.push("/products/" + p);
-					}}
-					size={"lg"}
-				/>
-			</div>
+			{pagenum ? (
+				<div id={"Pagination"}>
+					<Pagination
+						initialPage={parseInt(pagenum)}
+						page={parseInt(pagenum)}
+						total={parseInt(totalPages)}
+						onChange={p => {
+							router.push("/products/" + p);
+						}}
+						size={"lg"}
+					/>
+				</div>
+			) : null}
 			<Footer />
 		</Layout>
 	);
