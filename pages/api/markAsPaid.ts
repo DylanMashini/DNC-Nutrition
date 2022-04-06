@@ -56,7 +56,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             const sgMail = require('@sendgrid/mail')
             sgMail.setApiKey(process.env.SENDGRID_API_KEY)
             //create list of order items here
-            const orderItems = session.metadata.lineItems
+            const orderItems = JSON.parse(session.metadata.lineItems)
+            console.log(orderItems);
             const emailItems = ``
             for (let i =0; i<orderItems.length; i++) {
                 const item = orderItems[i]
