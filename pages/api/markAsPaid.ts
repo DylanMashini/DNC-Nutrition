@@ -59,10 +59,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             const orderItems = JSON.parse(session.metadata.lineItems)
             console.log(orderItems);
             const emailItems = ``
-            for (let i =0; i<orderItems.length; i++) {
+            for (let i = 0; i<orderItems.length; i++) {
                 const item = orderItems[i]
-                emailItems.concat(`<li>${item.name} - ${item.quantity} - ${item.price}</li> \n`)
+                emailItems.concat(`<li>${item.name} - ${item.quantity} - ${String(item.price/1000)}</li> \n`)
             }
+            console.log(emailItems);
             const msg = {
             to: 'dylanmashini123@gmail.com', // Change to your recipient
             from: 'ecommerce@dylanmashini.com', // Change to your verified sender
