@@ -6,12 +6,13 @@ import { serialize } from 'cookie';
 //NEEDS TESTED
 export function middleware(req: NextRequest, ev: NextFetchEvent) {
     return new Promise((resolve, reject) => {
-        const cookie = JSON.parse(req.cookies.user);
-        const session = cookie.session;
-        const email = cookie.email;
+        
         //check if cookie exists
         if (req.cookies.user) {
             //verify cookie
+            const cookie = JSON.parse(req.cookies.user);
+            const session = cookie.session;
+            const email = cookie.email;
             fetch(`${server}/api/getUserInfo`, {
                 method: 'POST',
                 headers: {
@@ -29,7 +30,7 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
                         //add user info into cookie
                         
                         if (user == {} || user == null) {
-                            return null;
+                            resolve(null);
                         }
                         let response = NextResponse.next()
                         response.cookie('userInfo', JSON.stringify(user), {
@@ -42,12 +43,12 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
 
                     } else {
                         console.log("user auth failed")
-                        return null;
+                        resolve(null);
                     }
                 }
             )
         } else {
-            return null;
+            resolve(null);
         }
     })
 }
