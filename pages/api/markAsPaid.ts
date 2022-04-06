@@ -61,7 +61,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             let emailItems = ``
             for (let i = 0; i<orderItems.length; i++) {
                 const item = orderItems[i]
-                emailItems = emailItems.concat(`<li>${item.name} - ${item.quantity} - ${String(item.price/1000)}</li> \n`)
+                emailItems = emailItems.concat(`<li>${item.name} - ${item.qty} - ${String((item.price/100)*item.qty)}</li> \n`)
             }
             console.log(emailItems);
             const msg = {
