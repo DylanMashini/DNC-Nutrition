@@ -77,7 +77,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             mode: 'payment',
             success_url: `${server}/payment/sucsess/`,
             cancel_url: `${server}/?canceled=true`,
-            metadata: { cloverID: cloverOrderID, lineItems: metaItems },
+            metadata: { cloverID: cloverOrderID, lineItems: JSON.stringify(metaItems) },
             shipping_address_collection: { allowed_countries: ['US'] },
         }
         if (id) {
