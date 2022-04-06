@@ -56,7 +56,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             const sgMail = require('@sendgrid/mail')
             sgMail.setApiKey(process.env.SENDGRID_API_KEY)
             //create list of order items here
-            console.log(session);
+            const orderItems = session.metadata.lineItems
+            const emailItems = ``
+            for (let i =0; i<orderItems.length; i++) {
+                const item = orderItems[i]
+                emailItems.concat(`<ul>${item.name} - ${item.quantity} - ${item.price}</ul> \n`)
+            }
             const msg = {
             to: 'dylanmashini123@gmail.com', // Change to your recipient
             from: 'ecommerce@dylanmashini.com', // Change to your verified sender
@@ -66,6 +71,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             <h1>Got a order!!</h1>
             <p>Clover Order ID: ${orderID}</p>
             <p>Order Items: </p>
+            <li>
+            ${emailItems}
+            <li>
             `,
             }
             sgMail.send(msg).then(() => {

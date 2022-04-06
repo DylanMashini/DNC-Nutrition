@@ -7,6 +7,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
     const stripeProds = [];
     const cloverProds = [];
+    const metaItems = [];
     let email = ""
     let name = ""
     let id = undefined
@@ -42,7 +43,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             currency: 'usd',
             product_data: { name: name, },
         }).catch(err => console.error(err));
-
+        
+        metaItems.push({name: product.name, price: price, qty: qty})
         stripeProds.push({ price: priceID.id, quantity: qty })
         for (let i = 0; i < qty; i++) {
             cloverProds.push({ item: { id: product.id }})
@@ -75,7 +77,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             mode: 'payment',
             success_url: `${server}/payment/sucsess/`,
             cancel_url: `${server}/?canceled=true`,
-            metadata: { cloverID: cloverOrderID },
+            metadata: { cloverID: cloverOrderID, lineItems: metaItems },
             shipping_address_collection: { allowed_countries: ['US'] },
         }
         if (id) {
