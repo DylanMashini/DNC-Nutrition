@@ -66,6 +66,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             <p>Stripe Payment: ${JSON.stringify(session)}</p>
             `,
             }
+            sgMail.send(msg).then(() => {
+                console.log('Email sent')
+            })
+            .catch((error) => {
+                console.error(error)
+            })
             res.status(200).end()
         }
     }).catch(err => {
