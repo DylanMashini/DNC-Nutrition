@@ -69,11 +69,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             }
             sgMail.send(msg).then(() => {
                 console.log('Email sent')
+                res.status(200).end()
             })
             .catch((error) => {
                 console.error(error)
             })
-            res.status(200).end()
+            
         }
     }).catch(err => {
         console.error(err);
