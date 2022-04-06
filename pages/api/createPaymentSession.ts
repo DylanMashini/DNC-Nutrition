@@ -21,6 +21,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
     let cost = 0;
     const body = req.body
+    console.log("body: " + JSON.stringify(body))
     const prods = require("../../prods.json");
     for (var i = 0; i < body.length; i++) {
         const id = body[i].id
