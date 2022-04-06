@@ -53,6 +53,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             res.status(400).end()
             
         } else {
+            console.log("sending emailll")
             const sgMail = require('@sendgrid/mail')
             sgMail.setApiKey(process.env.SENDGRID_API_KEY)
             const msg = {
