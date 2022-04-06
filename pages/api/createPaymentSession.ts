@@ -21,7 +21,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
     let cost = 0;
     const body = req.body
-    console.error("body: " + JSON.stringify(body))
+    console.log("body: " + JSON.stringify(body))
     const prods = require("../../prods.json");
     for (var i = 0; i < body.length; i++) {
         const id = body[i].id
@@ -32,23 +32,25 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             res.status(400).json({ error: response.error })
             return
         }
-        console.log("product: " + response)
+        
         const product = response
         const price = product.price
         const name = product.name
-
+        console.log("price: " + price)
         const priceID = await stripe.prices.create({
-            unit_amount: price,
+            unit_amount: Number(price),
             currency: 'usd',
             product_data: { name: name, },
-        });
+        }).catch(err => console.error(err));
 
         stripeProds.push({ price: priceID.id, quantity: qty })
-        cloverProds.push({ item: { id: product.id } })
+        for (let i = 0; i < qty; i++) {
+            cloverProds.push({ item: { id: product.id }})
+        }
         cost += price * qty
 
     }
-
+   
     const order = await (await fetch(`${process.env.CLOVER_URL}/v3/merchants/${process.env.CLOVER_MERCHANT_ID}/atomic_order/orders`, {
         method: 'POST',
         headers: {
