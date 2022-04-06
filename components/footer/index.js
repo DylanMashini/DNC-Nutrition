@@ -7,8 +7,9 @@ const Footer = () => {
 				<div className="site-footer__top">
 					<div className="site-footer__description">
 						<h6>
-							<Logo /> <span>E</span>-Shop
+							<Logo />
 						</h6>
+						<br />
 						<p></p>
 						<ul className="site-footer__social-networks">
 							<li>
@@ -90,8 +91,7 @@ const Footer = () => {
 					</div>
 				</div>
 			</div>
-
-					</footer>
+		</footer>
 	);
 };
 
