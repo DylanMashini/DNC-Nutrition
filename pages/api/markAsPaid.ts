@@ -75,7 +75,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             <p>Order Items: </p>
             <ul>
             ${emailItems}
-            <ul>
+            </ul>
             `,
             }
             sgMail.send(msg).then(() => {
