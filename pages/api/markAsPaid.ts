@@ -61,7 +61,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             const emailItems = ``
             for (let i =0; i<orderItems.length; i++) {
                 const item = orderItems[i]
-                emailItems.concat(`<ul>${item.name} - ${item.quantity} - ${item.price}</ul> \n`)
+                emailItems.concat(`<li>${item.name} - ${item.quantity} - ${item.price}</li> \n`)
             }
             const msg = {
             to: 'dylanmashini123@gmail.com', // Change to your recipient
@@ -72,9 +72,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             <h1>Got a order!!</h1>
             <p>Clover Order ID: ${orderID}</p>
             <p>Order Items: </p>
-            <li>
+            <ul>
             ${emailItems}
-            <li>
+            <ul>
             `,
             }
             sgMail.send(msg).then(() => {
