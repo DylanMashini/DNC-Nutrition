@@ -29,9 +29,43 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             console.log("NOT MARKED AS PAID IN CLOVER")
             console.log("CLOVER ORDER ID: " + orderID)
             console.log("STRIPE PAYMENT" + JSON.stringify(session))
+            const sgMail = require('@sendgrid/mail')
+            sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+            const msg = {
+            to: 'dylanmashini123@gmail.com', // Change to your recipient
+            from: 'ecommerce@dylanmashini.com', // Change to your verified sender
+            subject: 'Error in marking order as paid in clover',
+            text: 'error marking order as paid',
+            html: `
+            <h1>Error marking order as paid</h1>
+            <p>Clover Order ID: ${orderID}</p>
+            <p>Stripe Payment: ${JSON.stringify(session)}</p>
+            `,
+            }
+            sgMail
+            .send(msg)
+            .then(() => {
+                console.log('Email sent')
+            })
+            .catch((error) => {
+                console.error(error)
+            })
             res.status(400).end()
-            //send email here
+            
         } else {
+            const sgMail = require('@sendgrid/mail')
+            sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+            const msg = {
+            to: 'dylanmashini123@gmail.com', // Change to your recipient
+            from: 'ecommerce@dylanmashini.com', // Change to your verified sender
+            subject: 'Order from ecommerce',
+            text: 'Order',
+            html: `
+            <h1>Got a order!!</h1>
+            <p>Clover Order ID: ${orderID}</p>
+            <p>Stripe Payment: ${JSON.stringify(session)}</p>
+            `,
+            }
             res.status(200).end()
         }
     })
