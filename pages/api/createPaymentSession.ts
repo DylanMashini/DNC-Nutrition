@@ -9,7 +9,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const cloverProds = [];
     let email = ""
     let name = ""
-    let id = undefined!
+    let id = undefined
     if (req.cookies.userInfo) {
         const cookie = JSON.parse(req.cookies.userInfo)
         email = cookie.email
@@ -31,7 +31,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             res.status(400).json({ error: response.error })
             return
         }
-
+        console.log("product: " + response)
         const product = response
         const price = product.price
         const name = product.name
