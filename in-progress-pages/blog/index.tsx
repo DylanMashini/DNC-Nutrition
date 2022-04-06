@@ -41,9 +41,6 @@ export default function Named({ data }) {
       </Card>
     </Grid>
   )
-  useEffect(() => {
-    console.log(JSON.stringify(data))
-  })
   return (
     <Layout>
       <Grid.Container gap={2} justify={"center"}>
@@ -73,7 +70,7 @@ export function getStaticProps() {
 
 
   }
-  console.log(cards)
+
   return {
     props: {
       data: cards

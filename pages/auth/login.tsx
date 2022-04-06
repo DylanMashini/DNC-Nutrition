@@ -44,7 +44,6 @@ const LoginPage = () => {
 							onSubmit={(event) => {
 							//prevent page from refreshing
 							event.preventDefault();
-							console.log("submit")
 							//make sure no fields are blank
 							if (email === "" || password === "") {
 								setError("Please fill in all fields");
@@ -60,7 +59,6 @@ const LoginPage = () => {
 						}).then(res => res.json())
 						.then(
 							res => {
-								console.log(res)
 								//get response body
 								
 								if (res.auth) {
@@ -73,7 +71,7 @@ const LoginPage = () => {
 									//get error message
 									const errorMessage = res["message"];
 									//log json body
-									console.log(errorMessage)
+									console.error(errorMessage)
 									//check if error is user not found
 									if (errorMessage == "user not found") {
 										//set client side error message

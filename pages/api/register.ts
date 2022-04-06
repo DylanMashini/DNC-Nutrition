@@ -36,14 +36,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         return
     }
     if (!(validatePassword(password))) {
-        console.log("regex fail")
         res.status(400).json({ "message": "Password must contain at least 8 characters, with one number" })
         return
     }
     try {
         client.connect(async err => {
             if (err) {
-                console.log(err);
+                console.error(err);
             } else {
                 const db = client.db('DNC')
                 const collection = db.collection('users')
@@ -52,7 +51,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                     res.status(400).json({
                         message: 'User already exists'
                     })
-                    console.log("user already exists")
                     return
                 } else {
                     //create stripe customer
@@ -72,12 +70,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                             }
                         }
                     });
-                    console.log(customerID);
                     bcrypt.hash(password, 12, async (err, hash) => {
                         if (err) {
                             throw err;
                         }
-                        console.log("hashed pw")
                         const session = crypto.randomUUID();
                         const result = await collection.insertOne({ email: email.toLowerCase(), password: hash, firstName: firstName, lastName: lastName, line1: line1, line2: line2, city: city, state: state, zip: zip, salt: 12, session: session, stripeID: customerID.id })
                         res.status(200).json({ res: result, auth: true, session: session })

@@ -44,26 +44,23 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             sgMail
             .send(msg)
             .then(() => {
-                console.log('Email sent')
+                res.status(400).end()
             })
             .catch((error) => {
                 console.error(error)
             })
-            res.status(400).end()
+            
             
         } else {
-            console.log("sending emailll")
             const sgMail = require('@sendgrid/mail')
             sgMail.setApiKey(process.env.SENDGRID_API_KEY)
             //create list of order items here
             const orderItems = JSON.parse(session.metadata.lineItems)
-            console.log(orderItems);
             let emailItems = ``
             for (let i = 0; i<orderItems.length; i++) {
                 const item = orderItems[i]
                 emailItems = emailItems.concat(`<li>${item.name} - ${item.qty} - ${String((item.price/100)*item.qty)}</li> \n`)
             }
-            console.log(emailItems);
             const msg = {
             to: 'dylanmashini123@gmail.com', // Change to your recipient
             from: 'ecommerce@dylanmashini.com', // Change to your verified sender
@@ -79,7 +76,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             `,
             }
             sgMail.send(msg).then(() => {
-                console.log('Email sent')
                 res.status(200).end()
             })
             .catch((error) => {
@@ -103,7 +99,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         event = stripe.webhooks.constructEvent(buf, sig, endpointSecret);
 
     } catch (err) {
-        console.log(err)
+        console.error(err)
         return res.status(400).send(`Webhook Error: ${err.message}`);
 
     }

@@ -8,7 +8,6 @@ export async function getStaticProps() {
 		let totalPages = 100;
 		const allProds = require("../prods.json");
 		totalPages = Math.trunc(allProds.length / 21);
-		console.log(totalPages);
 		var list = [];
 		for (var i = 0; i < allProds.length; i++) {
 			if (i > 1 * 20) {

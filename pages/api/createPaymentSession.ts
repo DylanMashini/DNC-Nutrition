@@ -22,7 +22,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
     let cost = 0;
     const body = req.body
-    console.log("body: " + JSON.stringify(body))
     const prods = require("../../prods.json");
     for (var i = 0; i < body.length; i++) {
         const id = body[i].id
@@ -37,7 +36,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         const product = response
         const price = product.price
         const name = product.name
-        console.log("price: " + price)
+
         const priceID = await stripe.prices.create({
             unit_amount: Number(price),
             currency: 'usd',
@@ -81,13 +80,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             shipping_address_collection: { allowed_countries: ['US'] },
         }
         if (id) {
-            console.log(id);
             sessionOptions["customer"] = id
         }
         const session = await stripe.checkout.sessions.create(sessionOptions);
         res.status(200).json({ url: session.url });
     } catch (err) {
-        console.log(err)
+        console.error(err)
         res.status(err.statusCode || 500).json(err.message);
     }
 }

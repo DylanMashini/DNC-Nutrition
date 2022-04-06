@@ -18,10 +18,8 @@ const CheckoutPage = () => {
 	const ProceedToPayment = async () => {
 		const lineItems = [];
 		for (let i = 0; i < cartItems.length; i++) {
-			console.log(cartItems[i]);
 			const item = cartItems[i];
 			const { id, count, name } = item;
-			console.log("idherhe: " + id);
 			lineItems.push({ id: id, count: count });
 		}
 		if (cartItems.length > 0) {

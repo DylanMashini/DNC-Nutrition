@@ -41,7 +41,6 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
       }
     } else {
       //user does not exist
-      console.log("No user")
       res.status(400).json({
         message: "user not found"
       })

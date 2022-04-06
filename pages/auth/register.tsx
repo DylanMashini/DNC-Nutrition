@@ -76,7 +76,6 @@ const RegisterPage = () => {
               </div>
 
               <button type="button" className="btn btn--rounded btn--yellow btn-submit" onClick={() => {
-                console.log("here")
                 if (!(firstName && lastName && email && password)) {
                   setError("Please fill all the fields");
                   return

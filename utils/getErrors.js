@@ -17,8 +17,8 @@ const getProds = () => {
 };
 
 const main = async () => {
-	const errors = await getErrorFile(err => console.log(err));
-	const prods = await getProds().catch(err => console.log(err));
+	const errors = await getErrorFile(err => console.error(err));
+	const prods = await getProds().catch(err => console.error(err));
 	const rows = [];
 	rows.push(["sku", "name", "stockCount"]);
 	for (var i = 0; i < errors.length; i++) {
@@ -43,4 +43,4 @@ const main = async () => {
 	fs.writeFileSync("imgErrors.txt", encodedUri);
 };
 
-main().catch(err => console.log(err));
+main().catch(err => console.error(err));
