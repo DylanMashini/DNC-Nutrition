@@ -45,7 +45,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             if (err) {
                 console.log(err);
             } else {
-                const db = client.db('DNA')
+                const db = client.db('DNC')
                 const collection = db.collection('users')
                 const user = await collection.findOne({ email: email.toLowerCase() })
                 if (user) {

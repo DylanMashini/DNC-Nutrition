@@ -16,7 +16,7 @@ export default async function Handler(req:NextApiRequest, res:NextApiResponse) {
     const client = new MongoClient(process.env.MONGO_URL)
     try {
         await client.connect()
-        const db = client.db("DNA")
+        const db = client.db("DNC")
         const users = db.collection("users");
         const user = await users.findOne({ email: email.toLowerCase() })
         if (!user) {

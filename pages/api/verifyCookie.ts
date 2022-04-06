@@ -6,7 +6,7 @@ export default async function verifyCookie(req, res) {
     const client = new MongoClient(uri);
     try {
         await client.connect();
-        const db = client.db("DNA");
+        const db = client.db("DNC");
         const collection = db.collection("users");
         const user = await collection.findOne({ email: email });
         if (user) {

@@ -27,7 +27,7 @@ const PageIntro = () => {
 						/>
 						<div className="container">
 							<div className="page-intro__slide__content">
-								<h2>DNA Nutrition </h2>
+								<h2>DNC Nutrition </h2>
 								<a href="/products/1" className="btn-shop">
 									<i className="icon-right"></i>Shop now
 								</a>
@@ -51,7 +51,7 @@ const PageIntro = () => {
 						/>
 						<div className="container">
 							<div className="page-intro__slide__content">
-								<h2>DNA Nutrition </h2>
+								<h2>DNC Nutrition </h2>
 								<a href="/products/1" className="btn-shop">
 									<i className="icon-right"></i>Shop now
 								</a>

@@ -54,10 +54,15 @@ const Header = ({ isErrorPage }) => {
 		<header className={`site-header ${!onTop ? "site-header--fixed" : ""}`}>
 			<div className="container">
 				<Link href="/">
-					<a>
+					<a
+						style={{
+							position: "absolute",
+							top: "0",
+							left: "0",
+						}}
+					>
 						<h1 className="site-logo">
 							<Logo />
-							DNA Nutrition
 						</h1>
 					</a>
 				</Link>

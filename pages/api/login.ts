@@ -13,7 +13,7 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
     //connect to database
     await client.connect();
     //get database
-    const db = client.db('DNA');
+    const db = client.db('DNC');
     //get collection
     const collection = db.collection('users');
     //search for user

@@ -11,7 +11,7 @@ export async function getServerSideProps(ctx) {
     const client = await MongoClient.connect(process.env.MONGO_URL);
     try {
         await client.connect();
-        const db = client.db("DNA");
+        const db = client.db("DNC");
         const users = db.collection("users");
         const user = await users.findOne({resetPassword: ctx.query.id});
         return {

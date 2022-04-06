@@ -14,7 +14,7 @@ export default async function getUserInfo(req:NextApiRequest, res: NextApiRespon
     const client = new MongoClient(uri)
     try {
         await client.connect()
-        const db = client.db('DNA')
+        const db = client.db('DNC')
         const collection = db.collection('users')
         const user = await collection.findOne({email: email.toLowerCase()})
         if (user) {
