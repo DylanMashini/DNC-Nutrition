@@ -25,6 +25,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         body: JSON.stringify({ tender: { label: "stripe" }, "ecomind": "ecom" })
     }).then(result => result.json()).then(result => {
         if (result.status != 'paid') {
+            console.log(JSON.stringify(result))
             console.log("NOT MARKED AS PAID IN CLOVER")
             console.log("CLOVER ORDER ID: " + orderID)
             console.log("STRIPE PAYMENT" + JSON.stringify(session))
