@@ -20,7 +20,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${process.env.CLOVER_OAUTH}`
+            'Authorization': `Bearer ${process.env.CLOVER_ECOMMERCE}`
         },
         body: JSON.stringify({ tender: { label: "stripe" }, "ecomind": "ecom" })
     }).then(result => result.json()).then(result => {
