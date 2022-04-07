@@ -5,6 +5,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         res.status(405).end()
         return
     }
+
     const stripeProds = [];
     const cloverProds = [];
     const metaItems = [];
@@ -61,13 +62,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         body: JSON.stringify({ orderCart: { lineItems: cloverProds } })
     })).json()
     const cloverOrderID = order.id
-    const taxPriceID = await stripe.prices.create({
-        unit_amount: (order.total - cost),
-        currency: 'usd',
-        product_data: { name: "GA State Tax", },
-    });
-    stripeProds.push({ price: taxPriceID.id, quantity: 1 })
-    //check if user exists
 
     try {
         // Create Checkout Sessions from body params.
