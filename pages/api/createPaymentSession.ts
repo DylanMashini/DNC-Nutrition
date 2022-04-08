@@ -62,6 +62,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         },
         body: JSON.stringify({ orderCart: { lineItems: cloverProds } })
     })).json()
+    if (!(order.id)) {
+        res.status(400).json({ error: "No id proprety on clover order object" })
+        return
+    }
     console.log(order);
     const cloverOrderID = order.id
 
