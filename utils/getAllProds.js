@@ -889,9 +889,9 @@ const run = (apiKey, merchantID, url) => {
 	}
 };
 run(
-	"f4e689f5-197b-3a25-9f99-0024da952d4f",
-	"ZX3HTEDW8YD01",
-	"https://sandbox.dev.clover.com"
+	"6df2d05b-0d13-900b-d245-db1367f4414b",
+	"DMF44Z2ZC6PTT",
+	"https://clover.com"
 );
-//prod: 5ff7477a-29f9-a092-9522-9478e036b9e8
+//prod: 6df2d05b-0d13-900b-d245-db1367f4414b
 //prod: DMF44Z2ZC6PTT
