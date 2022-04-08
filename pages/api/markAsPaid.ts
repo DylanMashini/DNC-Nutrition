@@ -63,7 +63,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 emailItems = emailItems.concat(`<li>${item.name} - ${item.qty} - ${String((item.price/100)*item.qty)}</li> \n`)
             }
             const msg = {
-            to: 'dylanmashini123@gmail.com', // Change to your recipient
+            to: 'discountnutritionatl@gmail.com', // Change to your recipient
             from: 'ecommerce@dylanmashini.com', // Change to your verified sender
             subject: 'Order from ecommerce',
             text: 'Order',
