@@ -57,10 +57,21 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             sgMail.setApiKey(process.env.SENDGRID_API_KEY)
             //create list of order items here
             const orderItems = JSON.parse(session.metadata.lineItems)
-            let emailItems = ``
+            let emailItems = `
+            <tr>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+            </tr>\n`
             for (let i = 0; i<orderItems.length; i++) {
                 const item = orderItems[i]
-                emailItems = emailItems.concat(`<li>${item.name} - ${item.qty} - ${String((item.price/100)*item.qty)}</li> \n`)
+                emailItems = emailItems.concat(`
+                <tr>
+                    <td>${item.name}</td>
+                    <td>${item.qty}</td>
+                    <td>${String((item.price/100)*item.qty)}</td>
+                </tr>\n
+                `)
             }
             const msg = {
             to: 'discountnutritionatl@gmail.com', // Change to your recipient
@@ -68,12 +79,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             subject: 'Order from ecommerce',
             text: 'Order',
             html: `
-            <h1>Got a order!!</h1>
+            <h1>Got a Order!</h1>
             <p>Clover Order ID: ${orderID}</p>
+            <p>Paid in stripe</p>
+            <br />
             <p>Order Items: </p>
-            <ul>
-            ${emailItems}
-            </ul>
+            <table>
+                ${emailItems}
+            </table>
             `,
             }
             sgMail.send(msg).then(() => {
