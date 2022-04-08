@@ -766,7 +766,7 @@ const APICall = async (offset, apiKey, merchantID, url) => {
 	};
 	return new Promise((resolve, reject) => {
 		fetch(
-			`${url}/v3/merchants/${merchantID}/items?limit=1000&offset=${offset}`,
+			`${url}/v3/merchants/${merchantID}/items?limit=1000&offset=${offset}&expand=itemStock`,
 			options
 		)
 			.then(res => res.json())
@@ -796,6 +796,9 @@ const run = (apiKey, merchantID, url) => {
 					const finalProdsNoImg = [];
 					allProds.forEach((prod, index) => {
 						//check if sku starts with 0, if so remove the 0
+						if (prod.sku.search("854397007902") != -1) {
+							console.log(prod);
+						}
 						if (prod.sku.charAt(0) === "0") {
 							prod["images"] = [
 								"/products/" + prod.sku.substring(1) + ".jpeg",
@@ -808,33 +811,41 @@ const run = (apiKey, merchantID, url) => {
 
 						prod["reviews"] = [];
 						prod["currentPrice"] = prod.price / 100;
-						if (prod.stockCount > 0) {
-							if (blacklist.includes(prod.sku)) {
-								//do nothing
-							} else {
-								if (prod.sku != "") {
-									if (
-										fs.existsSync(
-											"public" + prod["images"][0]
-										)
-									) {
-										//image exists
-										prod["dimensions"] = sizeOf(
-											"public" + prod["images"][0]
-										);
+						console.log(prod);
+						try {
+							if (prod.itemStock.quantity > 0) {
+								if (blacklist.includes(prod.sku)) {
+									//do nothing
+								} else {
+									if (prod.sku != "") {
+										if (
+											fs.existsSync(
+												"public" + prod["images"][0]
+											)
+										) {
+											//image exists
+											prod["dimensions"] = sizeOf(
+												"public" + prod["images"][0]
+											);
 
-										finalProds.push(prod);
-									} else {
-										prod["dimensions"] = sizeOf(
-											"public/products/noImage.jpeg"
-										);
-										prod["images"] = [
-											"/products/noImage.jpeg",
-										];
-										finalProdsNoImg.push(prod);
+											finalProds.push(prod);
+										} else {
+											prod["dimensions"] = sizeOf(
+												"public/products/noImage.jpeg"
+											);
+											prod["images"] = [
+												"/products/noImage.jpeg",
+											];
+											finalProdsNoImg.push(prod);
+										}
 									}
 								}
 							}
+						} catch {
+							console.log(
+								"could not read stock of product: \n" +
+									JSON.stringify(prod)
+							);
 						}
 					});
 					for (var i = 0; i < finalProds.length; i++) {
@@ -864,7 +875,7 @@ const run = (apiKey, merchantID, url) => {
 						finalProds.push(finalProdsNoImg[i]);
 					}
 
-					fetch("https://dna-nutrition.vercel.app/api/products")
+					fetch("https://www.dncnutrition.com/api/products")
 						.then(res => res.json)
 						.then(res => {
 							if (res == finalProds) {
