@@ -185,7 +185,7 @@ const CheckoutPage = () => {
 
 								<div className="checkout-total">
 									<p>Subtotal</p>
-									<h3>${priceTotal}</h3>
+									<h3>${priceTotal.toFixed(2)}</h3>
 								</div>
 								<div className="checkout-total">
 									<p>Tax</p>
