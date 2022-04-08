@@ -88,6 +88,15 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             <table>
                 ${emailItems}
             </table>
+            <br />
+            <p>Customer Phone Number: ${session["customer_details"]["phone"]}</p>
+            <p>Customer Email: ${session["customer_details"]["email"]}</p>
+            <p>Customer Name: ${session["customer_details"]["name"]}</p>
+            <p>Customer Address Line 1: ${session["customer_details"]["address"]["line1"]}</p>
+            ${session["customer_details"]["address"]["line2"] ? `<p>Customer Address Line 2: ${session["customer_details"]["address"]["line2"]}</p>` : ""}
+            <p>Customer City: ${session["customer_details"]["address"]["city"]}</p>
+            <p>Customer State: ${session["customer_details"]["address"]["state"]}</p>
+            <p>Customer Zip: ${session["customer_details"]["address"]["postal_code"]}</p>
             `,
             }
             sgMail.send(msg).then(() => {
