@@ -77,7 +77,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             const msg = {
             to: 'discountnutritionatl@gmail.com', // Change to your recipient
             from: 'ecommerce@dylanmashini.com', // Change to your verified sender
-            subject: 'Order from ecommerce',
+            subject: `Ecommerce Order ID:${orderID}`,
             text: 'Order',
             html: `
             <h1>Got a Order!</h1>
@@ -105,6 +105,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             .catch((error) => {
                 console.error(error)
             })
+
+            //send the confirmation email to the coustomer here
             
         }
     }).catch(err => {
