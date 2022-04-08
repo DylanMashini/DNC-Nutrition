@@ -288,17 +288,22 @@ h5 {
 	@include breakpoint(phone) {
 		font-size: 16px;
 	}
-	div {
-		// width: 38px;
-		// height: 28px;
-		fill: currentColor;
-		object-fit: contain;
-		margin-right: 0px;
-		@include breakpoint(phone) {
-			width: 45px;
-			height: 35px;
-		}
+	height:65px;
+	width: 208px;
+	@include breakpoint(phone) {
+		height: 100px;
 	}
+	// div {
+	// 	// width: 38px;
+	// 	// height: 28px;
+	// 	fill: currentColor;
+	// 	object-fit: contain;
+	// 	margin-right: 0px;
+	// 	@include breakpoint(phone) {
+	// 		width: 45px;
+	// 		height: 35px;
+	// 	}
+	// }
 }
 
 .breadcrumb {
