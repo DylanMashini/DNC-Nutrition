@@ -45,14 +45,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         }).catch(err => console.error(err));
         
         metaItems.push({name: product.name, price: price, qty: qty})
-        stripeProds.push({ price: priceID.id, quantity: qty, tax_rates:["txr_1KmKILFdiICzWvf0Kcu0b3T7"] })
+        stripeProds.push({ price: priceID.id, quantity: qty, tax_rates:[`${process.env.STRIPE_TAX_RATE}`] })
         for (let i = 0; i < qty; i++) {
             cloverProds.push({ item: { id: product.id }})
         }
         cost += price * qty
 
     }
-    stripeProds.push({price: "price_1KmKKbFdiICzWvf0QNw1MrPu", quantity: 1})
+    stripeProds.push({price: `${process.env.STRIPE_SHIPPING}`, quantity: 1})
    
     const order = await (await fetch(`https://api.clover.com/v3/merchants/${process.env.CLOVER_MERCHANT_ID}/atomic_order/orders`, {
         method: 'POST',
