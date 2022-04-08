@@ -52,6 +52,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         cost += price * qty
 
     }
+    stripeProds.push({price: "price_1KmIWrLurBbh9YzQm8f5IqST", quantity: 1})
    
     const order = await (await fetch(`${process.env.CLOVER_URL}/v3/merchants/${process.env.CLOVER_MERCHANT_ID}/atomic_order/orders`, {
         method: 'POST',

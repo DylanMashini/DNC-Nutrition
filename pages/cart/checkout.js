@@ -192,11 +192,16 @@ const CheckoutPage = () => {
 									<h3>{"$" + TaxTotal}</h3>
 								</div>
 								<div className="checkout-total">
+									<p>Shipping</p>
+									<h3>$6.99</h3>
+								</div>
+								<div className="checkout-total">
 									<p>Total</p>
 									<h3>
 										{"$" +
 											(
-												Number(priceTotal) * 1.089
+												Number(priceTotal) * 1.089 +
+												6.99
 											).toFixed(2)}
 									</h3>
 								</div>
