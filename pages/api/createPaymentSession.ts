@@ -78,6 +78,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             cancel_url: `${server}/?canceled=true`,
             metadata: { cloverID: cloverOrderID, lineItems: JSON.stringify(metaItems) },
             shipping_address_collection: { allowed_countries: ['US'] },
+            phone_number_collection: {enabled: true}
         }
         if (id) {
             sessionOptions["customer"] = id
