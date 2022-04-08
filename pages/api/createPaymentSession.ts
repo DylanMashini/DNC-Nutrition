@@ -54,16 +54,15 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
     stripeProds.push({price: "price_1KmKKbFdiICzWvf0QNw1MrPu", quantity: 1})
    
-    const order = await (await fetch(`${process.env.CLOVER_URL}/v3/merchants/${process.env.CLOVER_MERCHANT_ID}/atomic_order/orders`, {
+    const order = await (await fetch(`https://api.clover.com/v3/merchants/${process.env.CLOVER_MERCHANT_ID}/atomic_order/orders`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${process.env.CLOVER_TOKEN}`
         },
         body: JSON.stringify({ orderCart: { lineItems: cloverProds } })
-    })).json().catch((err) => {
-        console.error(err)
-    })
+    })).json()
+    console.log(order);
     const cloverOrderID = order.id
 
     try {
