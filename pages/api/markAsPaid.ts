@@ -53,6 +53,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             
             
         } else {
+            console.log(session)
             const sgMail = require('@sendgrid/mail')
             sgMail.setApiKey(process.env.SENDGRID_API_KEY)
             //create list of order items here
