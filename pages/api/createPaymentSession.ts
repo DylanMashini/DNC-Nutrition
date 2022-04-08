@@ -61,7 +61,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             'Authorization': `Bearer ${process.env.CLOVER_TOKEN}`
         },
         body: JSON.stringify({ orderCart: { lineItems: cloverProds } })
-    })).json()
+    })).json().catch((err) => {
+        console.error(err)
+    })
     const cloverOrderID = order.id
 
     try {
