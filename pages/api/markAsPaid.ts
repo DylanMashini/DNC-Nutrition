@@ -16,7 +16,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const fulfillOrder = (session) => {
         const orderID = session.metadata.cloverID
         const address = session.shipping
-        fetch(`https://clover.com/v1/orders/${orderID}/pay`, {
+        fetch(`https://scl.clover.com/v1/orders/${orderID}/pay`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
