@@ -814,7 +814,10 @@ const run = (apiKey, merchantID, url) => {
 						console.log(prod);
 						try {
 							if (prod.itemStock.quantity > 0) {
-								if (blacklist.includes(prod.sku)) {
+								if (
+									blacklist.includes(prod.sku) ||
+									prod.price < 500
+								) {
 									//do nothing
 								} else {
 									if (prod.sku != "") {
