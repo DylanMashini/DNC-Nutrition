@@ -8,6 +8,8 @@ export const config = {
   },
 };
 
+const sgMail = require('@sendgrid/mail')
+sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method != 'POST') {
         res.status(405).end()
@@ -54,24 +56,27 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             
         } else {
             console.log(session)
-            const sgMail = require('@sendgrid/mail')
-            sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+
             //create list of order items here
             const orderItems = JSON.parse(session.metadata.lineItems)
-            let emailItems = `
-            <tr>
-                <th>Name</th>
-                <th>Quantity</th>
-                <th>Price</th>
-            </tr>\n`
+            let emailItems = ``
             for (let i = 0; i<orderItems.length; i++) {
                 const item = orderItems[i]
                 emailItems = emailItems.concat(`
-                <tr>
-                    <td>${item.name}</td>
-                    <td>${item.qty}</td>
-                    <td>${String((item.price/100)*item.qty)}</td>
-                </tr>\n
+                <li>
+                    <div
+                        style=" width: 30em; border-style:solid; margin-top: 2em;">
+                        <div style="text-align:center;">
+                            <img src="https://www.dncnutrition.com/products/${
+								item.sku
+							}.jpeg" width="200px">
+                        </div>
+                        <div style="text-align:center;">
+                            <h3>${String(item.qty)}x ${item.name}</h3>
+                            <h4>$${item.price}</h4>
+                        </div>
+                    </div>
+                </li>\n
                 `)
             }
             const msg = {
@@ -85,9 +90,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             <p>Paid in stripe</p>
             <br />
             <p>Order Items: </p>
-            <table>
+            <ul style="list-style-type: none;">
                 ${emailItems}
-            </table>
+            </ul>
             <br />
             <p>Customer Phone Number: ${session["customer_details"]["phone"]}</p>
             <p>Customer Email: ${session["customer_details"]["email"]}</p>
@@ -110,7 +115,24 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             
         }
     }).catch(err => {
-        console.error(err);
+        //send simple email
+        const msg2 = {
+        to: 'dylanmashini123@gmail.com',
+        from: 'ecommerce@dylanmashini.com',
+        subject: 'Error in sending email',
+        text: 'error sending email',
+        html: `
+        <h1>Error sending email</h1>
+        ${orderID ? `<p>Clover Order ID: ${orderID}</p>` : "<p>Clover Order ID evaluated to false</p>"}
+        ${session ? `<p>Stripe Payment: ${JSON.stringify(session)}</p>` : "<p>Stripe Payment Session evaluated to false</p>"}
+        `
+        }
+        sgMail.send().then(() => {
+            console.error(err);
+            res.status(400).end()
+            return
+        })
+        
     })
     
     }

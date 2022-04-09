@@ -44,7 +44,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             product_data: { name: name, },
         }).catch(err => console.error(err));
         
-        metaItems.push({name: product.name, price: price, qty: qty})
+        metaItems.push({name: product.name, price: price, qty: qty, sku: product.sku})
         stripeProds.push({ price: priceID.id, quantity: qty, tax_rates:[`${process.env.STRIPE_TAX_RATE}`] })
         for (let i = 0; i < qty; i++) {
             cloverProds.push({ item: { id: product.id }})
