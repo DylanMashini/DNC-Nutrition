@@ -27,11 +27,8 @@ export async function getStaticProps() {
 	});
 }
 
-//change env vars
-//change things in markAsPaid + createPaymentSession
-//change things in getProds
 
 //wrong images
 //curamin extra strength √
-//
+
 
