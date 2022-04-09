@@ -842,6 +842,19 @@ const run = (apiKey, merchantID, url) => {
 											finalProdsNoImg.push(prod);
 										}
 									}
+									const descriptions = JSON.parse(
+										fs.readFileSync("descriptions.json")
+									);
+									const description = descriptions.find(
+										description =>
+											description.sku == prod.sku
+									);
+									if (description) {
+										prod["description"] =
+											description.description;
+									} else {
+										prod["description"] = "";
+									}
 								}
 							}
 						} catch {

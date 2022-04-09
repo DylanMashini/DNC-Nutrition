@@ -27,7 +27,6 @@ export async function getStaticProps({ params }) {
 
 const Product = ({ product }) => {
 	const [showBlock, setShowBlock] = useState("description");
-
 	return (
 		<Layout title={product.name}>
 			<Breadcrumb />
@@ -39,7 +38,15 @@ const Product = ({ product }) => {
 						<Content product={product} />
 					</div>
 
-					<div className="product-single__info"></div>
+					<div className="product-single__info">
+						<p
+							style={{
+								color: "black",
+							}}
+						>
+							{product.description}
+						</p>
+					</div>
 				</div>
 			</section>
 

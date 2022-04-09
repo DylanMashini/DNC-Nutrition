@@ -30,7 +30,7 @@ export async function getServerSideProps(context) {
 					if (
 						datapoint.name
 							.toLowerCase()
-							.search(context.query.query) != -1
+							.search(context.query.query.toLowerCase()) != -1
 					) {
 						list.push(datapoint);
 					}
