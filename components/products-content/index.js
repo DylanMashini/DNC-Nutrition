@@ -7,9 +7,7 @@ const ProductsContent = ({ page, data }) => {
 		return (
 			<section className="products-content">
 				<div className="products-content__intro">
-					<h2>
-						All Suplements <span>(133)</span>
-					</h2>
+					<h2>All Supplements</h2>
 					<button
 						type="button"
 						onClick={() => setOrderProductsOpen(!orderProductsOpen)}
@@ -50,7 +48,7 @@ const ProductsContent = ({ page, data }) => {
 	return (
 		<section className="products-content">
 			<div className="products-content__intro">
-				<h2>All Suplements</h2>
+				<h2>All Supplements</h2>
 				<button
 					type="button"
 					onClick={() => setOrderProductsOpen(!orderProductsOpen)}
