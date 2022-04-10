@@ -9,15 +9,6 @@ import "swiper/swiper.scss";
 import "rc-slider/assets/index.css";
 import "react-rater/lib/react-rater.css";
 import "../assets/css/styles.scss";
-// <!-- Global site tag (gtag.js) - Google Analytics -->
-// <script async src="https://www.googletagmanager.com/gtag/js?id=G-3QYSYY399Z"></script>
-// <script>
-//   window.dataLayer = window.dataLayer || [];
-//   function gtag(){dataLayer.push(arguments);}
-//   gtag('js', new Date());
-
-//   gtag('config', 'G-3QYSYY399Z');
-// </script>
 
 const isProduction = process.env.NODE_ENV === "production";
 
@@ -38,7 +29,7 @@ const MyApp = ({ Component, pageProps }) => (
 							"https://www.googletagmanager.com/gtag/js?id=G-3QYSYY399Z"
 						}
 					/>
-					<Script strategy="lazyOnload">
+					<Script strategy="lazyOnload" id="gtag-script-2">
 						{`window.dataLayer = window.dataLayer || [];
 						function gtag(){dataLayer.push(arguments);}
 						gtag('js', new Date());
