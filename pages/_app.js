@@ -2,7 +2,8 @@ import React, { Fragment } from "react";
 import Router from "next/router";
 import { wrapper } from "../store";
 import { CookiesProvider } from "react-cookie";
-
+import Head from "next/head";
+import Script from "next/script";
 // global styles
 import "swiper/swiper.scss";
 import "rc-slider/assets/index.css";
@@ -22,15 +23,15 @@ const MyApp = ({ Component, pageProps }) => (
 		<Fragment>
 			{isProduction ? (
 				<Head>
-					<script
+					<Script
 						async
 						src="https://www.googletagmanager.com/gtag/js?id=G-3QYSYY399Z"
-					></script>
-					<script>
+					></Script>
+					<Script>
 						window.dataLayer = window.dataLayer || []; function
 						gtag(){dataLayer.push(arguments)}
 						gtag('js', new Date()); gtag('config', 'G-3QYSYY399Z');
-					</script>
+					</Script>
 				</Head>
 			) : null}
 			<Component {...pageProps} />
