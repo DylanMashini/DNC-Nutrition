@@ -19,8 +19,8 @@ jobs:
               with:
                   node-version: ${{ matrix.node-version }}
                   cache: "npm"
-            - run: npm install
-            - run: npm i jquery-csv
+            - run: yarn install
+            - run: yarn add jquery-csv
             - run: node utils/getAllProds.js
             - run: git config --global user.email "dylanmashini123@gmail.com"
             - run: git config --global user.name "Inventory Bot"
