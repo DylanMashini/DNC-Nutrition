@@ -890,7 +890,9 @@ const run = (apiKey, merchantID, url) => {
 					for (var i = 0; i < finalProdsNoImg.length; i++) {
 						finalProds.push(finalProdsNoImg[i]);
 					}
-
+					finalProds.forEach((prod, index) => {
+						finalProds[index]["category"] = [];
+					});
 					fetch("https://www.dncnutrition.com/api/products")
 						.then(res => res.json)
 						.then(res => {
