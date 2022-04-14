@@ -78,6 +78,26 @@ const Footer = () => {
 							</li>
 						</ul> */}
 						<ul>
+							<li>Our Locations</li>
+							<li>
+								<a
+									href="https://g.page/discount-nutrition-atlanta?share"
+									target="_blank"
+								>
+									1544 Piedmont Rd NE Ste 318, Atlanta, GA
+									30324
+								</a>
+							</li>
+							<li>
+								<a
+									href="https://goo.gl/maps/LS2ncnDdjoeD2MdH8"
+									target="_blank"
+								>
+									3345 Cobb Pkwy NW #600, Acworth, GA 30101
+								</a>
+							</li>
+						</ul>
+						<ul>
 							<li>Contact</li>
 							<li>
 								<a href="mailto:discountnutritionatl@gmail.com">
