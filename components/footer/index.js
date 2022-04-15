@@ -83,6 +83,7 @@ const Footer = () => {
 								<a
 									href="https://g.page/discount-nutrition-atlanta?share"
 									target="_blank"
+									rel="noreferrer"
 								>
 									1544 Piedmont Rd NE Ste 318, Atlanta, GA
 									30324
