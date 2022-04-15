@@ -93,6 +93,7 @@ const Footer = () => {
 								<a
 									href="https://goo.gl/maps/LS2ncnDdjoeD2MdH8"
 									target="_blank"
+									rel="noreferrer"
 								>
 									3345 Cobb Pkwy NW #600, Acworth, GA 30101
 								</a>
