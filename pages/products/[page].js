@@ -8,7 +8,7 @@ import { Pagination } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 import Head from "next/head";
 
-const Products = ({ data, pagenum, totalPages }) => {
+const Products = ({ data, pagenum, totalPages, category = "All" }) => {
 	const router = useRouter();
 	useEffect(() => {
 		router.prefetch("/products/" + (pagenum + 1));
@@ -19,7 +19,11 @@ const Products = ({ data, pagenum, totalPages }) => {
 			<Breadcrumb />
 			<section className="products-page">
 				<div className="container">
-					<ProductsContent data={data} />
+					<ProductsContent
+						data={data}
+						page={pagenum}
+						category={category}
+					/>
 				</div>
 			</section>
 			{pagenum ? (

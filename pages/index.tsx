@@ -1,6 +1,6 @@
-import Products from "./products/[page].js";
-export default function Home({data, totalPages}) {
-    return <Products pagenum={1} data={data} totalPages={totalPages}/>;
+import Products from "./products/[page]";
+export default function Home({ data, totalPages }) {
+	return <Products pagenum={1} data={data} totalPages={totalPages} />;
 }
 
 export async function getStaticProps() {
@@ -27,8 +27,5 @@ export async function getStaticProps() {
 	});
 }
 
-
 //wrong images
 //curamin extra strength √
-
-
