@@ -756,7 +756,7 @@ const fs = require("fs");
 const { default: next } = require("next");
 var csv = require("jquery-csv");
 const sizeOf = require("image-size");
-
+const categories = [];
 const APICall = async (offset, apiKey, merchantID, url) => {
 	const options = {
 		method: "GET",
@@ -892,6 +892,9 @@ const run = (apiKey, merchantID, url) => {
 							finalProds[index]["categories"] = prod[
 								"categories"
 							]["elements"].map((cat, index) => {
+								if (!categories.includes(cat.name)) {
+									categories.push(cat.name);
+								}
 								return cat["name"];
 							});
 						} else {
@@ -909,6 +912,15 @@ const run = (apiKey, merchantID, url) => {
 					fs.writeFile(
 						"prods.json",
 						JSON.stringify(finalProds),
+						err => {
+							if (err) {
+								console.error(err);
+							}
+						}
+					);
+					fs.writeFile(
+						"categories.json",
+						JSON.stringify(categories),
 						err => {
 							if (err) {
 								console.error(err);
