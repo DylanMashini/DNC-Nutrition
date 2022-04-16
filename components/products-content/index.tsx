@@ -8,7 +8,6 @@ const ProductsContent = ({ page, data, category = "All" }) => {
 	const categories = Categories.map(cat => {
 		return <option>{cat}</option>;
 	});
-	const [renderedData, setRenderedData] = useState(data);
 	// const [filter, setFilter] = useState<String | Boolean>(false);
 	if (data != null) {
 		return (
@@ -50,8 +49,8 @@ const ProductsContent = ({ page, data, category = "All" }) => {
 						</div>
 					</form>
 				</div>
-
-				<List data={data} page={page} />
+				{/* @ts-ignore */}
+				<List data={data} />
 
 				{/* Add Page Switcher here */}
 			</section>
@@ -91,8 +90,8 @@ const ProductsContent = ({ page, data, category = "All" }) => {
 					</div>
 				</form>
 			</div>
-
-			<List page={page} data={renderedData} />
+			{/* @ts-ignore */}
+			<List page={page} />
 
 			{/* Add Page Switcher here */}
 		</section>
