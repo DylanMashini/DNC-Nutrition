@@ -889,7 +889,6 @@ const run = (apiKey, merchantID, url) => {
 					}
 					finalProds.forEach((prod, index) => {
 						if (prod["categories"]["elements"].length >= 1) {
-							console.log(prod["categories"]["elements"]);
 							finalProds[index]["categories"] = prod[
 								"categories"
 							]["elements"].map((cat, index) => {
