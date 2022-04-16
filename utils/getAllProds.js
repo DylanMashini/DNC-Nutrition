@@ -766,7 +766,7 @@ const APICall = async (offset, apiKey, merchantID, url) => {
 	};
 	return new Promise((resolve, reject) => {
 		fetch(
-			`${url}/v3/merchants/${merchantID}/items?limit=1000&offset=${offset}&expand=itemStock`,
+			`${url}/v3/merchants/${merchantID}/items?limit=1000&offset=${offset}&expand=categories%2CitemStock`,
 			options
 		)
 			.then(res => res.json())
@@ -796,9 +796,6 @@ const run = (apiKey, merchantID, url) => {
 					const finalProdsNoImg = [];
 					allProds.forEach((prod, index) => {
 						//check if sku starts with 0, if so remove the 0
-						if (prod.sku.search("854397007902") != -1) {
-							console.log(prod);
-						}
 						if (prod.sku.charAt(0) === "0") {
 							prod["images"] = [
 								"/products/" + prod.sku.substring(1) + ".jpeg",
@@ -811,7 +808,7 @@ const run = (apiKey, merchantID, url) => {
 
 						prod["reviews"] = [];
 						prod["currentPrice"] = prod.price / 100;
-						console.log(prod);
+
 						try {
 							if (prod.itemStock.quantity > 0) {
 								if (
@@ -891,7 +888,16 @@ const run = (apiKey, merchantID, url) => {
 						finalProds.push(finalProdsNoImg[i]);
 					}
 					finalProds.forEach((prod, index) => {
-						finalProds[index]["category"] = [];
+						if (prod["categories"]["elements"].length >= 1) {
+							console.log(prod["categories"]["elements"]);
+							finalProds[index]["categories"] = prod[
+								"categories"
+							]["elements"].map((cat, index) => {
+								return cat["name"];
+							});
+						} else {
+							finalProds[index]["categories"] = [];
+						}
 					});
 					fetch("https://www.dncnutrition.com/api/products")
 						.then(res => res.json)
