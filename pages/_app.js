@@ -3,44 +3,49 @@ import Router from "next/router";
 import { wrapper } from "../store";
 import { CookiesProvider } from "react-cookie";
 import Script from "next/script";
-
+import { useEffect } from "react";
 // global styles
 import "swiper/swiper.scss";
 import "rc-slider/assets/index.css";
 import "react-rater/lib/react-rater.css";
 import "../assets/css/styles.scss";
 
-const isProduction = process.env.NODE_ENV === "production";
-
 // only events on production
-if (isProduction) {
-	// Notice how we track pageview when route is changed
-	Router.events.on("routeChangeComplete", url => gtag.pageview(url));
-}
 
-const MyApp = ({ Component, pageProps }) => (
-	<CookiesProvider>
-		<Fragment>
-			{isProduction ? (
-				<>
-					<Script
-						strategy="lazyOnload"
-						src={
-							"https://www.googletagmanager.com/gtag/js?id=G-3QYSYY399Z"
-						}
-					/>
-					<Script strategy="lazyOnload" id="gtag-script-2">
-						{`window.dataLayer = window.dataLayer || [];
+const MyApp = ({ Component, pageProps }) => {
+	const isProduction = process.env.NODE_ENV === "production";
+	useEffect(() => {
+		if (isProduction && typeof gtag.pageview !== "undefined") {
+			console.log(typeof gtag.pageview);
+			// Notice how we track pageview when route is changed
+			Router.events.on("routeChangeComplete", url => gtag.pageview(url));
+		}
+	});
+
+	return (
+		<CookiesProvider>
+			<Fragment>
+				{isProduction ? (
+					<>
+						<Script
+							strategy="lazyOnload"
+							src={
+								"https://www.googletagmanager.com/gtag/js?id=G-3QYSYY399Z"
+							}
+						/>
+						<Script strategy="lazyOnload" id="gtag-script-2">
+							{`window.dataLayer = window.dataLayer || [];
 						function gtag(){dataLayer.push(arguments);}
 						gtag('js', new Date());
 
 						gtag('config', 'G-3QYSYY399Z');`}
-					</Script>
-				</>
-			) : null}
-			<Component {...pageProps} />
-		</Fragment>
-	</CookiesProvider>
-);
+						</Script>
+					</>
+				) : null}
+				<Component {...pageProps} />
+			</Fragment>
+		</CookiesProvider>
+	);
+};
 
 export default wrapper.withRedux(MyApp);

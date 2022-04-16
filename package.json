@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "export": "next build && next export"
+    "export": "next build && next export",
+    "cypress": "cypress open"
   },
   "keywords": [
     "react",
@@ -26,6 +27,7 @@
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
     "cookie": "^0.4.2",
+    "cypress": "^9.5.4",
     "gray-matter": "^4.0.3",
     "image-size": "^1.0.1",
     "lodash": "^4.17.21",
