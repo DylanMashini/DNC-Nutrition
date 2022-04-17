@@ -7,7 +7,6 @@
     "build": "next build",
     "start": "next start",
     "export": "next build && next export",
-    "test": "next build && (next start & cypress run --record -k 6baa811f-9969-4735-874d-be61d857df63)",
     "cypress": "cypress open"
   },
   "keywords": [
