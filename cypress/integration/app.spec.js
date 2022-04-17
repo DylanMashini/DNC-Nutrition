@@ -71,47 +71,59 @@ describe("Search", () => {
 });
 
 describe("Products and Cart", () => {
-	it("should select the first and second products and add it to the cart", () => {
-		cy.visit("http://localhost:3000");
-		cy.get(
-			"#__next > div > main > section.products-page > div > section > section > div:nth-child(1) > div.product__image > a > span > img"
-		).click();
-		cy.get(
-			"#__next > div > main > section.product-single > div > div.product-single__content > section.product-content > div.product-content__filters > div:nth-child(3) > div > button"
-		).click();
-		cy.get(
-			"#__next > div > header > div > div > button.btn-cart > span"
-		).contains("1");
-		cy.get("#clickable").click();
-		cy.get(
-			"#__next > div > main > section.products-page > div > section > section > div:nth-child(2) > div.product__image > a > span > img"
-		).click();
-		cy.get(
-			"#__next > div > main > section.product-single > div > div.product-single__content > section.product-content > div.product-content__filters > div:nth-child(3) > div > button"
-		).click();
-		cy.get("#__next > div > header > div > div > button.btn-cart > span")
-			.contains("2")
-			.end();
-	});
-	it("should add two units of the third item to the cart", () => {
-		cy.visit("http://localhost:3000");
-		cy.get(
-			"#__next > div > main > section.products-page > div > section > section > div:nth-child(3) > div.product__image > a > span > img"
-		).click();
-		//clicks plus button 3 times
-		cy.get(
-			"#__next > div > main > section.product-single > div > div.product-single__content > section.product-content > div.product-content__filters > div:nth-child(3) > div > div > button:nth-child(3)"
-		).click();
-		//add product to cart
-		cy.get(
-			"#__next > div > main > section.product-single > div > div.product-single__content > section.product-content > div.product-content__filters > div:nth-child(3) > div > button"
-		).click();
-		//clicks on cart
-		cy.get("#__next > div > header > div > div > button.btn-cart").click();
-		cy.get(
-			"#__next > div > main > section > div > div.cart-list > table > tbody > tr:nth-child(2) > td:nth-child(4) > div > span"
-		).should("contain", "2");
-	});
+	it(
+		"should add first and second products and add it to the cart",
+		{ retries: 3 },
+		() => {
+			cy.visit("http://localhost:3000");
+			cy.get(
+				"#__next > div > main > section.products-page > div > section > section > div:nth-child(1) > div.product__image > a > span > img"
+			).click();
+			cy.get(
+				"#__next > div > main > section.product-single > div > div.product-single__content > section.product-content > div.product-content__filters > div:nth-child(3) > div > button"
+			).click();
+			cy.get(
+				"#__next > div > header > div > div > button.btn-cart > span"
+			).contains("1");
+			cy.get("#clickable").click();
+			cy.get(
+				"#__next > div > main > section.products-page > div > section > section > div:nth-child(2) > div.product__image > a > span > img"
+			).click();
+			cy.get(
+				"#__next > div > main > section.product-single > div > div.product-single__content > section.product-content > div.product-content__filters > div:nth-child(3) > div > button"
+			).click();
+			cy.get(
+				"#__next > div > header > div > div > button.btn-cart > span"
+			)
+				.contains("2")
+				.end();
+		}
+	);
+	it(
+		"should add two units of the third item to the cart",
+		{ retries: 3 },
+		() => {
+			cy.visit("http://localhost:3000");
+			cy.get(
+				"#__next > div > main > section.products-page > div > section > section > div:nth-child(3) > div.product__image > a > span > img"
+			).click();
+			//clicks plus button 3 times
+			cy.get(
+				"#__next > div > main > section.product-single > div > div.product-single__content > section.product-content > div.product-content__filters > div:nth-child(3) > div > div > button:nth-child(3)"
+			).click();
+			//add product to cart
+			cy.get(
+				"#__next > div > main > section.product-single > div > div.product-single__content > section.product-content > div.product-content__filters > div:nth-child(3) > div > button"
+			).click();
+			//clicks on cart
+			cy.get(
+				"#__next > div > header > div > div > button.btn-cart"
+			).click();
+			cy.get(
+				"#__next > div > main > section > div > div.cart-list > table > tbody > tr:nth-child(2) > td:nth-child(4) > div > span"
+			).should("contain", "2");
+		}
+	);
 });
 
 describe("payment", () => {
