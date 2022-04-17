@@ -17,6 +17,7 @@ const Subscribe = () => {
 					className="subscribe__content"
 				>
 					<Image
+						alt=""
 						src="/images/subscribe.jpg"
 						layout="fill"
 						objectFit="cover"

@@ -14,7 +14,12 @@ const Logo = () => {
 			}}
 		>
 			{/* <Image width={348} height={100} src={"/dnc-logo.png"} /> */}
-			<Image layout="fill" objectFit="scale-down" src={"/dnc-logo.png"} />
+			<Image
+				alt="Discount Nutrition Logo"
+				layout="fill"
+				objectFit="scale-down"
+				src={"/dnc-logo.png"}
+			/>
 		</div>
 	);
 };
