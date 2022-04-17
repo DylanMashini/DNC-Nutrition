@@ -8,9 +8,9 @@ jobs:
         steps:
             - name: Create env file
               run: |
-                  touch .env.local
-                  echo ${{ secrets.ENV }} >> .env.local
-                  cat .env.local
+                  touch .env
+                  echo ${{ secrets.ENV }} >> .env
+                  cat .env
             - name: Checkout
               uses: actions/checkout@v2
             # Install NPM dependencies, cache them correctly
