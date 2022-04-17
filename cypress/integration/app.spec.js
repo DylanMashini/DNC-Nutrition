@@ -96,7 +96,7 @@ describe("Products and Cart", () => {
 	it("should add four units of the third item to the cart", () => {
 		cy.visit("http://localhost:3000");
 		cy.get(
-			"#__next > div > main > section.products-page > div > section > section > div:nth-child(3) > div.product__image > a > span > img"
+			"#__next > div > main > section.products-page > div > section > section > div:nth-child(3)"
 		).click();
 		//clicks plus button 3 times
 		cy.get(
