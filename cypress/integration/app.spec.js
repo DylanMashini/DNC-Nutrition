@@ -78,20 +78,20 @@ describe("Products and Cart", () => {
 			cy.visit("http://localhost:3000");
 			cy.get(
 				"#__next > div > main > section.products-page > div > section > section > div:nth-child(1) > div.product__image > a > span > img"
-			).click();
+			).click({ force: true });
 			cy.get(
 				"#__next > div > main > section.product-single > div > div.product-single__content > section.product-content > div.product-content__filters > div:nth-child(3) > div > button"
-			).click();
+			).click({ force: true });
 			cy.get(
 				"#__next > div > header > div > div > button.btn-cart > span"
 			).contains("1");
-			cy.get("#clickable").click();
+			cy.get("#clickable").click({ force: true });
 			cy.get(
 				"#__next > div > main > section.products-page > div > section > section > div:nth-child(2) > div.product__image > a > span > img"
-			).click();
+			).click({ force: true });
 			cy.get(
 				"#__next > div > main > section.product-single > div > div.product-single__content > section.product-content > div.product-content__filters > div:nth-child(3) > div > button"
-			).click();
+			).click({ force: true });
 			cy.get(
 				"#__next > div > header > div > div > button.btn-cart > span"
 			)
@@ -106,19 +106,19 @@ describe("Products and Cart", () => {
 			cy.visit("http://localhost:3000");
 			cy.get(
 				"#__next > div > main > section.products-page > div > section > section > div:nth-child(3) > div.product__image > a > span > img"
-			).click();
+			).click({ force: true });
 			//clicks plus button 3 times
 			cy.get(
 				"#__next > div > main > section.product-single > div > div.product-single__content > section.product-content > div.product-content__filters > div:nth-child(3) > div > div > button:nth-child(3)"
-			).click();
+			).click({ force: true });
 			//add product to cart
 			cy.get(
 				"#__next > div > main > section.product-single > div > div.product-single__content > section.product-content > div.product-content__filters > div:nth-child(3) > div > button"
-			).click();
+			).click({ force: true });
 			//clicks on cart
 			cy.get(
 				"#__next > div > header > div > div > button.btn-cart"
-			).click();
+			).click({ force: true });
 			cy.get(
 				"#__next > div > main > section > div > div.cart-list > table > tbody > tr:nth-child(2) > td:nth-child(4) > div > span"
 			).should("contain", "2");
