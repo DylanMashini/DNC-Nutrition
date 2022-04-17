@@ -1,3 +1,5 @@
+const { get } = require("lodash");
+
 describe("Pagination", () => {
 	it("should navigate to pages 2-5", () => {
 		cy.visit("http://localhost:3000/");
@@ -68,8 +70,8 @@ describe("Search", () => {
 	});
 });
 
-describe("Product Page", () => {
-	it("should select the first product and add it to the cart", () => {
+describe("Products and Cart", () => {
+	it("should select the first and second products and add it to the cart", () => {
 		cy.visit("http://localhost:3000");
 		cy.get(
 			"#__next > div > main > section.products-page > div > section > section > div:nth-child(1) > div.product__image > a > span > img"
@@ -79,6 +81,57 @@ describe("Product Page", () => {
 		).click();
 		cy.get(
 			"#__next > div > header > div > div > button.btn-cart > span"
-		).should("be.visible");
+		).contains("1");
+		cy.get("#clickable").click();
+		cy.get(
+			"#__next > div > main > section.products-page > div > section > section > div:nth-child(2) > div.product__image > a > span > img"
+		).click();
+		cy.get(
+			"#__next > div > main > section.product-single > div > div.product-single__content > section.product-content > div.product-content__filters > div:nth-child(3) > div > button"
+		).click();
+		cy.get("#__next > div > header > div > div > button.btn-cart > span")
+			.contains("2")
+			.end();
+	});
+	it("should add four units of the third item to the cart", () => {
+		cy.visit("http://localhost:3000");
+		cy.get(
+			"#__next > div > main > section.products-page > div > section > section > div:nth-child(3) > div.product__image > a > span > img"
+		).click();
+		//clicks plus button 3 times
+		cy.get(
+			"#__next > div > main > section.product-single > div > div.product-single__content > section.product-content > div.product-content__filters > div:nth-child(3) > div > div > button:nth-child(3)"
+		)
+			.click()
+			.click()
+			.click();
+		//add product to cart
+		cy.get(
+			"#__next > div > main > section.product-single > div > div.product-single__content > section.product-content > div.product-content__filters > div:nth-child(3) > div > button"
+		).click();
+		//clicks on cart
+		cy.get("#__next > div > header > div > div > button.btn-cart").click();
+		cy.get(
+			"#__next > div > main > section > div > div.cart-list > table > tbody > tr:nth-child(2) > td:nth-child(4) > div > span"
+		).should("contain", "4");
+	});
+});
+
+describe("payment", () => {
+	it("should create a new payment session", () => {
+		cy.request({
+			url: "http://localhost:3000/api/createPaymentSession",
+			method: "POST",
+			body: [
+				{ id: "DD0KS8YRENHQE", count: 2 },
+				{ id: "0WZEJ8FA73P8R", count: 1 },
+			],
+			headers: {
+				contentType: "application/json",
+			},
+		})
+			.its("body")
+			.its("url")
+			.should("include", "checkout.stripe.com");
 	});
 });
