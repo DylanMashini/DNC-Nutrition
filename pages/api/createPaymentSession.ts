@@ -78,6 +78,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 		)
 	).json();
 	if (!order.id) {
+		console.log(order);
 		res.status(400).json({
 			error: "No id proprety on clover order object",
 		});
