@@ -8,9 +8,9 @@ jobs:
         steps:
             - name: Create env file
               run: |
-                  touch .env
-                  echo ${{ secrets.ENV }} >> .env
-                  cat .env
+                  touch .env.production
+                  echo ${{ secrets.ENV }} >> .env.production
+                  cat .env.production
             - name: Checkout
               uses: actions/checkout@v2
             # Install NPM dependencies, cache them correctly
@@ -23,3 +23,4 @@ jobs:
                   record: true
               env:
                   CYPRESS_RECORD_KEY: 6baa811f-9969-4735-874d-be61d857df63
+                  {{secrets.}}
