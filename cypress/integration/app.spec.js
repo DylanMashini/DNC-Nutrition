@@ -96,7 +96,7 @@ describe("Products and Cart", () => {
 	it("should add two units of the third item to the cart", () => {
 		cy.visit("http://localhost:3000");
 		cy.get(
-			"#__next > div > main > section.products-page > div > section > section > div:nth-child(3)"
+			"#__next > div > main > section.products-page > div > section > section > div:nth-child(3) > div.product__image > a > span > img"
 		).click();
 		//clicks plus button 3 times
 		cy.get(
@@ -110,7 +110,7 @@ describe("Products and Cart", () => {
 		cy.get("#__next > div > header > div > div > button.btn-cart").click();
 		cy.get(
 			"#__next > div > main > section > div > div.cart-list > table > tbody > tr:nth-child(2) > td:nth-child(4) > div > span"
-		).should("contain", "4");
+		).should("contain", "2");
 	});
 });
 
