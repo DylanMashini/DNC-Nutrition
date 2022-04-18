@@ -65,20 +65,20 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 					for (let i = 0; i < orderItems.length; i++) {
 						const item = orderItems[i];
 						emailItems = emailItems.concat(`
-                <li>
-                    <div
-                        style=" width: 30em; border-style:solid; margin-top: 2em;">
-                        <div style="text-align:center;">
-                            <img src="https://www.dncnutrition.com/products/${
-								item.sku
-							}.jpeg" width="200px">
-                        </div>
-                        <div style="text-align:center;">
-                            <h3>${String(item.qty)}x ${item.name}</h3>
-                            <h4>$${item.price}</h4>
-                        </div>
-                    </div>
-                </li>\n
+                        <li>
+                            <div
+                                style=" width: 30em; border-style:solid; margin-top: 2em;">
+                                <div style="text-align:center;">
+                                    <img src="https://www.dncnutrition.com/products/${
+										item.sku
+									}.jpeg" width="200px">
+                                </div>
+                                <div style="text-align:center;">
+                                    <h3>${String(item.qty)}x ${item.name}</h3>
+                                    <h4>$${(item.price / 100).toFixed(2)}</h4>
+                                </div>
+                            </div>
+                        </li>\n
                 `);
 					}
 					const msg = {
