@@ -72,7 +72,7 @@ describe("Search", () => {
 
 describe("Products and Cart", () => {
 	it(
-		"should add first and second products and add it to the cart",
+		"should add first and second products to the cart",
 		{ retries: 3 },
 		() => {
 			cy.visit("http://localhost:3000");
@@ -85,7 +85,7 @@ describe("Products and Cart", () => {
 			cy.get(
 				"#__next > div > header > div > div > button.btn-cart > span"
 			).contains("1");
-			cy.get("#clickable").click({ force: true });
+			cy.visit("http://localhost:3000");
 			cy.get(
 				"#__next > div > main > section.products-page > div > section > section > div:nth-child(2) > div.product__image > a > span > img"
 			).click({ force: true });
