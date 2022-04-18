@@ -24,3 +24,4 @@ jobs:
                   STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
                   CLOVER_MERCHANT_ID: ${{ secrets.CLOVER_MERCHANT_ID }}
                   CLOVER_TOKEN: ${{ secrets.CLOVER_TOKEN }}
+                  SKIP_TRACK: true

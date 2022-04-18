@@ -25,7 +25,7 @@ const MyApp = ({ Component, pageProps }) => {
 	return (
 		<CookiesProvider>
 			<Fragment>
-				{isProduction ? (
+				{isProduction && !process.env.SKIP_TRACK ? (
 					<>
 						<Script
 							strategy="lazyOnload"
