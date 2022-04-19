@@ -64,11 +64,6 @@ const ShoppingCart = () => {
 							<i className="icon-left"></i> Continue Shopping
 						</a>
 					</Link>
-					<input
-						type="text"
-						placeholder="Promo Code"
-						className="cart__promo-code"
-					/>
 
 					<div className="cart-actions__items-wrapper">
 						<p className="cart-actions__total">
