@@ -15,6 +15,8 @@ const CheckoutPage = () => {
 	const [phoneNumber, setPhoneNumber] = useState("");
 	const [city, setCity] = useState("");
 	const [zipCode, setZipCode] = useState("");
+	const [promoCode, setPromoCode] = useState("");
+	const [discount, setDiscount] = useState(0);
 	const ProceedToPayment = async () => {
 		const lineItems = [];
 		for (let i = 0; i < cartItems.length; i++) {
@@ -25,7 +27,10 @@ const CheckoutPage = () => {
 		if (cartItems.length > 0) {
 			Router.push({
 				pathname: "/cart/loading",
-				query: { lineItems: JSON.stringify(lineItems) },
+				query: {
+					lineItems: JSON.stringify(lineItems),
+					discount: promoCode,
+				},
 			});
 		} else {
 			alert("Please add items to cart");
@@ -187,6 +192,12 @@ const CheckoutPage = () => {
 									<p>Subtotal</p>
 									<h3>${priceTotal.toFixed(2)}</h3>
 								</div>
+								{discount ? (
+									<div className="checkout-total">
+										<p>Discount</p>
+										<h3>${discount.toFixed(2)}</h3>
+									</div>
+								) : null}
 								<div className="checkout-total">
 									<p>Tax</p>
 									<h3>{"$" + TaxTotal}</h3>
@@ -213,6 +224,45 @@ const CheckoutPage = () => {
 						<a href="/cart" className="cart__btn-back">
 							<i className="icon-left"></i> Back
 						</a>
+						<div className="cart-actions__items-wrapper">
+							{/* promo code stuff here */}
+							<input
+								type="text"
+								placeholder="Promo Code"
+								className="cart__promo-code"
+								value={promoCode}
+								onChange={e => setPromoCode(e.target.value)}
+							/>
+							<button
+								type="button"
+								className="btn btn--rounded btn--yellow"
+								onClick={() => {
+									//verify and apply promo code
+									fetch(`${server}/api/validatePromoCode`, {
+										method: "POST",
+										headers: {
+											"Content-Type": "application/json",
+										},
+										body: JSON.stringify({
+											code: promoCode,
+											products: cartItems.map(item => {
+												return {
+													id: item.id,
+													price: item.price,
+												};
+											}),
+										}),
+									})
+										.then(res => res.json())
+										.then(res => {
+											console.log(res.ammount);
+											setDiscount(res.ammount);
+										});
+								}}
+							>
+								Apply Promo Code
+							</button>
+						</div>
 						<div className="cart-actions__items-wrapper">
 							<Link href={"/products/1"}>
 								<button

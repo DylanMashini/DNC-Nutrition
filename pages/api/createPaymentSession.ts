@@ -5,7 +5,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 		res.status(405).end();
 		return;
 	}
-
 	const stripeProds = [];
 	const cloverProds = [];
 	const metaItems = [];
@@ -22,7 +21,30 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 	}
 	const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 	let cost = 0;
-	const body = req.body;
+	const body = req.body.items;
+	const discountCode = req.body.discount;
+	let stripeCouponCode = "";
+	if (discountCode) {
+		//check if discount is valid
+		fetch(`${server}/api/verifyPromoCode`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				code: discountCode,
+			}),
+		})
+			.then(res => res.json())
+			.then(res => {
+				//set stripePromotionCode to The ID of the coupon to apply to this Session.
+				if (res.couponCode) {
+					stripeCouponCode = res.couponCode;
+				} else {
+					console.log("coupon code does not exist");
+				}
+			});
+	}
 	const prods = require("../../prods.json");
 	for (var i = 0; i < body.length; i++) {
 		const id = body[i].id;
@@ -103,6 +125,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 		};
 		if (id) {
 			sessionOptions["customer"] = id;
+		}
+		if (stripeCouponCode) {
+			sessionOptions["discounts"]["coupon"] = stripeCouponCode;
 		}
 		const session = await stripe.checkout.sessions.create(sessionOptions);
 		console.log("url: ", session.url);

@@ -8,6 +8,7 @@ export default function Handler(req, res) {
 	}
 	const code = req.body.code;
 	const products = req.body.products;
+
 	if (!code || !products) {
 		res.status(400).send("Missing Paramerters");
 		return;
@@ -22,7 +23,7 @@ export default function Handler(req, res) {
 		//list of valid products
 		for (const prod of products) {
 			if (discount["validProducts"].includes(prod.id)) {
-				productTotal += prod.price;
+				productTotal += prod.price * prod.qty;
 			}
 		}
 	} else if (discount["invalidProducts"]) {
@@ -34,13 +35,19 @@ export default function Handler(req, res) {
 			}
 		}
 	}
+	//add stripe coupon code as "couponCode proprety"
 	if (discount.discountPercent) {
 		//discount is a percent
 		const discountAmount = productTotal * discount.discountPercent;
-		res.status(200).send({ ammount: discountAmount });
+		console.log(discount);
+		res.status(200).send({
+			ammount: Math.round(discount["discountAmmount"] * 100) / 100,
+		});
 	} else if (discount["discountAmmount"]) {
 		if (productTotal > discount["discountAmmount"]) {
-			res.status(200).json({ ammount: discount["discountAmmount"] });
+			res.status(200).json({
+				ammount: Math.round(discount["discountAmmount"] * 100) / 100,
+			});
 		} else {
 			res.status(400).send("Not enough products to apply discount");
 		}
