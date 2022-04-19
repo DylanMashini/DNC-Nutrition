@@ -128,10 +128,12 @@ describe("payment", () => {
 		cy.request({
 			url: "http://localhost:3000/api/createPaymentSession",
 			method: "POST",
-			body: [
-				{ id: "DD0KS8YRENHQE", count: 2 },
-				{ id: "0WZEJ8FA73P8R", count: 1 },
-			],
+			body: {
+				items: [
+					{ id: "DD0KS8YRENHQE", count: 2 },
+					{ id: "0WZEJ8FA73P8R", count: 1 },
+				],
+			},
 			headers: {
 				contentType: "application/json",
 			},
