@@ -69,7 +69,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 	//do discount stuff
 	if (discountCode) {
 		//check if discount is valid
-		fetch(`${server}/api/validatePromoCode`, {
+		fetch(`https://${req.headers.host}/api/validatePromoCode`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
