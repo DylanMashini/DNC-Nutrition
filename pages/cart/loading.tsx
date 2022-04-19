@@ -2,21 +2,23 @@ import Layout from "../../layouts/Main";
 import { useRouter } from "next/router";
 
 import { server } from "../../utils/server";
+import { useEffect } from "react";
 
 export default function Named({ lineItems, discount }) {
 	const router = useRouter();
-
-	fetch(`https://${window.location.hostname}/api/createPaymentSession`, {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify({ items: lineItems, discount: discount }),
-	})
-		.then(res => res.json())
-		.then(res => {
-			router.push(res.url);
-		});
+	useEffect(() => {
+		fetch(`https://${window.location.hostname}/api/createPaymentSession`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ items: lineItems, discount: discount }),
+		})
+			.then(res => res.json())
+			.then(res => {
+				router.push(res.url);
+			});
+	});
 
 	return (
 		<Layout>
