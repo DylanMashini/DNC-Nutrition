@@ -239,21 +239,27 @@ const CheckoutPage = () => {
 								className="btn btn--rounded btn--yellow"
 								onClick={() => {
 									//verify and apply promo code
-									fetch(`${server}/api/validatePromoCode`, {
-										method: "POST",
-										headers: {
-											"Content-Type": "application/json",
-										},
-										body: JSON.stringify({
-											code: promoCode,
-											products: cartItems.map(item => {
-												return {
-													id: item.id,
-													price: item.price,
-												};
+									fetch(
+										`https://${window.location.hostname}/api/validatePromoCode`,
+										{
+											method: "POST",
+											headers: {
+												"Content-Type":
+													"application/json",
+											},
+											body: JSON.stringify({
+												code: promoCode,
+												products: cartItems.map(
+													item => {
+														return {
+															id: item.id,
+															price: item.price,
+														};
+													}
+												),
 											}),
-										}),
-									})
+										}
+									)
 										.then(res => res.json())
 										.then(res => {
 											console.log("res", res);
