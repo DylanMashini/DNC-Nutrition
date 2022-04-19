@@ -195,7 +195,7 @@ const CheckoutPage = () => {
 								{discount ? (
 									<div className="checkout-total">
 										<p>Discount</p>
-										<h3>${discount.toFixed(2)}</h3>
+										<h3>- ${discount.toFixed(2)}</h3>
 									</div>
 								) : null}
 								<div className="checkout-total">
@@ -212,7 +212,8 @@ const CheckoutPage = () => {
 										{"$" +
 											(
 												Number(priceTotal) * 1.089 +
-												6.99
+												6.99 -
+												discount
 											).toFixed(2)}
 									</h3>
 								</div>
@@ -255,6 +256,7 @@ const CheckoutPage = () => {
 									})
 										.then(res => res.json())
 										.then(res => {
+											console.log("res", res);
 											console.log(res.ammount);
 											setDiscount(res.ammount);
 										});

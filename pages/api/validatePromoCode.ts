@@ -41,12 +41,14 @@ export default function Handler(req, res) {
 		const discountAmount = productTotal * discount.discountPercent;
 		console.log(discount);
 		res.status(200).send({
-			ammount: Math.round(discount["discountAmmount"] * 100) / 100,
+			ammount: Math.round(discountAmount * 100) / 100,
+			couponCode: discount.stripeID,
 		});
 	} else if (discount["discountAmmount"]) {
 		if (productTotal > discount["discountAmmount"]) {
 			res.status(200).json({
 				ammount: Math.round(discount["discountAmmount"] * 100) / 100,
+				couponCode: discount.stripeID,
 			});
 		} else {
 			res.status(400).send("Not enough products to apply discount");

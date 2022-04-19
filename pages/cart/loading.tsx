@@ -34,6 +34,7 @@ export function getServerSideProps(context) {
 	return {
 		props: {
 			lineItems: JSON.parse(context.query.lineItems),
+			discount: context.query.discount,
 		},
 	};
 }

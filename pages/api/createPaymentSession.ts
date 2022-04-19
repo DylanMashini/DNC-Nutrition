@@ -24,27 +24,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 	const body = req.body.items;
 	const discountCode = req.body.discount;
 	let stripeCouponCode = "";
-	if (discountCode) {
-		//check if discount is valid
-		fetch(`${server}/api/verifyPromoCode`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({
-				code: discountCode,
-			}),
-		})
-			.then(res => res.json())
-			.then(res => {
-				//set stripePromotionCode to The ID of the coupon to apply to this Session.
-				if (res.couponCode) {
-					stripeCouponCode = res.couponCode;
-				} else {
-					console.log("coupon code does not exist");
-				}
-			});
-	}
+
 	const prods = require("../../prods.json");
 	for (var i = 0; i < body.length; i++) {
 		const id = body[i].id;
@@ -73,6 +53,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 			price: price,
 			qty: qty,
 			sku: product.sku,
+			id: product.id,
 		});
 		stripeProds.push({
 			price: priceID.id,
@@ -85,7 +66,32 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 		cost += price * qty;
 	}
 	stripeProds.push({ price: `${process.env.STRIPE_SHIPPING}`, quantity: 1 });
-
+	//do discount stuff
+	if (discountCode) {
+		//check if discount is valid
+		fetch(`${server}/api/validatePromoCode`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				code: discountCode,
+				products: metaItems.map(item => {
+					console.log(item);
+					return { id: item.id, price: item.price, qty: item.qty };
+				}),
+			}),
+		})
+			.then(res => res.json())
+			.then(res => {
+				//set stripePromotionCode to The ID of the coupon to apply to this Session.
+				if (res.couponCode) {
+					stripeCouponCode = res.couponCode;
+				} else {
+					console.log("coupon code does not exist");
+				}
+			});
+	}
 	const order = await (
 		await fetch(
 			`https://api.clover.com/v3/merchants/${process.env.CLOVER_MERCHANT_ID}/atomic_order/orders`,
@@ -122,12 +128,15 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 			},
 			shipping_address_collection: { allowed_countries: ["US"] },
 			phone_number_collection: { enabled: true },
+			discounts: [{ promotion_code: "" }],
 		};
 		if (id) {
 			sessionOptions["customer"] = id;
 		}
+		console.log("code: ", stripeCouponCode);
 		if (stripeCouponCode) {
-			sessionOptions["discounts"]["coupon"] = stripeCouponCode;
+			console.log("code");
+			sessionOptions.discounts[0].promotion_code = stripeCouponCode;
 		}
 		const session = await stripe.checkout.sessions.create(sessionOptions);
 		console.log("url: ", session.url);
