@@ -2931,3 +2931,37 @@ h5 {
 	margin: 0px;
 	size: 0px;
 }
+
+.popup {
+	position: fixed;
+	left: 50%;
+	right: 50%;
+	top: 50%;
+	bottom: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 999;
+	background: white;
+	width: 50vw;
+	height: 50vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	border-radius: 5px;
+	border:rgba(0, 0, 0, 1);
+	border-style: solid;
+
+}
+.popup h1 {
+	font-size: 3.5em;
+}
+@media (max-width: 800px) {
+	.popup {
+		width: 90vw;
+		height: 90vh;
+	}
+	.popup h1 {
+		font-size: 2em;
+	}
+}
+

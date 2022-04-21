@@ -1,6 +1,17 @@
 import Products from "./products/[page]";
+import { useState } from "react";
+import Image from "next/image";
+import { Button } from "@nextui-org/react";
+import Popup from "../components/popup";
+
 export default function Home({ data, totalPages }) {
-	return <Products pagenum={1} data={data} totalPages={totalPages} />;
+	const [popupOpen, setPopupOpen] = useState(true);
+	return (
+		<div className={""}>
+			<Products pagenum={1} data={data} totalPages={totalPages} />
+			<Popup />
+		</div>
+	);
 }
 
 export async function getStaticProps() {
