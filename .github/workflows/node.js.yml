@@ -22,8 +22,8 @@ jobs:
             - run: yarn install
             - run: yarn add jquery-csv
             - run: node utils/getAllProds.js
-            - run: git config --global user.email "dylanmashini123@gmail.com"
-            - run: git config --global user.name "Inventory Bot"
+            - run: git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            - run: git config --global user.name "github-actions[bot]"
             - run: git status
             - run: git add ./prods.json
             - run: git commit -m "Auto Updated Inventory"
