@@ -45,7 +45,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 				product_data: { name: name },
 			})
 			.catch(err => console.error(err));
-
+		//make sure item is in stock
+		if (product.stockCount < qty) {
+			res.status(400).json({ error: "Not enough in stock" });
+			console.log("not enough stock");
+			return;
+		}
 		metaItems.push({
 			name: product.name,
 			price: price,
@@ -62,7 +67,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 		}
 		cost += price * qty;
 	}
-
 	const order = await (
 		await fetch(
 			`https://api.clover.com/v3/merchants/${process.env.CLOVER_MERCHANT_ID}/atomic_order/orders`,
@@ -82,7 +86,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 		});
 		return;
 	}
-	console.log(order);
 	const cloverOrderID = order.id;
 
 	try {
