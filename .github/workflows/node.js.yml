@@ -28,4 +28,5 @@ jobs:
             - run: git add ./prods.json
             - run: git commit -m "Auto Updated Inventory"
             - run: git fetch origin gh-pages
+            - run: git checkout gh-pages
             - run: git push origin HEAD:gh-pages --force
