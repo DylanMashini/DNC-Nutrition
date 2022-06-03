@@ -23,7 +23,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 	const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 	let cost = 0;
 	const body = req.body;
-	const prods = require("../../prods.json");
+	const prods = await fetch(
+		"https://dylanmashini.github.io/DNANutrition/prods.json"
+	).then(res => res.json());
 	for (var i = 0; i < body.length; i++) {
 		const id = body[i].id;
 		const qty = body[i].count;

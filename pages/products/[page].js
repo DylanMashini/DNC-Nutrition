@@ -45,9 +45,11 @@ const Products = ({ data, pagenum, totalPages, category = "All" }) => {
 };
 
 export async function getStaticProps({ params }) {
+	const allProds = await fetch(
+		"https://dylanmashini.github.io/DNANutrition/prods.json"
+	).then(res => res.json());
 	return new Promise((resolve, reject) => {
 		let totalPages = 100;
-		const allProds = require("../../prods.json");
 		totalPages = Math.trunc(allProds.length / 21);
 		var list = [];
 		for (var i = 0; i < allProds.length; i++) {
@@ -64,6 +66,7 @@ export async function getStaticProps({ params }) {
 				pagenum: params.page,
 				totalPages: totalPages,
 			},
+			revalidate: 3600,
 		});
 	});
 }

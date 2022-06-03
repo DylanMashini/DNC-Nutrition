@@ -4,9 +4,13 @@ export default function Home({ data, totalPages }) {
 }
 
 export async function getStaticProps() {
+	const allProds = await fetch(
+		"https://dylanmashini.github.io/DNANutrition/prods.json"
+	).then(res => res.json());
+	console.log(allProds);
 	return new Promise((resolve, reject) => {
 		let totalPages = 100;
-		const allProds = require("../prods.json");
+
 		totalPages = Math.trunc(allProds.length / 21);
 		var list = [];
 		for (var i = 0; i < allProds.length; i++) {
@@ -23,6 +27,7 @@ export async function getStaticProps() {
 				pagenum: 1,
 				totalPages: totalPages,
 			},
+			revalidate: 3600,
 		});
 	});
 }
