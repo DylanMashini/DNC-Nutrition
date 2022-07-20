@@ -3,20 +3,19 @@ import Link from "next/link";
 import { server } from "../../utils/server";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useCookies } from "react-cookie"
+import { useCookies } from "react-cookie";
 
 const LoginPage = () => {
-	
 	const [error, setError] = useState("");
 	const [emailRequired, setEmailRequierd] = useState(false);
 	const [passwordRequired, setPasswordRequired] = useState(false);
-	const [email, setEmail] = useState("")
-	const [password, setPassword] = useState("")
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
 	const [cookie, setCookie] = useCookies(["user"]);
 	const [auth, setAuth] = useState(false);
-	const router = useRouter()
+	const router = useRouter();
 	if (!auth) {
-		setCookie("user", null, {path: "/", maxAge: -1, sameSite: true})
+		setCookie("user", null, { path: "/", maxAge: -1, sameSite: true });
 	}
 
 	return (
@@ -38,51 +37,69 @@ const LoginPage = () => {
 							typesetting industry. Lorem Ipsum has been the
 							industry's standard dummy text ever since the 1500s
 						</p> */}
-						
+
 						<form
 							className="form"
-							onSubmit={(event) => {
-							//prevent page from refreshing
-							event.preventDefault();
-							//make sure no fields are blank
-							if (email === "" || password === "") {
-								setError("Please fill in all fields");
-								return
-							}
-							//call api
-							fetch(`${server}/api/login/`, {
-							method: "POST",
-							headers: {
-								"Content-Type": "application/json",
-							},
-							body: JSON.stringify({email: email, password: password}),
-						}).then(res => res.json())
-						.then(
-							res => {
-								//get response body
-								
-								if (res.auth) {
-									//sucsessful authentication, set jwt
-									setError("");
-									setAuth(true);
-									setCookie("user", JSON.stringify({email: email, session: res.session}), {path: "/", maxAge: 86400, sameSite: true})
-									router.push("/auth/profile")
-								} else {
-									//get error message
-									const errorMessage = res["message"];
-									//log json body
-									console.error(errorMessage)
-									//check if error is user not found
-									if (errorMessage == "user not found") {
-										//set client side error message
-										setError("User Not Found");
-									} else if (errorMessage == "invalid password") {
-										//set client side error message
-										setError("Invalid Password");
-									} 
+							onSubmit={event => {
+								//prevent page from refreshing
+								event.preventDefault();
+								//make sure no fields are blank
+								if (email === "" || password === "") {
+									setError("Please fill in all fields");
+									return;
 								}
-							}	
-						);
+								//call api
+								fetch(`${server}/api/login/`, {
+									method: "POST",
+									headers: {
+										"Content-Type": "application/json",
+									},
+									body: JSON.stringify({
+										email: email,
+										password: password,
+									}),
+								})
+									.then(res => res.json())
+									.then(res => {
+										//get response body
+
+										if (res.auth) {
+											//sucsessful authentication, set jwt
+											setError("");
+											setAuth(true);
+											setCookie(
+												"user",
+												JSON.stringify({
+													email: email,
+													session: res.session,
+												}),
+												{
+													path: "/",
+													maxAge: 86400,
+													sameSite: true,
+												}
+											);
+											router.push("/auth/profile");
+										} else {
+											//get error message
+											const errorMessage = res["message"];
+											//log json body
+											console.error(errorMessage);
+											//check if error is user not found
+											if (
+												errorMessage == "user not found"
+											) {
+												//set client side error message
+												setError("User Not Found");
+											} else if (
+												errorMessage ==
+												"invalid password"
+											) {
+												//set client side error message
+												setError("Invalid Password");
+											}
+										}
+									});
 							}}
 						>
 							<div className="form__input-row">
@@ -95,18 +112,13 @@ const LoginPage = () => {
 									onChange={e => {
 										setEmail(e.target.value);
 									}}
-
 								/>
 
-								{ emailRequired ?
-								<p className="message message--error">
-									This field is required
-								</p>
-								: null
-								}
-
-
-								
+								{emailRequired ? (
+									<p className="message message--error">
+										This field is required
+									</p>
+								) : null}
 							</div>
 
 							<div className="form__input-row">
@@ -119,14 +131,12 @@ const LoginPage = () => {
 									onChange={e => {
 										setPassword(e.target.value);
 									}}
-
 								/>
-								{ passwordRequired ?
-								<p className="message message--error">
-									This field is required
-								</p>
-								: null
-								}
+								{passwordRequired ? (
+									<p className="message message--error">
+										This field is required
+									</p>
+								) : null}
 							</div>
 
 							<div className="form__info">
@@ -151,15 +161,16 @@ const LoginPage = () => {
 									Forgot password?
 								</a>
 							</div>
-								<p style={{
-							color: "red",
-							fontSize: "12px",
-							textAlign: "center",
-							marginBottom: "10px"
-
-						}}>
-							{error}
-						</p>
+							<p
+								style={{
+									color: "red",
+									fontSize: "12px",
+									textAlign: "center",
+									marginBottom: "10px",
+								}}
+							>
+								{error}
+							</p>
 							{/* <div className="form__btns">
 								<button
 									type="button"

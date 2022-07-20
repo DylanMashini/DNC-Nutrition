@@ -1,8 +1,6 @@
 import { Fragment } from "react";
 import Document, { Html, Head, Main, NextScript } from "next/document";
 
-import { GA_TRACKING_ID } from "../utils/gtag";
-
 export default class CustomDocument extends Document {
 	static async getInitialProps(ctx) {
 		const originalRenderPage = ctx.renderPage;
@@ -39,7 +37,7 @@ export default class CustomDocument extends Document {
 
 					{/* We only want to add the scripts if in production */}
 					{isProduction && (
-						<Fragment>
+						<>
 							{/* Global Site Tag (gtag.js) - Google Analytics */}
 							{/* <script
 								async
@@ -56,7 +54,7 @@ export default class CustomDocument extends Document {
                   `,
 								}}
 							/>
-						</Fragment>
+						</>
 					)}
 				</Head>
 				<body>
