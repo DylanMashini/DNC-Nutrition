@@ -15,7 +15,7 @@ jobs:
         steps:
             - uses: actions/checkout@v2
               with:
-                ref: 'gh-pages'
+                  ref: "gh-pages"
             - name: Use Node.js ${{ matrix.node-version }}
               uses: actions/setup-node@v2
               with:
@@ -27,9 +27,6 @@ jobs:
             - run: git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
             - run: git config --global user.name "github-actions[bot]"
             - run: git status
-            # - run: git fetch origin gh-pages
-            # - run: git checkout gh-pages
-            # - run: git switch gh-pages
             - run: git add ./prods.json
             - run: git commit -m "Auto Updated Inventory" ./prods.json
             - run: git push origin HEAD:gh-pages --force

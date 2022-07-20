@@ -1,5 +1,5 @@
 import ProductsPage from "../[page]";
-import categories from "../../../categories.json";
+import categories from "../../../data/categories.json";
 
 export default function Products({ data, totalPages, page, cat }) {
 	return (

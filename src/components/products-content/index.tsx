@@ -1,6 +1,6 @@
 import { useState } from "react";
 import List from "./list";
-import Categories from "../../categories.json";
+import Categories from "../../data/categories.json";
 import { useRouter } from "next/router";
 const ProductsContent = ({ page, data, category = "All" }) => {
 	const [orderProductsOpen, setOrderProductsOpen] = useState(false);

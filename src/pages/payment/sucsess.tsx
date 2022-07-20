@@ -5,10 +5,10 @@ import { useEffect, useCallback } from "react";
 //clear the redux state
 export default function Named() {
 	const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(clearCart());
-    })
-    
+	useEffect(() => {
+		dispatch(clearCart());
+	});
+
 	return (
 		<Layout>
 			<section className="error-page">

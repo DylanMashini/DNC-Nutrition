@@ -8,6 +8,7 @@ import Router from "next/router";
 const Header = ({ isErrorPage }) => {
 	const [searchQuery, setSearchQuery] = useState("");
 	const router = useRouter();
+	// @ts-ignore
 	const { cartItems } = useSelector(state => state.cart);
 	const arrayPaths = [];
 
