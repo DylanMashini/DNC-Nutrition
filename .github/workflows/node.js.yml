@@ -15,12 +15,12 @@ jobs:
         steps:
             - uses: actions/checkout@v2
               with:
-                ref: 'gh-pages'
+                  ref: "gh-pages"
             - name: Use Node.js ${{ matrix.node-version }}
               uses: actions/setup-node@v2
               with:
                   node-version: ${{ matrix.node-version }}
-                  cache: "npm"
+                  cache: "yarn"
             - run: yarn install
             - run: yarn add jquery-csv
             - run: node utils/getAllProds.js
