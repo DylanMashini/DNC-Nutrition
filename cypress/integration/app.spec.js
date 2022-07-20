@@ -31,3 +31,25 @@ describe("Categories", () => {
 		).contains("cura", { matchCase: false });
 	});
 });
+
+describe("End to end product", () => {
+	it("should add first product to cart, and go to stripe checkout page", () => {
+		cy.visit("http://localhost:3000");
+		cy.get(
+			"#__next > div > main > section.products-page > div > section > section > div:nth-child(1) > div.product__image > a > span > img"
+		).click();
+		cy.get(
+			"#__next > div > main > section.product-single > div > div.product-single__content > section.product-content > div.product-content__filters > div:nth-child(3) > div > button"
+		).click();
+		cy.get("#__next > div > header > div > div > button.btn-cart > span")
+			.contains("1", { matchCase: false })
+			.click();
+		cy.get(
+			"#__next > div > main > section > div > div.cart-actions > div > a"
+		).click();
+		cy.get(
+			"#__next > div > main > section > div > div.cart-actions > div > a"
+		).click();
+		cy.url().should("include", "stripe");
+	});
+});
