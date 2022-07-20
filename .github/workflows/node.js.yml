@@ -20,13 +20,16 @@ jobs:
               uses: actions/setup-node@v2
               with:
                   node-version: ${{ matrix.node-version }}
-                  cache: "npm"
+                  cache: "yarn"
             - run: yarn install
             - run: yarn add jquery-csv
             - run: node utils/getAllProds.js
             - run: git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
             - run: git config --global user.name "github-actions[bot]"
             - run: git status
+            # - run: git fetch origin gh-pages
+            # - run: git checkout gh-pages
+            # - run: git switch gh-pages
             - run: git add ./prods.json
             - run: git commit -m "Auto Updated Inventory" ./prods.json
             - run: git push origin HEAD:gh-pages --force
