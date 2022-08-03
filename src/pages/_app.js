@@ -35,13 +35,29 @@ const MyApp = ({ Component, pageProps }) => {
 						/>
 						<Script strategy="lazyOnload" id="gtag-script-2">
 							{`window.dataLayer = window.dataLayer || [];
-						function gtag(){dataLayer.push(arguments);}
-						gtag('js', new Date());
+							function gtag(){dataLayer.push(arguments);}
+							gtag('js', new Date());
 
-						gtag('config', 'G-3QYSYY399Z');`}
+							gtag('config', 'G-3QYSYY399Z');`}
 						</Script>
 					</>
 				) : null}
+				<Script>
+					{`(function(d,t) {
+				var BASE_URL="https://app.chatwoot.com";
+				var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+				g.src=BASE_URL+"/packs/js/sdk.js";
+				g.defer = true;
+				g.async = true;
+				s.parentNode.insertBefore(g,s);
+				g.onload=function(){
+				window.chatwootSDK.run({
+					websiteToken: '43og6TxkuPKhCZ7uV6s9bGiU',
+					baseUrl: BASE_URL
+				})
+				}
+			})(document,"script");`}
+				</Script>
 				<Component {...pageProps} />
 			</Fragment>
 		</CookiesProvider>
