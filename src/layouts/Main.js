@@ -2,7 +2,7 @@ import Head from "next/head";
 import Header from "../components/Header";
 import { useRouter } from "next/router";
 
-export default ({ children, title = "Discount Nutrition" }) => {
+export default function Layout({ children, title = "Discount Nutrition" }) {
 	const router = useRouter();
 	const pathname = router.pathname;
 
@@ -19,4 +19,4 @@ export default ({ children, title = "Discount Nutrition" }) => {
 			</main>
 		</div>
 	);
-};
+}
