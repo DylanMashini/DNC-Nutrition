@@ -4,6 +4,8 @@ import { wrapper } from "../store";
 import { CookiesProvider } from "react-cookie";
 import Script from "next/script";
 import { useEffect } from "react";
+import { Logtail } from "@logtail/browser";
+
 // global styles
 import "swiper/swiper.scss";
 import "rc-slider/assets/index.css";
@@ -15,12 +17,19 @@ import "../assets/css/styles.scss";
 const MyApp = ({ Component, pageProps }) => {
 	const isProduction = process.env.NODE_ENV === "production";
 	useEffect(() => {
+		if (isProduction) {
+			const logtail = new Logtail("urm31Z25SgxXYWzm9R6B14sn");
+			window.onerror = async e => {
+				await logtail.error(e);
+			};
+		}
+
 		if (isProduction && typeof gtag.pageview !== "undefined") {
-			console.log(typeof gtag.pageview);
 			// Notice how we track pageview when route is changed
 			Router.events.on("routeChangeComplete", url => gtag.pageview(url));
+			// Setup logtail
 		}
-	});
+	}, []);
 
 	return (
 		<CookiesProvider>
