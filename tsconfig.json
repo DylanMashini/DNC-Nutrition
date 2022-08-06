@@ -23,7 +23,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "src/pages/payment/sucsess.jssrc/utils/testEmail.jsl.js"  ],
+, "src/pages/payment/sucsess.jssrc/utils/testEmail.jsl.js", "src/components/products-filter/index.js"  ],
   "exclude": [
     "node_modules"
   ]

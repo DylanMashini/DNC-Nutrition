@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
-import { removeProduct } from "./../../../store/actions/cartActions";
-import { setCount } from "./../../../store/actions/cartActions";
+import { removeProduct } from "../../../store/actions/cartActions";
+import { setCount } from "../../../store/actions/cartActions";
 
 const ShoppingCart = ({ thumb, name, id, color, size, count, price }) => {
 	const dispatch = useDispatch();

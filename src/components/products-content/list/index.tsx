@@ -1,5 +1,5 @@
 import useSwr from "swr";
-import ProductItem from "./../../product-item";
+import ProductItem from "../../product-item";
 import ProductsLoading from "./loading";
 import { useEffect, useState } from "react";
 const ProductsContent = ({ data, page }) => {
