@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { some } from "lodash";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleFavProduct } from "./../../store/actions/userActions";
+import { toggleFavProduct } from "../../store/actions/userActions";
 import Image from "next/image";
 const ProductItem = ({
 	discount,
@@ -13,6 +13,7 @@ const ProductItem = ({
 	dimensions,
 }) => {
 	const dispatch = useDispatch();
+	// @ts-ignore
 	const { favProducts } = useSelector(state => state.user);
 
 	const isFavourite = some(favProducts, productId => productId === id);

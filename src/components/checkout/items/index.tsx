@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import Image from "next/image";
 const CheckoutItems = () => {
+	// @ts-ignore
 	const { cartItems } = useSelector(state => state.cart);
 
 	return (

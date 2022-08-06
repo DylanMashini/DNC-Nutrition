@@ -1,12 +1,14 @@
 import { useSelector } from "react-redux";
-import CheckoutStatus from "../../components/checkout-status";
+import CheckoutStatus from "../checkout-status";
 import Item from "./item";
 import Link from "next/link";
 import React from "react";
 const ShoppingCart = () => {
+	// @ts-ignore
 	const { cartItems } = useSelector(state => state.cart);
 
 	const priceTotal = useSelector(state => {
+		// @ts-ignore
 		const cartItems = state.cart.cartItems;
 		let totalPrice = 0;
 		if (cartItems.length > 0) {

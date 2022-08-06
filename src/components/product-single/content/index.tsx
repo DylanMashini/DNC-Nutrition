@@ -1,14 +1,14 @@
 import { useState } from "react";
-import CheckboxColor from "./../../products-filter/form-builder/checkbox-color";
+import CheckboxColor from "../../products-filter/form-builder/checkbox-color";
 import { useDispatch, useSelector } from "react-redux";
 import { some } from "lodash";
-import { addProduct } from "./../../../store/actions/cartActions";
-import { toggleFavProduct } from "./../../../store/actions/userActions";
+import { addProduct } from "../../../store/actions/cartActions";
+import { toggleFavProduct } from "../../../store/actions/userActions";
 
 const Content = ({ product }) => {
 	const dispatch = useDispatch();
 	const [count, setCount] = useState(1);
-
+	// @ts-ignore
 	const { favProducts } = useSelector(state => state.user);
 	const isFavourite = some(
 		favProducts,
@@ -25,6 +25,7 @@ const Content = ({ product }) => {
 
 	const addToCart = () => {
 		dispatch(
+			// @ts-ignore
 			addProduct({
 				id: product.id,
 				name: product.name,

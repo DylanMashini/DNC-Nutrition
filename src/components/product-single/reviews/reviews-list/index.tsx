@@ -8,7 +8,7 @@ function createMarkup(content) {
 const ReviewsList = ({ reviews }) => {
 	return (
 		<section className="reviews-list">
-			{reviews.map(review, index => (
+			{reviews.map((review, index) => (
 				<div className="review-item">
 					<div className="review__avatar">
 						<Image src={review.avatar} alt="avatar" />

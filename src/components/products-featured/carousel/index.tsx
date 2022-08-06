@@ -1,4 +1,4 @@
-import ProductItem from "./../../product-item";
+import ProductItem from "../../product-item";
 
 // import Swiper core and required components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -20,7 +20,8 @@ if (process.browser) {
 }
 
 const ProductsCarousel = ({ products }) => {
-	if (!products) return "Loading";
+	// Used to be return "Loading"
+	if (!products) return <p>Loading</p>;
 	return (
 		<div className="products-carousel">
 			<Swiper
@@ -33,6 +34,7 @@ const ProductsCarousel = ({ products }) => {
 			>
 				{products.map(item => (
 					<SwiperSlide key={item.id}>
+						{/* @ts-ignore */}
 						<ProductItem
 							discount={item.discount}
 							price={item.price}

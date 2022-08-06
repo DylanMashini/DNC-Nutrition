@@ -12,7 +12,7 @@ export default function Layout({ children, title = "Discount Nutrition" }) {
 				<title>{title}</title>
 			</Head>
 
-			<Header />
+			<Header isErrorPage={false} />
 
 			<main className={!pathname.includes("blog/") ? "main-page" : ""}>
 				{children}
