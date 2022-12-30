@@ -1,0 +1,11 @@
+name: sendReminderEmails
+on:
+  schedule:
+    - cron: "0 15 * * *"
+  workflow_dispatch:
+jobs:
+  cron:
+    runs-on: ubuntu-latest
+    steps:
+      - run: curl https://www.dncnutrition.com/api/sendReminderEmail
+  
