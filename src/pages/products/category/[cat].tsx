@@ -13,9 +13,9 @@ export default function Products({ data, totalPages, page, cat }) {
 }
 
 export async function getStaticProps({ params }) {
-	let allProds = await fetch(
-		"https://dylanmashini.github.io/DNANutrition/prods.json"
-	).then(res => res.json());
+	let allProds = await fetch(process.env.PRODUCTS_URL).then(res =>
+		res.json()
+	);
 	return new Promise((resolve, reject) => {
 		let totalPages = 1;
 		allProds = allProds.filter(item =>

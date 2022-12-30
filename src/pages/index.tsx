@@ -4,9 +4,9 @@ export default function Home({ data, totalPages }) {
 }
 
 export async function getStaticProps() {
-	const allProds = await fetch(
-		"https://dylanmashini.github.io/DNANutrition/prods.json"
-	).then(res => res.json());
+	const allProds = await fetch(process.env.PRODUCTS_URL).then(res =>
+		res.json()
+	);
 	return new Promise((resolve, reject) => {
 		let totalPages = 100;
 

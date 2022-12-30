@@ -23,9 +23,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 	const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 	let cost = 0;
 	const body = req.body;
-	const prods = await fetch(
-		"https://dylanmashini.github.io/DNANutrition/prods.json"
-	).then(res => res.json());
+	const prods = await fetch(process.env.PRODUCTS_URL).then(res => res.json());
 	for (var i = 0; i < body.length; i++) {
 		const id = body[i].id;
 		const qty = body[i].count;
@@ -69,9 +67,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 		}
 		cost += price * qty;
 	}
+	console.log(
+		`${process.env.CLOVER_URL_API}${process.env.CLOVER_MERCHANT_ID}/atomic_order/orders`
+	);
 	const order = await (
 		await fetch(
-			`https://api.clover.com/v3/merchants/${process.env.CLOVER_MERCHANT_ID}/atomic_order/orders`,
+			`${process.env.CLOVER_URL_API}v3/merchants/${process.env.CLOVER_MERCHANT_ID}/atomic_order/orders`,
 			{
 				method: "POST",
 				headers: {
@@ -83,6 +84,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 		)
 	).json();
 	if (!order.id) {
+		console.log(order);
 		res.status(400).json({
 			error: "No id proprety on clover order object",
 		});
@@ -103,9 +105,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 			},
 			shipping_address_collection: { allowed_countries: ["US"] },
 			phone_number_collection: { enabled: true },
-			shipping_options: [
-				{ shipping_rate: "shr_1KqO44FdiICzWvf0fvumtdyT" },
-			],
+			shipping_options: [{ shipping_rate: process.env.STRIPE_SHIPPING }],
 		};
 		if (id) {
 			sessionOptions["customer"] = id;

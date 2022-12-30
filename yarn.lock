@@ -3631,6 +3631,11 @@ iterate-value@^1.0.2:
     es-get-iterator "^1.0.2"
     iterate-iterator "^1.0.1"
 
+jquery-csv@^1.0.21:
+  version "1.0.21"
+  resolved "https://registry.yarnpkg.com/jquery-csv/-/jquery-csv-1.0.21.tgz#323b1b08cda39a70596e05f3ccbf8ddb3f952bc4"
+  integrity sha512-uDIFsJcC4xZEofK9pk3hwFQlyqf3FFwkQq6JIa882lf0pu/S0H4LqjCAEaULGM0uOcdCbGbMBh3b3LmPtF1a9A==
+
 "js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-4.0.0.tgz#19203fb59991df98e3a287050d4647cdeaf32499"
