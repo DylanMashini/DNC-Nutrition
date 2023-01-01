@@ -46,7 +46,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 			})
 			.catch(err => console.error(err));
 		//make sure item is in stock
-		if (product.stockCount < qty) {
+		if (product.itemStock.stockCount < qty) {
 			res.status(400).json({ error: "Not enough in stock" });
 			console.log("not enough stock");
 			return;
