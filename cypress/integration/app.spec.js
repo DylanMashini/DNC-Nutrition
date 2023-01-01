@@ -26,7 +26,7 @@ describe("Categories", () => {
 			"#__next > div > main > section.products-page > div > section > div > form > div > div > select"
 		).select("Curamed");
 		cy.wait(1000);
-		cy.url().should("include", "cura")
+		cy.url().should("include", "Cura");
 		// cy.get(
 		// 	"#__next > div > main > section.products-page > div > section > section > div:nth-child(1) > div.product__description > h3"
 		// ).contains("cura", { matchCase: false });
