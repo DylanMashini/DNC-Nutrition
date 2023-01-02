@@ -22,7 +22,9 @@ jobs:
             - name: Install Stripe CLI
               run: curl -L https://github.com/stripe/stripe-cli/releases/download/v1.13.5/stripe_1.13.5_linux_x86_64.tar.gz --output stripe.tar.gz && tar -xvf stripe.tar.gz
             - name: Start Stripe CLI
-              run: export PATH=$PATH:/home/runner/work/DNANutrition/DNANutrition stripe listen --api-key ${{ secrets.STRIPE_SECRET_KEY }} --forward-to http://localhost:3000/api/markAsPaid &
+              run: |
+                  export PATH=$PATH:/home/runner/work/DNANutrition/DNANutrition 
+                  stripe listen --api-key ${{ secrets.STRIPE_SECRET_KEY }} --forward-to http://localhost:3000/api/markAsPaid &
             - name: Cypress run
               uses: cypress-io/github-action@v2
               with:
