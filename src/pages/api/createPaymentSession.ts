@@ -94,6 +94,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 	const cloverOrderID = order.id;
 
 	try {
+		console.log("DEBUG: ", stripeProds);
 		// Create Checkout Sessions from body params.
 		const sessionOptions = {
 			line_items: stripeProds,
