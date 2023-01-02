@@ -68,9 +68,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 		}
 		cost += price * qty;
 	}
-	console.log(
-		`${process.env.CLOVER_URL_API}${process.env.CLOVER_MERCHANT_ID}/atomic_order/orders`
-	);
 	const order = await (
 		await fetch(
 			`${process.env.CLOVER_URL_API}v3/merchants/${process.env.CLOVER_MERCHANT_ID}/atomic_order/orders`,
@@ -94,7 +91,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 	const cloverOrderID = order.id;
 
 	try {
-		console.log("DEBUG: ", stripeProds);
 		// Create Checkout Sessions from body params.
 		const sessionOptions = {
 			line_items: stripeProds,
