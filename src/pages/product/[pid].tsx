@@ -8,14 +8,14 @@ import Content from "../../components/product-single/content";
 import Description from "../../components/product-single/description";
 import Reviews from "../../components/product-single/reviews";
 import { server } from "../../utils/server";
+import fetchProduct from "../../utils/fetchProduct";
 
 export async function getStaticPaths() {
 	return { paths: [], fallback: "blocking" };
 }
 export async function getStaticProps({ params }) {
 	const pid = params.pid;
-	const res = await fetch(`${server}/api/product/${pid}`);
-	const product = await res.json();
+	const product = await fetchProduct(pid);
 
 	return {
 		props: {

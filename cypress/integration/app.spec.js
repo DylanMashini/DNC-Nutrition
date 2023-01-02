@@ -27,12 +27,47 @@ describe("Categories", () => {
 		).select("Curamed");
 		cy.wait(1000);
 		cy.url().should("include", "Cura");
-		// cy.get(
-		// 	"#__next > div > main > section.products-page > div > section > section > div:nth-child(1) > div.product__description > h3"
-		// ).contains("cura", { matchCase: false });
 	});
 });
 
+describe("Purchase", () => {
+	it("Should add product to cart and checkout at stripe", () => {
+		// ignore stripe error
+		cy.on("uncaught:exception", err => {
+			// Allow stripe error: "paymentRequest Element didn't mount normally"
+			if (err.message.includes("paymentRequest")) {
+				return false;
+			}
+		});
+
+		cy.visit("http://localhost:3000/products/1");
+		// add top three items to cart
+		for (let i = 1; i <= 3; i++) {
+			cy.get(
+				`#__next > div > main > section.products-page > div > section > section > div:nth-child(${i}) > div.product__image > a`
+			).click();
+			cy.get(".add-to-cart-button").click();
+			cy.visit("http://localhost:3000/products/1");
+		}
+		cy.get(".btn-cart").click();
+		cy.url().should("include", "cart");
+		cy.get(".checkout-button").click();
+		// get total at checkout
+		cy.get(".final-total-text").then($total => {
+			const total = $total.text().split("$")[1];
+			cy.wrap(total).as("total");
+		});
+		// navigate to stripe
+		cy.get(".proceed-to-payment-button").click();
+
+		// make sure stripe cost matches DNC cost
+		cy.get("#OrderDetails-TotalAmount > span", {
+			timeout: 10000,
+		}).then($stripeTotal => {
+			cy.get("@total").should("eq", $stripeTotal.text().split("$")[1]);
+		});
+	});
+});
 // describe("End to end product", () => {
 // 	it("should add first product to cart, and go to stripe checkout page", () => {
 // 		cy.visit("http://localhost:3000");

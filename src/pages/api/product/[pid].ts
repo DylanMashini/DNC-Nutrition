@@ -1,7 +1,7 @@
+import fetchProducts from "../../../utils/fetchProducts";
+
 export default async (req, res) => {
-	const products = await fetch(process.env.PRODUCTS_URL).then(res =>
-		res.json()
-	);
+	const products = await fetchProducts();
 	const {
 		query: { pid },
 	} = req;

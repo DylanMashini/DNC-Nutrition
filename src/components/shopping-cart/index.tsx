@@ -77,7 +77,7 @@ const ShoppingCart = () => {
 							Total cost <strong>${priceTotal.toFixed(2)}</strong>
 						</p>
 						<Link href="/cart/checkout">
-							<a className="btn btn--rounded btn--yellow">
+							<a className="btn btn--rounded btn--yellow checkout-button">
 								Checkout
 							</a>
 						</Link>

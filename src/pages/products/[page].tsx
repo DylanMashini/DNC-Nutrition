@@ -7,6 +7,7 @@ import { server } from "../../utils/server";
 import { Pagination } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 import Head from "next/head";
+import fetchProducts from "../../utils/fetchProducts";
 
 const Products = ({ data, pagenum, totalPages, category = "All" }) => {
 	const router = useRouter();
@@ -45,9 +46,7 @@ const Products = ({ data, pagenum, totalPages, category = "All" }) => {
 };
 
 export async function getStaticProps({ params }) {
-	const allProds = await fetch(process.env.PRODUCTS_URL).then(res =>
-		res.json()
-	);
+	const allProds = await fetchProducts();
 	return new Promise((resolve, reject) => {
 		let totalPages = 100;
 		totalPages = Math.trunc(allProds.length / 21);

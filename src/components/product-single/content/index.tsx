@@ -87,7 +87,7 @@ const Content = ({ product }) => {
 						<button
 							type="submit"
 							onClick={() => addToCart()}
-							className="btn btn--rounded btn--yellow"
+							className="btn btn--rounded btn--yellow add-to-cart-button"
 						>
 							Add to cart
 						</button>

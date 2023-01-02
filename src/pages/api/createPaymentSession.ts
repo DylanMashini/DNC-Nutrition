@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
+import fetchProducts from "../../utils/fetchProducts";
 import { server } from "../../utils/server";
 export default async (req: NextApiRequest, res: NextApiResponse) => {
 	if (req.method != "POST") {
@@ -23,7 +24,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 	const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 	let cost = 0;
 	const body = req.body;
-	const prods = await fetch(process.env.PRODUCTS_URL).then(res => res.json());
+	const prods = await fetchProducts();
 	for (var i = 0; i < body.length; i++) {
 		const id = body[i].id;
 		const qty = body[i].count;

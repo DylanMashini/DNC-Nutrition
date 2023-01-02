@@ -40,3 +40,4 @@ jobs:
                   STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
                   SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
                   PRODUCTS_URL: ${{ secrets.PRODUCTS_URL }}
+                  TEST_ENV: true

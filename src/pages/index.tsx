@@ -1,12 +1,11 @@
+import fetchProducts from "../utils/fetchProducts";
 import Products from "./products/[page]";
 export default function Home({ data, totalPages }) {
 	return <Products pagenum={1} data={data} totalPages={totalPages} />;
 }
 
 export async function getStaticProps() {
-	const allProds = await fetch(process.env.PRODUCTS_URL).then(res =>
-		res.json()
-	);
+	const allProds = await fetchProducts();
 	return new Promise((resolve, reject) => {
 		let totalPages = 100;
 

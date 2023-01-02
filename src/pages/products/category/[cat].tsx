@@ -1,5 +1,6 @@
 import ProductsPage from "../[page]";
 import categories from "../../../data/categories.json";
+import fetchProducts from "../../../utils/fetchProducts";
 
 export default function Products({ data, totalPages, page, cat }) {
 	return (
@@ -13,9 +14,8 @@ export default function Products({ data, totalPages, page, cat }) {
 }
 
 export async function getStaticProps({ params }) {
-	let allProds = await fetch(process.env.PRODUCTS_URL).then(res =>
-		res.json()
-	);
+	let allProds = await fetchProducts();
+
 	return new Promise((resolve, reject) => {
 		let totalPages = 1;
 		allProds = allProds.filter(item =>
@@ -34,7 +34,7 @@ export async function getStaticProps({ params }) {
 		resolve({
 			props: {
 				data: list,
-				pagenum: 1,
+				page: 1,
 				totalPages: totalPages,
 				cat: params["cat"],
 			},

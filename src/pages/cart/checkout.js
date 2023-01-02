@@ -197,7 +197,7 @@ const CheckoutPage = () => {
 								</div>
 								<div className="checkout-total">
 									<p>Total</p>
-									<h3>
+									<h3 className="final-total-text">
 										{"$" +
 											(
 												Number(priceTotal) * 1.089 +
@@ -224,7 +224,7 @@ const CheckoutPage = () => {
 							</Link>
 							<button
 								type="button"
-								className="btn btn--rounded btn--yellow"
+								className="btn btn--rounded btn--yellow proceed-to-payment-button"
 								onClick={ProceedToPayment}
 							>
 								Proceed to payment
