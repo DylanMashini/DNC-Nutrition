@@ -1,3 +1,5 @@
+const { createTypeReferenceDirectiveResolutionCache } = require("typescript");
+
 describe("Pagination", () => {
 	it("should navigate to pages 2-5", () => {
 		cy.visit("http://localhost:3000/");
@@ -62,30 +64,34 @@ describe("Purchase", () => {
 
 		// make sure stripe cost matches DNC cost
 		cy.get("#OrderDetails-TotalAmount > span", {
-			timeout: 10000,
+			timeout: 20000,
 		}).then($stripeTotal => {
 			cy.get("@total").should("eq", $stripeTotal.text().split("$")[1]);
 		});
+		// enter details
+		cy.get("#email").type("testcaseemail@dylanmashini.com");
+		cy.get("#shippingName").type("Test Case");
+		cy.get("#shippingAddressLine1").type(
+			"1600 Pennsylvania Avenue, N.W.{enter}"
+		);
+		cy.get("#shippingLocality").type("Washington");
+		cy.get("#shippingPostalCode").type("20500");
+		cy.get("#shippingAdministrativeArea").select("DC");
+		cy.get("#phoneNumber").type("6054756968");
+		cy.get("#cardNumber").type("4242424242424242");
+		cy.get("#cardExpiry").type("12/34");
+		cy.get("#cardCvc").type("123");
+		// submit
+		cy.get(".SubmitButton").scrollIntoView();
+		cy.wait(500);
+		cy.get(".SubmitButton", {
+			timeout: 20000,
+		}).click();
+		// make sure we are at sucsess page
+		cy.url({ timeout: 20000 }).should("include", "sucsess");
+		// wait for database
+		cy.wait(1000);
+		// verify that order happened in clover and stripe
+		cy.request("http://localhost:3000/api/test/verifyTestOrder");
 	});
 });
-// describe("End to end product", () => {
-// 	it("should add first product to cart, and go to stripe checkout page", () => {
-// 		cy.visit("http://localhost:3000");
-// 		cy.get(
-// 			"#__next > div > main > section.products-page > div > section > section > div:nth-child(1) > div.product__image > a > span > img"
-// 		).click();
-// 		cy.get(
-// 			"#__next > div > main > section.product-single > div > div.product-single__content > section.product-content > div.product-content__filters > div:nth-child(3) > div > button"
-// 		).click();
-// 		cy.get("#__next > div > header > div > div > button.btn-cart > span")
-// 			.contains("1", { matchCase: false })
-// 			.click();
-// 		cy.get(
-// 			"#__next > div > main > section > div > div.cart-actions > div > a"
-// 		).click();
-// 		cy.get(
-// 			"#__next > div > main > section > div > div.cart-actions > div > a"
-// 		).click();
-// 		cy.url().should("include", "stripe");
-// 	});
-// });

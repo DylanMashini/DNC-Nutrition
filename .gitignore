@@ -31,3 +31,5 @@ yarn-error.log*
 
 #product images
 
+cypress/videos/app.spec.js.mp4
+cypress/videos/cleanup.spec.js.mp4

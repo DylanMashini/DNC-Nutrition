@@ -3,4 +3,5 @@ export type Order = {
 	status: "paid" | "sent";
 	email: string;
 	items: string;
+	stripeID: string;
 };

@@ -9,6 +9,8 @@ export default function Middleware(req) {
 				req.nextUrl.pathname == "/auth/register"
 					? true
 					: false;
+			let cookies = req.cookies.get();
+			if (!cookies) resolve(null);
 			if (req.cookies.get().user) {
 				const cookie = JSON.parse(req.cookies.get().user);
 				const session = cookie.session;
@@ -60,7 +62,10 @@ export default function Middleware(req) {
 			//check if cookie exists
 			let user;
 			try {
-				user = req.cookies.get().user;
+				const cookies = req.cookies.get();
+				if (cookies) {
+					user = cookies.user;
+				}
 			} catch (e) {}
 			if (user) {
 				//verify cookie

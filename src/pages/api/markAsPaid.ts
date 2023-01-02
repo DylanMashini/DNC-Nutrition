@@ -131,12 +131,22 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                         <button style="padding: 0.5em; border-radius: 0.5em; background-color: #fbb03b; margin-top: 1em;">Confirm Order Shipped</button>
                     </a>
             `,
+						mail_settings: {
+							sandbox_mode: {
+								enable: process.env.TEST_ENV ? true : false,
+							},
+						},
 					};
 					sgMail
 						.send(msg)
 						.then(() => {
 							// save to mongodb
-							saveToMongoDB(orderID, msg.html, emailItems);
+							saveToMongoDB(
+								orderID,
+								msg.html,
+								emailItems,
+								session.id
+							);
 							res.status(200).end();
 						})
 						.catch(error => {
@@ -197,7 +207,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 	const saveToMongoDB = async (
 		orderID: string,
 		email: string,
-		items: string
+		items: string,
+		stripeID: string
 	) => {
 		const client = new MongoClient(process.env.MONGO_URI);
 		try {
@@ -205,7 +216,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 			const db = client.db(process.env.MONGO_DATABASE);
 			const collection = db.collection("orders");
 			// insert order here
-			const data: Order = { orderID, status: "paid", email, items };
+			const data: Order = {
+				orderID,
+				status: "paid",
+				email,
+				items,
+				stripeID,
+			};
 			await collection.insertOne(data);
 		} finally {
 			client.close();

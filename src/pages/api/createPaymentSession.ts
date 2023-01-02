@@ -8,7 +8,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 	}
 
 	const stripeProds = [];
-	const cloverProds = [];
+	const cloverProds = [{ item: { id: process.env.CLOVER_SHIPPING } }];
 	const metaItems = [];
 	let email = "";
 	let name = "";

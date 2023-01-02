@@ -1,4 +1,5 @@
 {
 	"projectId": "9txvn7",
-	"chromeWebSecurity": false
+	"chromeWebSecurity": false,
+	"testFiles": ["cleanup.spec.js", "app.spec.js", "cleanup.spec.js"]
 }
