@@ -40,7 +40,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 					const sgMail = require("@sendgrid/mail");
 					sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 					const msg = {
-						to: "discountnutritionga@gmail.com", // Change to your recipient
+						to: "dylanmashini123@gmail.com", // Change to your recipient
 						from: "ecommerce@dylanmashini.com", // Change to your verified sender
 						subject: "Error in marking order as paid in clover",
 						text: "error marking order as paid",
@@ -87,8 +87,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 `);
 					}
 					const msg = {
-						// to: "discountnutritionga@gmail.com",
-						to: "dylanmashini123@gmail.com",
+						to:
+							process.env.EMPLOYEE_EMAIL ||
+							"discountnutritionga@gmail.com",
 						from: "ecommerce@dylanmashini.com",
 						subject: `Ecommerce Order ID:${orderID}`,
 						text: "Order",

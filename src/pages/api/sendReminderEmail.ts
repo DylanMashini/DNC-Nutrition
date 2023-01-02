@@ -18,7 +18,9 @@ export default async function handler(
 			const { orderID, email } = order;
 			// send email
 			const msg = {
-				to: "discountnutritionga@gmail.com",
+				to:
+					process.env.EMPLOYEE_EMAIL ||
+					"discountnutritionga@gmail.com",
 				from: "ecommerce@dylanmashini.com",
 				subject: `Ecommerce Order ID:${orderID}`,
 				text: "Ecommerce Order",

@@ -45,3 +45,4 @@ jobs:
                   SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
                   PRODUCTS_URL: ${{ secrets.PRODUCTS_URL }}
                   TEST_ENV: true
+                  EMPLOYEE_EMAIL: dylanmashini123@gmail.com
