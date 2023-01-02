@@ -18,11 +18,11 @@ jobs:
             - uses: actions/cache@v3
               id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
               with:
-                path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-                key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-                restore-keys: |
-                  ${{ runner.os }}-yarn-
-      
+                  path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+                  key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+                  restore-keys: |
+                      ${{ runner.os }}-yarn-
+
             - name: Checkout
               uses: actions/checkout@v2
             - name: Node
@@ -58,3 +58,4 @@ jobs:
                   PRODUCTS_URL: ${{ secrets.PRODUCTS_URL }}
                   TEST_ENV: true
                   EMPLOYEE_EMAIL: dylanmashini123@gmail.com
+                  CLOVER_SHIPPING: ${{ secrets.CLOVER_SHIPPING }}
