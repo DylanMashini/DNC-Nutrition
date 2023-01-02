@@ -17,8 +17,6 @@ jobs:
               uses: actions/setup-node@v3
               with:
                   node-version: 14
-            # Install NPM dependencies, cache them correctly
-            # and run all Cypress tests
             - name: Install Stripe CLI
               run: curl -L https://github.com/stripe/stripe-cli/releases/download/v1.13.5/stripe_1.13.5_linux_x86_64.tar.gz --output stripe.tar.gz && tar -xvf stripe.tar.gz
             - name: Start Stripe CLI
@@ -28,8 +26,8 @@ jobs:
             - name: Cypress run
               uses: cypress-io/github-action@v2
               with:
-                  build: npm run build
-                  start: npm start
+                  build: yarn run build
+                  start: yarn start
                   record: true
               env:
                   CYPRESS_RECORD_KEY: 6baa811f-9969-4735-874d-be61d857df63
