@@ -1,7 +1,7 @@
 import { server } from "./utils/server";
 import { NextResponse } from "next/server";
 
-export default function Middleware(req: any) {
+export default function Middleware(req) {
 	if (req.nextUrl.pathname.startsWith("/auth")) {
 		return new Promise<any>(resolve => {
 			const loggingIn =

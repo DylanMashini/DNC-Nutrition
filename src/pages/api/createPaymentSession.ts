@@ -1,7 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import fetchProducts from "../../utils/fetchProducts";
 import { server } from "../../utils/server";
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+export default async function handler(
+	req: NextApiRequest,
+	res: NextApiResponse
+) {
 	if (req.method != "POST") {
 		res.status(405).end();
 		return;
@@ -114,4 +117,4 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 		console.error(err);
 		res.status(err.statusCode || 500).json(err.message);
 	}
-};
+}
