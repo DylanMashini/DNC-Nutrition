@@ -88,7 +88,7 @@ describe("Purchase", () => {
 			timeout: 20000,
 		}).click();
 		// make sure we are at sucsess page
-		cy.url({ timeout: 20000 }).should("include", "sucsess");
+		cy.url({ timeout: 15000 }).should("include", "sucsess");
 		// wait for database
 		cy.wait(1000);
 		// verify that order happened in clover and stripe
