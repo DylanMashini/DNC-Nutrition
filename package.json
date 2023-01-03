@@ -4,7 +4,7 @@
 	"private": true,
 	"scripts": {
 		"dev": "next dev",
-		"build": "next build",
+		"build": "turbo build",
 		"start": "next start",
 		"export": "next build && next export",
 		"cypress": "cypress run --headed",
@@ -74,6 +74,7 @@
 		"eslint": "8.11.0",
 		"eslint-config-next": "12.1.0",
 		"fslightbox-react": "^1.5.0",
-		"node-fetch": "^2.6.7"
+		"node-fetch": "^2.6.7",
+		"turbo": "^1.6.3"
 	}
 }
