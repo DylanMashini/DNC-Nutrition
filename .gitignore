@@ -30,7 +30,7 @@ yarn-error.log*
 .env.production.local
 
 #product images
-
-cypress/videos/*
-cypress/screenshots/*
-.turbo
+cypress/videos/
+cypress/screenshots/
+# Turborepo
+.turbo/
