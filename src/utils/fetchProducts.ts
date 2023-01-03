@@ -12,7 +12,7 @@ export default async function () {
 		// get from gh pages
 		return await (
 			await fetch(
-				"https://dylanmashini.github.io/DNANutrition/prods.json"
+				"https://dylanmashini.github.io/DNC-Nutrition/prods.json"
 			)
 		).json();
 	}
@@ -25,7 +25,7 @@ export default async function () {
 	} else {
 		return await (
 			await fetch(
-				"https://dylanmashini.github.io/DNANutrition/prods.json"
+				"https://dylanmashini.github.io/DNC-Nutrition/prods.json"
 			)
 		).json();
 	}
