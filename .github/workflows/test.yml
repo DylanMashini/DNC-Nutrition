@@ -29,8 +29,6 @@ jobs:
               uses: actions/setup-node@v3
               with:
                   node-version: 14
-            - name: Debug
-              run: ls && pwd
             - name: Make .env.test.local file
               run: |
                   touch .env.test.local
@@ -52,6 +50,8 @@ jobs:
                   EMPLOYEE_EMAIL: dylanmashini123@gmail.com
                   CLOVER_SHIPPING: ${{ secrets.CLOVER_SHIPPING }}
                   " >> .env.test.local
+            - name: Debug
+              run: cat .env.test.local
             - name: Install Stripe CLI
               run: curl -L https://github.com/stripe/stripe-cli/releases/download/v1.13.5/stripe_1.13.5_linux_x86_64.tar.gz --output stripe.tar.gz && tar -xvf stripe.tar.gz
             - name: Start Stripe CLI
