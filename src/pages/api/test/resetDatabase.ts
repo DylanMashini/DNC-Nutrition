@@ -2,7 +2,7 @@
 import { MongoClient } from "mongodb";
 export default async function handler(req, res) {
 	console.log("RESETTING DATABSE");
-	console.log(process.env);
+	console.log("HERE", process.env);
 	if (!process.env.NEXT_PUBLIC_TEST_ENV) {
 		res.status(404).end();
 		return;
