@@ -32,8 +32,10 @@ jobs:
             - name: Debug
               run: ls && pwd
             - name: Make .env.test.local file
-              uses: SpicyPizza/create-envfile@v1.3
-              with:
+              uses:
+              run: |
+                  touch .env.test.local
+                  echo "
                   MONGO_URI: ${{ secrets.MONGO_URI }}
                   MONGO_DATABASE: ${{ secrets.MONGO_DATABASE }}
                   CLOVER_URL_SCL: ${{ secrets.CLOVER_URL_SCL }}
@@ -50,9 +52,7 @@ jobs:
                   NEXT_PUBLIC_TEST_ENV: true
                   EMPLOYEE_EMAIL: dylanmashini123@gmail.com
                   CLOVER_SHIPPING: ${{ secrets.CLOVER_SHIPPING }}
-                  file_name: .env.test.local
-                  directory: ../../home/runner/work/DNC-Nutrition/DNC-Nutrition
-                  fail_on_empty: false
+                  " >> .env.test.local
             - name: Install Stripe CLI
               run: curl -L https://github.com/stripe/stripe-cli/releases/download/v1.13.5/stripe_1.13.5_linux_x86_64.tar.gz --output stripe.tar.gz && tar -xvf stripe.tar.gz
             - name: Start Stripe CLI
