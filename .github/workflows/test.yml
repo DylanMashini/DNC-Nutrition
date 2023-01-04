@@ -33,22 +33,22 @@ jobs:
               run: |
                   touch .env.test.local
                   echo "
-                  MONGO_URI: ${{ secrets.MONGO_URI }}
-                  MONGO_DATABASE: ${{ secrets.MONGO_DATABASE }}
-                  CLOVER_URL_SCL: ${{ secrets.CLOVER_URL_SCL }}
-                  CLOVER_URL_API: ${{ secrets.CLOVER_URL_API }}
-                  CLOVER_MERCHANT_ID: ${{ secrets.CLOVER_MERCHANT_ID }}
-                  CLOVER_TOKEN: ${{ secrets.CLOVER_TOKEN }}
-                  CLOVER_ECOMMERCE: ${{ secrets.CLOVER_ECOMMERCE }}
-                  STRIPE_SHIPPING: ${{ secrets.STRIPE_SHIPPING }}
-                  STRIPE_TAX_RATE: ${{ secrets.STRIPE_TAX_RATE }}
-                  STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
-                  STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
-                  SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
-                  PRODUCTS_URL: ${{ secrets.PRODUCTS_URL }}
-                  NEXT_PUBLIC_TEST_ENV: true
-                  EMPLOYEE_EMAIL: dylanmashini123@gmail.com
-                  CLOVER_SHIPPING: ${{ secrets.CLOVER_SHIPPING }}
+                  MONGO_URI = ${{ secrets.MONGO_URI }}
+                  MONGO_DATABASE = ${{ secrets.MONGO_DATABASE }}
+                  CLOVER_URL_SCL = ${{ secrets.CLOVER_URL_SCL }}
+                  CLOVER_URL_API = ${{ secrets.CLOVER_URL_API }}
+                  CLOVER_MERCHANT_ID = ${{ secrets.CLOVER_MERCHANT_ID }}
+                  CLOVER_TOKEN = ${{ secrets.CLOVER_TOKEN }}
+                  CLOVER_ECOMMERCE = ${{ secrets.CLOVER_ECOMMERCE }}
+                  STRIPE_SHIPPING = ${{ secrets.STRIPE_SHIPPING }}
+                  STRIPE_TAX_RATE = ${{ secrets.STRIPE_TAX_RATE }}
+                  STRIPE_WEBHOOK_SECRET = ${{ secrets.STRIPE_WEBHOOK_SECRET }}
+                  STRIPE_SECRET_KEY = ${{ secrets.STRIPE_SECRET_KEY }}
+                  SENDGRID_API_KEY = ${{ secrets.SENDGRID_API_KEY }}
+                  PRODUCTS_URL = ${{ secrets.PRODUCTS_URL }}
+                  NEXT_PUBLIC_TEST_ENV = true
+                  EMPLOYEE_EMAIL = dylanmashini123@gmail.com
+                  CLOVER_SHIPPING = ${{ secrets.CLOVER_SHIPPING }}
                   " >> .env.test.local
             - name: Debug
               run: cat .env.test.local
