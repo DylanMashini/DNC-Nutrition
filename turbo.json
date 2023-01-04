@@ -6,7 +6,7 @@
 			"inputs": ["*", ":!:.vscode/*", ":!:cypress/*", ":!:.github/*"]
 		},
 		"test": {
-			"outputs": []
+			"outputs": [".next/**"]
 		},
 		"lint": {
 			"outputs": []
