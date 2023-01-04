@@ -51,7 +51,7 @@ jobs:
                   EMPLOYEE_EMAIL: dylanmashini123@gmail.com
                   CLOVER_SHIPPING: ${{ secrets.CLOVER_SHIPPING }}
                   file_name: .env.test.local
-                  directory: ./
+                  directory: ../../home/runner/work/DNC-Nutrition/DNC-Nutrition
                   fail_on_empty: false
             - name: Install Stripe CLI
               run: curl -L https://github.com/stripe/stripe-cli/releases/download/v1.13.5/stripe_1.13.5_linux_x86_64.tar.gz --output stripe.tar.gz && tar -xvf stripe.tar.gz
