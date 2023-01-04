@@ -133,7 +133,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             `,
 						mail_settings: {
 							sandbox_mode: {
-								enable: process.env.TEST_ENV ? true : false,
+								enable: process.env.NEXT_PUBLIC_TEST_ENV
+									? true
+									: false,
 							},
 						},
 					};

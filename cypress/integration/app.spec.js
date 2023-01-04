@@ -1,4 +1,4 @@
-const { createTypeReferenceDirectiveResolutionCache } = require("typescript");
+/// <reference types="cypress" />
 
 describe("Pagination", () => {
 	it("should navigate to pages 2-5", () => {
@@ -90,7 +90,7 @@ describe("Purchase", () => {
 		// make sure we are at sucsess page
 		cy.url({ timeout: 20000 }).should("include", "sucsess");
 		// wait for database
-		cy.wait(1000);
+		cy.wait(5000);
 		// verify that order happened in clover and stripe
 		cy.request("http://localhost:3000/api/test/verifyTestOrder");
 	});

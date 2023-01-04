@@ -5,8 +5,13 @@
 			"outputs": [".next/**"],
 			"inputs": ["*", ":!:.vscode/*", ":!:cypress/*", ":!:.github/*"]
 		},
-		"test": {
-			"outputs": [".next/**"]
+		"test-build": {
+			"outputs": [".next/**"],
+			"inputs": ["*", ":!:.vscode/*", ":!:cypress/*", ":!:.github/*"]
+		},
+		"cypress": {
+			"dependsOn": ["test-build"],
+			"inputs": ["cypress/*", "cypress.json", ".next/*"]
 		},
 		"lint": {
 			"outputs": []

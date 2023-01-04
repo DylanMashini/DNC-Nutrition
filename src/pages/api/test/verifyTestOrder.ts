@@ -2,7 +2,7 @@ import { MongoClient } from "mongodb";
 import Stripe from "stripe";
 
 export default async function handler(req, res) {
-	if (!process.env.TEST_ENV) {
+	if (!process.env.NEXT_PUBLIC_TEST_ENV) {
 		res.status(404).end();
 		return;
 	}
@@ -18,6 +18,11 @@ export default async function handler(req, res) {
 		// get most recently added document
 		const orders = await collection.find({}).sort({ _id: -1 }).toArray();
 		const order = orders[0];
+		if (orders.length === 0) {
+			res.status(400).send(
+				"Order not in database, make sure stripe tunneling is enabled"
+			);
+		}
 		// verify status = paid
 		if (order.status != "paid") {
 			res.status(400).send("Status of order != paid").end();

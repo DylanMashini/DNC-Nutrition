@@ -18,7 +18,10 @@ export default async function () {
 	}
 
 	// on server, if testing get from file, otherwise get from gh
-	if (process.env.TEST_ENV || process.env.NODE_ENV !== "production") {
+	if (
+		process.env.NEXT_PUBLIC_TEST_ENV ||
+		process.env.NODE_ENV !== "production"
+	) {
 		return JSON.parse(
 			(await fs.readFile("./src/utils/testProducts.json")).toString()
 		);

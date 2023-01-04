@@ -2,7 +2,7 @@
 import { MongoClient } from "mongodb";
 export default async function handler(req, res) {
 	console.log("RESETTING DATABSE");
-	if (!process.env.TEST_ENV) {
+	if (!process.env.NEXT_PUBLIC_TEST_ENV) {
 		res.status(404).end();
 	}
 	const dbName = process.env.MONGO_DATABASE;
