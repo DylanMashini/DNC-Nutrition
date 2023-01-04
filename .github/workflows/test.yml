@@ -31,7 +31,7 @@ jobs:
                   EMPLOYEE_EMAIL: dylanmashini123@gmail.com
                   CLOVER_SHIPPING: ${{ secrets.CLOVER_SHIPPING }}
                   file_name: .env.test.local
-                  directory: /home/runner/work/DNC-Nutrition/DNC-Nutrition
+                  directory: ./
                   fail_on_empty: false
             - name: Get yarn cache directory path
               id: yarn-cache-dir-path
