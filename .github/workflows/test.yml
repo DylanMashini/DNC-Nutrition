@@ -11,6 +11,10 @@ jobs:
     cypress-run:
         runs-on: ubuntu-latest
         steps:
+            -name: debug
+              run: |
+                ls
+                cwd
             - name: Make .env.test.local file
               uses: SpicyPizza/create-envfile@v1.3
               with:
