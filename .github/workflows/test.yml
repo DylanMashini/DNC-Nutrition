@@ -38,8 +38,8 @@ jobs:
             - name: Cypress run
               uses: cypress-io/github-action@v2
               with:
-                  build: yarn run build
-                  start: yarn start
+                  build: yarn turbo run test-build
+                  start: yarn run test-server
                   record: true
               env:
                   CYPRESS_RECORD_KEY: 6baa811f-9969-4735-874d-be61d857df63
@@ -59,3 +59,5 @@ jobs:
                   NEXT_PUBLIC_TEST_ENV: true
                   EMPLOYEE_EMAIL: dylanmashini123@gmail.com
                   CLOVER_SHIPPING: ${{ secrets.CLOVER_SHIPPING }}
+                  TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+                  TURBO_TEAM: dna-nutrition
