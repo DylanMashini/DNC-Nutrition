@@ -12,7 +12,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Debug
-              run: ls && cwd
+              run: ls && pwd
             - name: Make .env.test.local file
               uses: SpicyPizza/create-envfile@v1.3
               with:
