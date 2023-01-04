@@ -7,7 +7,13 @@
 		},
 		"test-build": {
 			"outputs": [".next/**"],
-			"inputs": ["*", ":!:.vscode/*", ":!:cypress/*", ":!:.github/*"]
+			"inputs": [
+				"*",
+				":!:.vscode/*",
+				":!:cypress/*",
+				":!:.github/*",
+				":!:*stripe*"
+			]
 		},
 		"cypress": {
 			"dependsOn": ["test-build"],

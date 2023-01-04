@@ -11,6 +11,28 @@ jobs:
     cypress-run:
         runs-on: ubuntu-latest
         steps:
+            - name: Make .env.test.local file
+              uses: SpicyPizza/create-envfile@v1.3
+              with:
+                  MONGO_URI: ${{ secrets.MONGO_URI }}
+                  MONGO_DATABASE: ${{ secrets.MONGO_DATABASE }}
+                  CLOVER_URL_SCL: ${{ secrets.CLOVER_URL_SCL }}
+                  CLOVER_URL_API: ${{ secrets.CLOVER_URL_API }}
+                  CLOVER_MERCHANT_ID: ${{ secrets.CLOVER_MERCHANT_ID }}
+                  CLOVER_TOKEN: ${{ secrets.CLOVER_TOKEN }}
+                  CLOVER_ECOMMERCE: ${{ secrets.CLOVER_ECOMMERCE }}
+                  STRIPE_SHIPPING: ${{ secrets.STRIPE_SHIPPING }}
+                  STRIPE_TAX_RATE: ${{ secrets.STRIPE_TAX_RATE }}
+                  STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
+                  STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+                  SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+                  PRODUCTS_URL: ${{ secrets.PRODUCTS_URL }}
+                  NEXT_PUBLIC_TEST_ENV: true
+                  EMPLOYEE_EMAIL: dylanmashini123@gmail.com
+                  CLOVER_SHIPPING: ${{ secrets.CLOVER_SHIPPING }}
+                  file_name: .env.test.local
+                  directory: /home/runner/work/DNC-Nutrition/DNC-Nutrition
+                  fail_on_empty: false
             - name: Get yarn cache directory path
               id: yarn-cache-dir-path
               run: echo "::set-output name=dir::$(yarn cache dir)"
@@ -33,7 +55,7 @@ jobs:
               run: curl -L https://github.com/stripe/stripe-cli/releases/download/v1.13.5/stripe_1.13.5_linux_x86_64.tar.gz --output stripe.tar.gz && tar -xvf stripe.tar.gz
             - name: Start Stripe CLI
               run: |
-                  export PATH=$PATH:/home/runner/work/DNCNutrition/DNCNutrition 
+                  export PATH=$PATH:/home/runner/work/DNC-Nutrition/DNC-Nutrition 
                   stripe listen --api-key ${{ secrets.STRIPE_SECRET_KEY }} --forward-to http://localhost:3000/api/markAsPaid &
             - name: Cypress run
               uses: cypress-io/github-action@v2
@@ -43,21 +65,5 @@ jobs:
                   record: true
               env:
                   CYPRESS_RECORD_KEY: 6baa811f-9969-4735-874d-be61d857df63
-                  MONGO_URI: ${{ secrets.MONGO_URI }}
-                  MONGO_DATABASE: ${{ secrets.MONGO_DATABASE }}
-                  CLOVER_URL_SCL: ${{ secrets.CLOVER_URL_SCL }}
-                  CLOVER_URL_API: ${{ secrets.CLOVER_URL_API }}
-                  CLOVER_MERCHANT_ID: ${{ secrets.CLOVER_MERCHANT_ID }}
-                  CLOVER_TOKEN: ${{ secrets.CLOVER_TOKEN }}
-                  CLOVER_ECOMMERCE: ${{ secrets.CLOVER_ECOMMERCE }}
-                  STRIPE_SHIPPING: ${{ secrets.STRIPE_SHIPPING }}
-                  STRIPE_TAX_RATE: ${{ secrets.STRIPE_TAX_RATE }}
-                  STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
-                  STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
-                  SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
-                  PRODUCTS_URL: ${{ secrets.PRODUCTS_URL }}
-                  NEXT_PUBLIC_TEST_ENV: true
-                  EMPLOYEE_EMAIL: dylanmashini123@gmail.com
-                  CLOVER_SHIPPING: ${{ secrets.CLOVER_SHIPPING }}
                   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
                   TURBO_TEAM: dna-nutrition
