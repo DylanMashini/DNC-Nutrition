@@ -32,7 +32,6 @@ jobs:
             - name: Debug
               run: ls && pwd
             - name: Make .env.test.local file
-              uses:
               run: |
                   touch .env.test.local
                   echo "
