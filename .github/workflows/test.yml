@@ -11,6 +11,24 @@ jobs:
     cypress-run:
         runs-on: ubuntu-latest
         steps:
+            - name: Get yarn cache directory path
+              id: yarn-cache-dir-path
+              run: echo "::set-output name=dir::$(yarn cache dir)"
+
+            - uses: actions/cache@v3
+              id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+              with:
+                  path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+                  key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+                  restore-keys: |
+                      ${{ runner.os }}-yarn-
+
+            - name: Checkout
+              uses: actions/checkout@v2
+            - name: Node
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 14
             - name: Debug
               run: ls && pwd
             - name: Make .env.test.local file
@@ -35,24 +53,6 @@ jobs:
                   file_name: .env.test.local
                   directory: ./
                   fail_on_empty: false
-            - name: Get yarn cache directory path
-              id: yarn-cache-dir-path
-              run: echo "::set-output name=dir::$(yarn cache dir)"
-
-            - uses: actions/cache@v3
-              id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
-              with:
-                  path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-                  key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-                  restore-keys: |
-                      ${{ runner.os }}-yarn-
-
-            - name: Checkout
-              uses: actions/checkout@v2
-            - name: Node
-              uses: actions/setup-node@v3
-              with:
-                  node-version: 14
             - name: Install Stripe CLI
               run: curl -L https://github.com/stripe/stripe-cli/releases/download/v1.13.5/stripe_1.13.5_linux_x86_64.tar.gz --output stripe.tar.gz && tar -xvf stripe.tar.gz
             - name: Start Stripe CLI
