@@ -150,6 +150,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 								session.id
 							);
 							res.status(200).end();
+return
 						})
 						.catch(error => {
 							console.error(error);
